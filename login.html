@@ -16,36 +16,33 @@
   <header class="header">
     <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
     <nav class="nav" aria-label="Primary">
-  <a href="index.html#new">New</a>
-  <a href="index.html#tops">Tops</a>
-  <a href="index.html#dresses">Dresses</a>
-  <a href="index.html#about">About</a>
-
-  <!-- My Account dropdown -->
-  <div class="menu account-menu">
-    <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">
-      My Account ▾
-    </button>
-    <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-      <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-      <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
-      <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
-      <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
-    </div>
-  </div>
-</nav>
+      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+      <div class="menu account-menu">
+        <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
+        <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
+          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
+          <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
+        </div>
+      </div>
+    </nav>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
+
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a><a href="wishlist.html">Wishlist</a><a href="login.html">Account</a>
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a data-acct="account"  href="account.html">My Account</a>
+    <a data-acct="orders"   href="orders.html">My Orders</a>
+    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
   <main class="auth-wrap">
     <section class="auth-card">
       <h1>Sign in</h1>
-      <p class="muted">Welcome — Login or sign up for member-only access to early drops and discounts.</p>
+      <p class="muted">Welcome back — access member-only drops and discounts.</p>
 
-      <!-- Sign in -->
       <form id="loginForm" autocomplete="on">
         <label for="loginEmail">Email</label>
         <input type="email" id="loginEmail" required placeholder="you@example.com" />
@@ -59,7 +56,6 @@
 
       <hr class="hr">
 
-      <!-- Create account -->
       <h2>Create account</h2>
       <form id="signupForm" autocomplete="on">
         <label for="signupEmail">Email</label>
@@ -68,13 +64,11 @@
         <input type="password" id="signupPassword" required placeholder="Minimum 8 characters" />
         <div id="strength" class="strength">Password strength: <b>—</b></div>
 
-        <!-- Terms checkbox with link -->
         <label class="tos">
           <input type="checkbox" id="tos" required>
           <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms &amp; Privacy</a></span>
         </label>
 
-        <!-- Disabled until checkbox is checked -->
         <button class="btn outline block" type="submit" id="signupBtn" disabled>Create account</button>
       </form>
 
@@ -83,25 +77,18 @@
   </main>
 
   <footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <h4>SUB•URBAN</h4>
-      <p>Future-ready womenswear.</p>
+    <div class="footer-grid">
+      <div class="footer-brand"><h4>SUB•URBAN</h4><p>Future-ready womenswear.</p></div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#">Shipping &amp; Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
     </div>
+  </footer>
 
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="#">Contact</a>
-    </nav>
-
-    <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
-  </div>
-</footer>
-
-  <!-- Firebase SDK + auth logic -->
   <script type="module" src="auth.js"></script>
-  <!-- Site scripts (header drawer, footer year, etc.) -->
   <script src="script.js" defer></script>
 </body>
 </html>
