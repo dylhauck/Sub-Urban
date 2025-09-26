@@ -11,59 +11,41 @@
   <link rel="icon" href="favicon.ico"/>
 </head>
 <body>
-  <!-- Top bar -->
-  <div class="bar">
-    <a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a>
-    — Member Area
-  </div>
+  <div class="bar"><a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a> — Member Area</div>
 
-  <!-- Header -->
   <header class="header">
     <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
     <nav class="nav" aria-label="Primary">
-  <a href="index.html#new">New</a>
-  <a href="index.html#tops">Tops</a>
-  <a href="index.html#dresses">Dresses</a>
-  <a href="index.html#about">About</a>
-
-  <!-- My Account dropdown -->
-  <div class="menu account-menu">
-    <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">
-      My Account ▾
-    </button>
-    <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-      <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-      <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
-      <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
-      <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
-    </div>
-  </div>
-</nav>
+      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+      <div class="menu account-menu">
+        <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
+        <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
+          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
+          <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
+        </div>
+      </div>
+    </nav>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <!-- Mobile drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a>
-    <a href="index.html#tops">Tops</a>
-    <a href="index.html#dresses">Dresses</a>
-    <a href="index.html#about">About</a>
-    <a href="wishlist.html">Wishlist</a>
-    <a href="login.html">Account</a>
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a data-acct="account"  href="account.html">My Account</a>
+    <a data-acct="orders"   href="orders.html">My Orders</a>
+    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
-  <!-- Content -->
   <main class="auth-wrap">
     <section class="auth-card">
       <h1>My Account</h1>
       <p class="muted">Signed in as <b id="displayEmail">Member</b></p>
 
-      <!-- Verification nudge -->
       <div class="glass block" style="margin-top:1rem">
         <h3>Email Verification</h3>
-        <p class="muted" style="margin:.4rem 0 1rem">
-          If you haven’t verified your email yet, some perks may be limited.
-        </p>
+        <p class="muted" style="margin:.4rem 0 1rem">If you haven’t verified your email yet, some perks may be limited.</p>
         <div class="auth-actions">
           <button class="btn outline" id="sendVerify" type="button">Resend verification email</button>
           <button class="btn ghost" id="signOutBtn" type="button">Sign out</button>
@@ -71,7 +53,6 @@
         <p id="acctMsg" class="muted" role="status" aria-live="polite" style="margin-top:.6rem"></p>
       </div>
 
-      <!-- Saved Sizes -->
       <div class="glass block" style="margin-top:1rem">
         <h3>Saved Sizes</h3>
         <form id="sizesForm">
@@ -82,23 +63,14 @@
                 <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
               </select>
             </div>
-            <div>
-              <label for="sizeTops">Tops</label>
-              <select id="sizeTops" name="sizeTops">
-                <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
-              </select>
+            <div><label for="sizeTops">Tops</label>
+              <select id="sizeTops" name="sizeTops"><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select>
             </div>
-            <div>
-              <label for="sizeDresses">Dresses</label>
-              <select id="sizeDresses" name="sizeDresses">
-                <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
-              </select>
+            <div><label for="sizeDresses">Dresses</label>
+              <select id="sizeDresses" name="sizeDresses"><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select>
             </div>
-            <div>
-              <label for="sizeJackets">Jackets</label>
-              <select id="sizeJackets" name="sizeJackets">
-                <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
-              </select>
+            <div><label for="sizeJackets">Jackets</label>
+              <select id="sizeJackets" name="sizeJackets"><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select>
             </div>
           </div>
           <div class="auth-actions">
@@ -108,53 +80,27 @@
         </form>
       </div>
 
-      <!-- Shipping Address -->
       <div class="glass block" style="margin-top:1rem">
         <h3>Shipping Address</h3>
         <form id="addrForm" autocomplete="on">
           <div class="form-grid">
-            <div>
-              <label for="shipName">Full name</label>
-              <input id="shipName" name="shipName" placeholder="Full name" required>
-            </div>
-            <div>
-              <label for="shipPhone">Phone (optional)</label>
-              <input id="shipPhone" name="shipPhone" placeholder="+1 555 123 4567">
-            </div>
-            <div class="col-span">
-              <label for="shipLine1">Address line 1</label>
-              <input id="shipLine1" name="shipLine1" placeholder="Street address" required>
-            </div>
-            <div class="col-span">
-              <label for="shipLine2">Address line 2 (optional)</label>
-              <input id="shipLine2" name="shipLine2" placeholder="Apt, suite, etc.">
-            </div>
-            <div>
-              <label for="shipCity">City</label>
-              <input id="shipCity" name="shipCity" required>
-            </div>
-            <div>
-              <label for="shipState">State/Province</label>
-              <input id="shipState" name="shipState" required>
-            </div>
-            <div>
-              <label for="shipPostal">Postal code</label>
-              <input id="shipPostal" name="shipPostal" required>
-            </div>
-            <div>
-              <label for="shipCountry">Country</label>
-              <input id="shipCountry" name="shipCountry" value="US" required>
-            </div>
+            <div><label for="shipName">Full name</label><input id="shipName" name="shipName" required></div>
+            <div><label for="shipPhone">Phone (optional)</label><input id="shipPhone" name="shipPhone"></div>
+            <div class="col-span"><label for="shipLine1">Address line 1</label><input id="shipLine1" name="shipLine1" required></div>
+            <div class="col-span"><label for="shipLine2">Address line 2 (optional)</label><input id="shipLine2" name="shipLine2"></div>
+            <div><label for="shipCity">City</label><input id="shipCity" name="shipCity" required></div>
+            <div><label for="shipState">State/Province</label><input id="shipState" name="shipState" required></div>
+            <div><label for="shipPostal">Postal code</label><input id="shipPostal" name="shipPostal" required></div>
+            <div><label for="shipCountry">Country</label><input id="shipCountry" name="shipCountry" value="US" required></div>
           </div>
           <div class="auth-actions">
             <button class="btn primary" type="submit">Save address</button>
             <span id="addrMsg" class="muted"></span>
           </div>
         </form>
-        <p class="muted small" style="margin-top:.6rem">We store addresses for fulfillment only. Payment details are handled by our processor (we never store card numbers).</p>
+        <p class="muted small" style="margin-top:.6rem">We store addresses for fulfillment only. Payments are handled by our processor.</p>
       </div>
 
-      <!-- Quick links -->
       <div class="glass block" style="margin-top:1rem">
         <h3>Quick Links</h3>
         <div class="auth-actions">
@@ -165,25 +111,18 @@
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <h4>SUB•URBAN</h4>
-      <p>Future-ready womenswear.</p>
+    <div class="footer-grid">
+      <div class="footer-brand"><h4>SUB•URBAN</h4><p>Future-ready womenswear.</p></div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#">Shipping &amp; Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
     </div>
+  </footer>
 
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="#">Contact</a>
-    </nav>
-
-    <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
-  </div>
-</footer>
-
-  <!-- Firebase app & account logic -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
 </body>
