@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SUB•URBAN — Futuristic Womenswear</title>
   <meta name="description" content="Futuristic, elevated womenswear with clean silhouettes and luminous accents." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Feel free to swap fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="favicon.ico" />
-  <meta property="og:title" content="SUB•URBAN — Futuristic Womenswear">
-  <meta property="og:description" content="Clean silhouettes. Luminous accents. Built for forward motion.">
-  <meta property="og:type" content="website">
 </head>
 <body>
   <!-- Top Announcement bar -->
@@ -28,9 +24,7 @@
       <a href="#dresses">Dresses</a>
       <a href="#about">About</a>
     </nav>
-    <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
-      ☰
-    </button>
+    <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
   <!-- Mobile Drawer -->
@@ -52,7 +46,6 @@
         <a class="btn ghost" href="#about">Learn more</a>
       </div>
     </div>
-    <!-- Replace with your hero image (transparent PNG or soft-gradient photo works great) -->
     <img class="hero-img" src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1600&auto=format&fit=crop" alt="Model wearing futuristic dress with luminous accents"/>
   </section>
 
@@ -66,7 +59,7 @@
 
   <!-- Collection Grid -->
   <main id="collection" class="grid">
-    <!-- Repeat product cards; link buttons can go to product pages or Stripe/Shopify buy links -->
+    <!-- LINKED CARD to the PDP -->
     <article class="card" id="new">
       <img src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1200&auto=format&fit=crop" alt="Iridescent satin slip dress" loading="lazy">
       <div class="card-body">
@@ -76,8 +69,7 @@
         <div class="pill-row">
           <span class="pill">New</span><span class="pill">Limited</span>
         </div>
-        <!-- Replace href with your checkout link -->
-        <a class="btn primary block" href="#" target="_blank" rel="noopener">Buy now</a>
+        <a class="btn primary block" href="product.html">View details</a>
       </div>
     </article>
 
@@ -90,7 +82,7 @@
         <div class="pill-row">
           <span class="pill">Bestseller</span>
         </div>
-        <a class="btn outline block" href="#" target="_blank" rel="noopener">View details</a>
+        <a class="btn outline block" href="#">View details</a>
       </div>
     </article>
 
@@ -100,7 +92,7 @@
         <h3>Holographic Panel Dress</h3>
         <p class="price">$120</p>
         <p class="desc">Structured lines meet light-shifting panels for a bold silhouette.</p>
-        <a class="btn primary block" href="#" target="_blank" rel="noopener">Buy now</a>
+        <a class="btn outline block" href="#">View details</a>
       </div>
     </article>
 
@@ -110,7 +102,7 @@
         <h3>Tech Fleece Set</h3>
         <p class="price">$86</p>
         <p class="desc">Off-duty comfort with streamlined, future-classic lines.</p>
-        <a class="btn outline block" href="#" target="_blank" rel="noopener">View details</a>
+        <a class="btn outline block" href="#">View details</a>
       </div>
     </article>
   </main>
@@ -119,7 +111,7 @@
   <section class="newsletter" aria-labelledby="nl-title">
     <h2 id="nl-title">Join the signal</h2>
     <p>Be first for drops, private sales, and early access.</p>
-    <!-- Replace action with your email tool (e.g., Formspree / ConvertKit). -->
+    <!-- Replace action with your email tool -->
     <form class="nl-form" action="#" method="post">
       <label for="email" class="sr-only">Email address</label>
       <input id="email" name="email" type="email" placeholder="you@example.com" required>
