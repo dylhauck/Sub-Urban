@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Iridescent Slip Dress — SUB•URBAN</title>
-  <meta name="description" content="Bias-cut iridescent slip dress with luminous sheen.">
+  <title>Product — SUB•URBAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,184 +11,105 @@
   <link rel="icon" href="favicon.ico"/>
 </head>
 <body>
-  <div class="bar">
-    <a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a>
-    — Free shipping over $75 • Easy 30-day returns
-  </div>
+  <div class="bar"><a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a> — Limited release</div>
 
   <header class="header">
     <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
     <nav class="nav" aria-label="Primary">
-  <a href="index.html#new">New</a>
-  <a href="index.html#tops">Tops</a>
-  <a href="index.html#dresses">Dresses</a>
-  <a href="index.html#about">About</a>
-
-  <!-- My Account dropdown -->
-  <div class="menu account-menu">
-    <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">
-      My Account ▾
-    </button>
-    <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-      <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-      <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
-      <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
-      <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
-    </div>
-  </div>
-</nav>
+      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+      <div class="menu account-menu">
+        <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
+        <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
+          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
+          <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
+        </div>
+      </div>
+    </nav>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
+
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a><a href="wishlist.html">Wishlist</a><a href="login.html">Account</a>
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a data-acct="account"  href="account.html">My Account</a>
+    <a data-acct="orders"   href="orders.html">My Orders</a>
+    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
-  <nav class="crumbs" aria-label="Breadcrumb">
-    <a href="index.html">Home</a> › <a href="index.html#dresses">Dresses</a> › <span aria-current="page">Iridescent Slip Dress</span>
-  </nav>
+  <nav class="crumbs"><a href="index.html">Home</a> / Product</nav>
 
   <main class="pdp">
-    <!-- GALLERY -->
-    <section class="pdp-gallery">
-      <img id="mainImage" class="pdp-main" src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1600&auto=format&fit=crop" alt="Iridescent slip dress — front view">
-      <div class="pdp-thumbs" role="list" id="thumbs">
-        <button class="thumb" aria-label="Front view" data-src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1600&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=400&auto=format&fit=crop" alt="">
-        </button>
-        <button class="thumb" aria-label="Detail view" data-src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=400&auto=format&fit=crop" alt="">
-        </button>
-        <button class="thumb" aria-label="Back view" data-src="https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1600&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=400&auto=format&fit=crop" alt="">
-        </button>
-        <button class="thumb" aria-label="Studio angle" data-src="https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1600&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=400&auto=format&fit=crop" alt="">
-        </button>
-        <button class="thumb" aria-label="Fabric detail" data-src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1600&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=400&auto=format&fit=crop" alt="">
-        </button>
-        <button class="thumb" aria-label="Lifestyle" data-src="https://images.unsplash.com/photo-1520974735194-98f3c7a4bafc?q=80&w=1600&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1520974735194-98f3c7a4bafc?q=80&w=400&auto=format&fit=crop" alt="">
-        </button>
-      </div>
-    </section>
+    <div class="pdp-gallery">
+      <img id="mainImage" class="pdp-main" src="" alt="Product image">
+      <div id="thumbs" class="pdp-thumbs"></div>
+    </div>
 
-    <!-- INFO -->
-    <section class="pdp-info">
-      <h1 class="pdp-title">Iridescent Slip Dress</h1>
+    <div class="pdp-info">
+      <h1 class="pdp-title">Aurora Satin Slip</h1>
       <div class="pdp-meta">
-        <span class="stars" aria-label="Rated 4.7 out of 5">★★★★★</span>
-        <span class="sku">SKU: SUB-DRS-IRID-001</span>
+        <div class="stars">★★★★★</div>
+        <div class="sku">SKU: SLIP-AURORA</div>
       </div>
-      <p class="pdp-price">$98</p>
+      <div class="pdp-price">$128</div>
 
-      <!-- OPTIONS -->
-      <form class="pdp-form" action="#" method="post">
-        <label class="opt-label">Color</label>
-        <div class="swatches" id="colorSwatches">
-          <button class="swatch" type="button" aria-label="Soft Pink" data-key="soft-pink" style="background:#F7D6E0" title="Soft Pink"></button>
-          <button class="swatch" type="button" aria-label="Rose Gold" data-key="rose-gold" style="background:linear-gradient(135deg,#B76E79,#E6B8A2)" title="Rose Gold"></button>
-          <button class="swatch" type="button" aria-label="Electric Violet" data-key="violet" style="background:#7C3AED" title="Electric Violet"></button>
-          <button class="swatch" type="button" aria-label="Teal" data-key="teal" style="background:#14B8A6" title="Teal"></button>
-          <button class="swatch" type="button" aria-label="Silver" data-key="silver" style="background:#C0C0C0" title="Silver"></button>
-        </div>
+      <label class="opt-label">Color</label>
+      <div id="colorSwatches" class="swatches">
+        <button class="swatch" data-key="soft-pink" style="background:#F7D6E0" aria-label="Soft Pink"></button>
+        <button class="swatch" data-key="rose-gold" style="background:#B76E79" aria-label="Rose Gold"></button>
+        <button class="swatch" data-key="violet"    style="background:#7C3AED" aria-label="Violet"></button>
+        <button class="swatch" data-key="teal"      style="background:#14B8A6" aria-label="Teal"></button>
+        <button class="swatch" data-key="silver"    style="background:#C0C0C0" aria-label="Silver"></button>
+      </div>
 
-        <label class="opt-label" for="size">Size</label>
-        <div class="sizes" id="sizes" role="radiogroup" aria-label="Choose size">
-          <input type="radio" name="size" id="size-xs" value="XS" checked><label for="size-xs">XS</label>
-          <input type="radio" name="size" id="size-s" value="S"><label for="size-s">S</label>
-          <input type="radio" name="size" id="size-m" value="M"><label for="size-m">M</label>
-          <input type="radio" name="size" id="size-l" value="L"><label for="size-l">L</label>
-          <input type="radio" name="size" id="size-xl" value="XL"><label for="size-xl">XL</label>
-          <button class="link" type="button" id="sizeGuideBtn">Size guide</button>
-        </div>
+      <label class="opt-label">Size</label>
+      <div id="sizes" class="sizes">
+        <input type="radio" id="s-xs" name="size" value="XS" checked><label for="s-xs">XS</label>
+        <input type="radio" id="s-s"  name="size" value="S"><label for="s-s">S</label>
+        <input type="radio" id="s-m"  name="size" value="M"><label for="s-m">M</label>
+        <input type="radio" id="s-l"  name="size" value="L"><label for="s-l">L</label>
+        <input type="radio" id="s-xl" name="size" value="XL"><label for="s-xl">XL</label>
+        <button class="link" id="sizeGuideBtn" type="button">Size guide</button>
+      </div>
 
-        <div class="pdp-actions">
-          <!-- PDP wishlist toggle -->
-          <button
-            class="btn ghost wishlist-btn"
-            type="button"
-            id="pdpWishlist"
-            data-product="prod-iridescent-slip">♡ Wishlist</button>
-
-          <a class="btn primary" href="#" target="_blank" rel="noopener">Buy now</a>
-          <button class="btn outline" id="addToBag" type="button">Add to bag</button>
-        </div>
-        <p class="pdp-note">Free shipping over $75 • Free returns within 30 days</p>
-      </form>
+      <div class="pdp-actions">
+        <button class="btn primary" id="addToBag">Add to bag</button>
+        <button class="btn ghost wishlist-btn" data-product="aurora-slip">♡ Wishlist</button>
+      </div>
+      <p class="pdp-note">Free shipping on orders over $150.</p>
 
       <div class="pdp-desc">
         <h2>Details</h2>
         <ul>
-          <li>Bias-cut for a fluid drape</li>
-          <li>Luminous, iridescent finish</li>
-          <li>Adjustable straps, lined bodice</li>
-          <li>Materials: 78% triacetate, 22% polyester</li>
-          <li>Care: Hand wash cold, line dry</li>
+          <li>Bias-cut satin with rose-gold hardware</li>
+          <li>Machine wash cold</li>
+          <li>Made responsibly</li>
         </ul>
       </div>
-    </section>
+    </div>
   </main>
 
-  <!-- Size guide -->
-  <dialog id="sizeGuide">
-    <form method="dialog" class="size-modal">
-      <h3>Size Guide</h3>
-      <table class="size-table" aria-label="Size measurements in inches">
-        <tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th></tr>
-        <tr><td>XS</td><td>31–32</td><td>24–25</td><td>34–35</td></tr>
-        <tr><td>S</td><td>33–34</td><td>26–27</td><td>36–37</td></tr>
-        <tr><td>M</td><td>35–36</td><td>28–29</td><td>38–39</td></tr>
-        <tr><td>L</td><td>37–39</td><td>30–32</td><td>40–42</td></tr>
-        <tr><td>XL</td><td>40–42</td><td>33–35</td><td>43–45</td></tr>
-      </table>
-      <button class="btn primary" value="close">Close</button>
-    </form>
-  </dialog>
-
-  <!-- Related products (kept simple; wishlist toggle lives on index & PDP) -->
   <section class="related">
-    <h2>Related pieces</h2>
-    <div class="grid">
-      <article class="card">
-        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop" alt="Holographic Panel Dress" loading="lazy">
-        <div class="card-body">
-          <h3>Holographic Panel Dress</h3>
-          <p class="price">$120</p>
-          <a class="btn outline block" href="product.html">View details</a>
-        </div>
-      </article>
-      <article class="card">
-        <img src="https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1200&auto=format&fit=crop" alt="Tech Fleece Set" loading="lazy">
-        <div class="card-body">
-          <h3>Tech Fleece Set</h3>
-          <p class="price">$86</p>
-          <a class="btn outline block" href="product.html">View details</a>
-        </div>
-      </article>
-    </div>
+    <h3>Related</h3>
+    <!-- optional related grid -->
   </section>
 
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
   <footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <h4>SUB•URBAN</h4>
-      <p>Future-ready womenswear.</p>
+    <div class="footer-grid">
+      <div class="footer-brand"><h4>SUB•URBAN</h4><p>Future-ready womenswear.</p></div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#">Shipping &amp; Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
     </div>
+  </footer>
 
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="#">Contact</a>
-    </nav>
-
-    <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
-  </div>
-</footer>
-
-  <!-- Firebase auth + Firestore logic -->
   <script type="module" src="auth.js"></script>
-  <!-- Site scripts (gallery, fallbacks, etc.) -->
   <script src="script.js" defer></script>
 </body>
 </html>
