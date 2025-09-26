@@ -266,3 +266,33 @@ dialog::backdrop{background:rgba(0,0,0,.3)}
   border-radius:14px; background:#fff; text-align:center }
 .hidden{display:none}
 .card-actions{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem}
+
+/* Terms & Privacy checkbox alignment */
+label.tos {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  margin: 0.6rem 0 1rem;
+  cursor: pointer;
+}
+
+label.tos input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--rose, #B76E79); /* uses rose gold if set */
+  cursor: pointer;
+}
+
+label.tos span {
+  color: var(--muted);
+  user-select: none;
+}
+
+label.tos a {
+  color: var(--rose, #B76E79);
+  text-decoration: underline;
+}
+label.tos a:hover {
+  color: var(--violet, #7C3AED);
+}
