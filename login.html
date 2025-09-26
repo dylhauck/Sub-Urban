@@ -2,81 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Account — SUB•URBAN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Login / Create Account — SUB•URBAN</title>
   <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" href="favicon.ico"/>
+  <style>
+    body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }
+    .auth-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 800px) {
+      .auth-split {
+        grid-template-columns: 1fr;
+      }
+    }
+    .auth-card h1 { margin-bottom: 1rem; }
+    .auth-card label { font-weight: bold; }
+    .auth-card input {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+    }
+    .auth-actions { display:flex; gap:0.8rem; flex-wrap:wrap; }
+    .muted { font-size: 0.9rem; color: #555; }
+    .divider {
+      border-left: 1px solid rgba(0,0,0,.1);
+      margin: 0 1rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="bar"><a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a> — Account & Rewards</div>
-
+  <!-- Header -->
   <header class="header">
     <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
-    <nav class="nav" aria-label="Primary">
-      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
-      <div class="menu account-menu">
-        <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
-        <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
-          <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
-          <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
-        </div>
-      </div>
+    <nav class="nav">
+      <a href="index.html#new">New</a>
+      <a href="index.html#tops">Tops</a>
+      <a href="index.html#dresses">Dresses</a>
+      <a href="index.html#about">About</a>
+      <a href="contact.html">Contact</a>
     </nav>
-    <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
-    <a data-acct="account"  href="account.html">My Account</a>
-    <a data-acct="orders"   href="orders.html">My Orders</a>
-    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
-    <a id="authActionMobile" href="login.html">Log in</a>
-  </div>
-
+  <!-- Main -->
   <main class="auth-wrap">
     <section class="auth-card">
-      <h1>Sign in</h1>
-      <p class="muted">Welcome back — access member-only drops and discounts.</p>
-
-      <form id="loginForm" autocomplete="on">
-        <label for="loginEmail">Email</label>
-        <input type="email" id="loginEmail" required placeholder="you@example.com" />
-        <label for="loginPassword">Password</label>
-        <input type="password" id="loginPassword" required placeholder="••••••••" />
-        <div class="auth-actions">
-          <button class="btn primary" type="submit">Sign in</button>
-          <button class="btn ghost" id="forgotBtn" type="button">Forgot password</button>
+      <div class="auth-split">
+        
+        <!-- LEFT: Sign In -->
+        <div>
+          <h1>Sign In</h1>
+          <form id="loginForm">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" type="email" placeholder="you@example.com" required>
+            
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" type="password" placeholder="••••••••" required>
+            
+            <div class="auth-actions">
+              <button type="submit" class="btn primary">Sign In</button>
+              <button type="button" id="forgotPasswordBtn" class="btn ghost">Forgot Password?</button>
+            </div>
+            <div id="loginMsg" class="muted"></div>
+          </form>
         </div>
-      </form>
+        
+        <!-- RIGHT: Create Account -->
+        <div>
+          <h1>Create Account</h1>
+          <form id="signupForm">
+            <label for="signupEmail">Email</label>
+            <input id="signupEmail" type="email" placeholder="you@example.com" required>
+            
+            <label for="signupPassword">Password</label>
+            <input id="signupPassword" type="password" placeholder="Minimum 8 characters" required>
+            <div id="passwordStrength" class="muted">Password strength: —</div>
+            
+            <label class="tos">
+              <input type="checkbox" id="acceptTos" required>
+              <span>I agree to the <a href="terms.html" target="_blank">Terms & Privacy</a></span>
+            </label>
+            
+            <div class="auth-actions">
+              <button type="submit" class="btn primary">Create Account</button>
+            </div>
+            <div id="authMsg" class="muted"></div>
+          </form>
+        </div>
 
-      <hr class="hr">
-
-      <h2>Create account</h2>
-      <form id="signupForm" autocomplete="on">
-        <label for="signupEmail">Email</label>
-        <input type="email" id="signupEmail" required placeholder="you@example.com" />
-        <label for="signupPassword">Password</label>
-        <input type="password" id="signupPassword" required placeholder="Minimum 8 characters" />
-        <div id="strength" class="strength">Password strength: <b>—</b></div>
-
-        <label class="tos">
-          <input type="checkbox" id="tos" required>
-          <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms &amp; Privacy</a></span>
-        </label>
-
-        <button class="btn outline block" type="submit" id="signupBtn" disabled>Create account</button>
-      </form>
-
-      <p id="authMsg" class="muted" role="status" aria-live="polite"></p>
+      </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="footer-grid">
-      <div class="footer-brand"><h4>SUB•URBAN</h4><p>Future-ready womenswear.</p></div>
-      <nav class="footer-nav" aria-label="Footer">
+      <div class="footer-brand">
+        <h4>SUB•URBAN</h4>
+        <p>Future-ready womenswear.</p>
+      </div>
+      <nav class="footer-nav">
         <a href="#">Shipping &amp; Returns</a>
         <a href="#">Size Guide</a>
         <a href="contact.html">Contact</a>
@@ -85,6 +113,7 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
 </body>
