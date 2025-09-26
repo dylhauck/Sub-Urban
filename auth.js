@@ -74,8 +74,10 @@ if (signupForm){
       await sendEmailVerification(cred.user);
       // create starter user doc
       await setDoc(doc(db, "users", cred.user.uid), { email, wishlist: [] }, { merge: true });
+
       msg($("#authMsg"), "Account created! Verification email sent. Redirecting…");
-      setTimeout(()=> location.href = "account.html", 800);
+      // ⬇️ Redirect new user to HOME (index.html)
+      setTimeout(()=> location.href = "index.html", 800);
     }catch(err){ msg($("#authMsg"), err.message); }
   });
 }
@@ -88,7 +90,8 @@ if (loginForm){
     const pass  = $("#loginPassword").value;
     try{
       await signInWithEmailAndPassword(auth, email, pass);
-      location.href = "account.html";
+      // ⬇️ Redirect existing user to HOME (index.html)
+      location.href = "index.html";
     }catch(err){ msg($("#authMsg"), err.message); }
   });
 
@@ -244,7 +247,7 @@ onAuthStateChanged(auth, async (user) => {
 
 /* ============================================================
    Account dropdown labels + gating (all pages with the dropdown)
-   - "authAction" is now an <a> with href="login.html" by default
+   - "authAction" is an <a> with href="login.html" by default
    - Shows "Log in" if signed out, "Log out" if signed in
    - If signed out, My Account / Orders / Wishlist redirect to login
    ============================================================ */
