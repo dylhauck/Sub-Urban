@@ -58,9 +58,9 @@
   <main class="auth-wrap">
     <section class="auth-card">
       <h1>Contact Us</h1>
-      <p class="muted">We’d love to hear from you! Fill out the form below and we’ll get back to you by email.</p>
+      <p class="muted">We’d love to hear from you! Fill out the form below and we’ll reply by email.</p>
 
-      <form id="contactForm" class="contact-form" action="https://formspree.io/f/mqayezez" method="POST">
+      <form id="contactForm" class="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOURS" method="POST">
         <div class="form-grid">
           <div>
             <label for="name">Your Name</label>
@@ -77,8 +77,9 @@
 
           <!-- Hidden fields to customize email -->
           <input type="hidden" name="_subject" value="New SUB•URBAN Contact">
-          <input type="text" name="_gotcha" style="display:none"> <!-- honeypot anti-bot -->
+          <input type="text" name="_gotcha" style="display:none"> <!-- Honeypot anti-bot -->
         </div>
+
         <div class="auth-actions">
           <button class="btn primary" type="submit">Send message</button>
         </div>
@@ -108,26 +109,34 @@
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
   <script>
-    // Show success/fail message without leaving page
+    // Formspree inline success/error handling (no contact.js needed)
     const form = document.getElementById('contactForm');
     const status = document.getElementById('contactMsg');
     form?.addEventListener('submit', async (e)=>{
       e.preventDefault();
       status.textContent = 'Sending…';
+      status.className = '';
       const btn = form.querySelector('button[type="submit"]');
       btn?.setAttribute('disabled','true');
 
       try{
         const data = new FormData(form);
-        const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }});
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
         if (res.ok){
-          status.textContent = 'Thanks! Your message has been sent.';
+          status.textContent = '✓ Thanks! Your message has been sent.';
+          status.className = 'success';
           form.reset();
         } else {
-          status.textContent = 'Sorry, something went wrong.';
+          status.textContent = '⚠️ Sorry, something went wrong.';
+          status.className = 'error';
         }
       } catch {
-        status.textContent = 'Network error. Please try again.';
+        status.textContent = '⚠️ Network error. Please try again.';
+        status.className = 'error';
       } finally {
         btn?.removeAttribute('disabled');
       }
