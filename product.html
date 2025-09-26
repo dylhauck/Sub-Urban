@@ -12,7 +12,10 @@
   <link rel="icon" href="favicon.ico"/>
 </head>
 <body>
-  <div class="bar"><a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a> — Free shipping over $75 • Easy 30-day returns</div>
+  <div class="bar">
+    <a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a>
+    — Free shipping over $75 • Easy 30-day returns
+  </div>
 
   <header class="header">
     <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
@@ -21,11 +24,13 @@
       <a href="index.html#tops">Tops</a>
       <a href="index.html#dresses">Dresses</a>
       <a href="index.html#about">About</a>
+      <a href="wishlist.html">Wishlist</a>
+      <a href="login.html">Account</a>
     </nav>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a><a href="wishlist.html">Wishlist</a><a href="login.html">Account</a>
   </div>
 
   <nav class="crumbs" aria-label="Breadcrumb">
@@ -37,7 +42,6 @@
     <section class="pdp-gallery">
       <img id="mainImage" class="pdp-main" src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1600&auto=format&fit=crop" alt="Iridescent slip dress — front view">
       <div class="pdp-thumbs" role="list" id="thumbs">
-        <!-- 6 thumbs; JS will refresh these when color/size changes -->
         <button class="thumb" aria-label="Front view" data-src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1600&auto=format&fit=crop">
           <img src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=400&auto=format&fit=crop" alt="">
         </button>
@@ -72,7 +76,6 @@
       <form class="pdp-form" action="#" method="post">
         <label class="opt-label">Color</label>
         <div class="swatches" id="colorSwatches">
-          <!-- data-key must match keys in the JS images map -->
           <button class="swatch" type="button" aria-label="Soft Pink" data-key="soft-pink" style="background:#F7D6E0" title="Soft Pink"></button>
           <button class="swatch" type="button" aria-label="Rose Gold" data-key="rose-gold" style="background:linear-gradient(135deg,#B76E79,#E6B8A2)" title="Rose Gold"></button>
           <button class="swatch" type="button" aria-label="Electric Violet" data-key="violet" style="background:#7C3AED" title="Electric Violet"></button>
@@ -91,6 +94,13 @@
         </div>
 
         <div class="pdp-actions">
+          <!-- PDP wishlist toggle -->
+          <button
+            class="btn ghost wishlist-btn"
+            type="button"
+            id="pdpWishlist"
+            data-product="prod-iridescent-slip">♡ Wishlist</button>
+
           <a class="btn primary" href="#" target="_blank" rel="noopener">Buy now</a>
           <button class="btn outline" id="addToBag" type="button">Add to bag</button>
         </div>
@@ -126,11 +136,12 @@
     </form>
   </dialog>
 
+  <!-- Related products (kept simple; wishlist toggle lives on index & PDP) -->
   <section class="related">
     <h2>Related pieces</h2>
     <div class="grid">
       <article class="card">
-        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop" alt="Holographic Panel Dress">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop" alt="Holographic Panel Dress" loading="lazy">
         <div class="card-body">
           <h3>Holographic Panel Dress</h3>
           <p class="price">$120</p>
@@ -138,7 +149,7 @@
         </div>
       </article>
       <article class="card">
-        <img src="https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1200&auto=format&fit=crop" alt="Tech Fleece Set">
+        <img src="https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1200&auto=format&fit=crop" alt="Tech Fleece Set" loading="lazy">
         <div class="card-body">
           <h3>Tech Fleece Set</h3>
           <p class="price">$86</p>
@@ -158,7 +169,9 @@
     </div>
   </footer>
 
-  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">Added to bag</div>
+  <!-- Firebase auth + Firestore logic -->
+  <script type="module" src="auth.js"></script>
+  <!-- Site scripts (gallery, fallbacks, etc.) -->
   <script src="script.js" defer></script>
 </body>
 </html>
