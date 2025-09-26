@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>My Wishlist — SUB•URBAN</title>
+  <title>Wishlist — SUB•URBAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,83 +11,54 @@
   <link rel="icon" href="favicon.ico"/>
 </head>
 <body>
-  <!-- Top bar -->
-  <div class="bar">
-    <a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a>
-    — My Wishlist
-  </div>
+  <div class="bar"><a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a> — Wishlist</div>
 
-  <!-- Header -->
   <header class="header">
     <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
     <nav class="nav" aria-label="Primary">
-  <a href="index.html#new">New</a>
-  <a href="index.html#tops">Tops</a>
-  <a href="index.html#dresses">Dresses</a>
-  <a href="index.html#about">About</a>
-
-  <!-- My Account dropdown -->
-  <div class="menu account-menu">
-    <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">
-      My Account ▾
-    </button>
-    <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-      <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-      <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
-      <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
-      <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
-    </div>
-  </div>
-</nav>
+      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+      <div class="menu account-menu">
+        <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
+        <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
+          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
+          <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
+        </div>
+      </div>
+    </nav>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <!-- Mobile drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a>
-    <a href="index.html#tops">Tops</a>
-    <a href="index.html#dresses">Dresses</a>
-    <a href="index.html#about">About</a>
-    <a href="wishlist.html">Wishlist</a>
-    <a href="login.html">Account</a>
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a data-acct="account"  href="account.html">My Account</a>
+    <a data-acct="orders"   href="orders.html">My Orders</a>
+    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
-  <!-- Content -->
-  <main class="wish-wrap">
-    <h1 class="page-title">My Wishlist</h1>
-    <p class="muted" id="wishHint">Signed-in members can save products for later.</p>
-
-    <!-- Empty state -->
-    <div id="emptyState" class="empty hidden">
-      <p>No saved items yet. Tap “♡ Wishlist” on any product to save it here.</p>
-      <a class="btn outline" href="index.html#collection">Browse products</a>
-    </div>
-
-    <!-- Wishlist grid -->
-    <section id="wishGrid" class="grid"></section>
+  <main class="auth-wrap">
+    <section class="auth-card">
+      <h1>My Wishlist</h1>
+      <p class="muted">Save favorites to shop later.</p>
+      <!-- Your existing wishlist grid / items rendering goes here -->
+    </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <h4>SUB•URBAN</h4>
-      <p>Future-ready womenswear.</p>
+    <div class="footer-grid">
+      <div class="footer-brand"><h4>SUB•URBAN</h4><p>Future-ready womenswear.</p></div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#">Shipping &amp; Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
     </div>
+  </footer>
 
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="#">Contact</a>
-    </nav>
-
-    <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
-  </div>
-</footer>
-
-  <!-- Firebase + wishlist logic -->
   <script type="module" src="auth.js"></script>
-  <script type="module" src="wishlist.js"></script>
   <script src="script.js" defer></script>
 </body>
 </html>
