@@ -1,6 +1,6 @@
-// auth.js — Firebase Auth + Wishlist sync (works on all pages)
+// auth.js — Firebase Auth + Firestore + Wishlist sync
 
-// 1) Firebase SDK imports
+// -------- 1) Firebase SDK imports --------
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import {
   getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword,
@@ -10,58 +10,93 @@ import {
   getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove, onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-// 2) Your Firebase config
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyA8UG7du46d8w76VrSNrEgg7WgD7S6YX_0",
-    authDomain: "sub-urban-5366e.firebaseapp.com",
-    projectId: "sub-urban-5366e",
-    storageBucket: "sub-urban-5366e.firebasestorage.app",
-    messagingSenderId: "472762801459",
-    appId: "1:472762801459:web:ff3687891c59dfaef3f246",
-    measurementId: "G-5PG1HV20ED"
-  };
+// -------- 2) Your Firebase config --------
+const firebaseConfig = {
+  apiKey: "AIzaSyA8UG7du46d8w76VrSNrEgg7WgD7S6YX_0",
+  authDomain: "sub-urban-5366e.firebaseapp.com",
+  projectId: "sub-urban-5366e",
+  storageBucket: "sub-urban-5366e.firebasestorage.app",
+  messagingSenderId: "472762801459",
+  appId: "1:472762801459:web:ff3687891c59dfaef3f246",
+  measurementId: "G-5PG1HV20ED"
+};
 
+// -------- 3) Init --------
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 setPersistence(auth, browserLocalPersistence);
 
-// Helpers
+// -------- 4) Small helpers --------
 const $   = (sel) => document.querySelector(sel);
 const msg = (el, text) => { if (el) el.textContent = text; };
 
-// Password strength (signup page)
+// Password strength label
 function strengthLabel(pw){
   let s = 0;
-  if(pw.length>=8) s++;
+  if(pw.length >= 8) s++;
   if(/[A-Z]/.test(pw)) s++;
   if(/[0-9]/.test(pw)) s++;
   if(/[^A-Za-z0-9]/.test(pw)) s++;
-  return ["Weak","Okay","Good","Strong"][Math.max(0,s-1)];
+  return ["Weak","Okay","Good","Strong"][Math.max(0, s-1)];
 }
 
-/* ================= AUTH UI (login.html) ================= */
+/* ============================================================
+   LOGIN PAGE (login.html)
+   - Sign in
+   - Forgot password
+   - Create account (with Terms checkbox + strength meter)
+   ============================================================ */
+
+// --- Signup form ---
 const signupForm = $("#signupForm");
 if (signupForm){
-  const pw = $("#signupPassword");
-  const strength = $("#strength b");
-  pw.addEventListener("input", ()=> strength.textContent = strengthLabel(pw.value));
+  const pw        = $("#signupPassword");
+  const strengthB = $("#strength b");
+  const tos       = $("#tos");
+  const signupBtn = $("#signupBtn");
 
+  // Strength meter live update
+  pw?.addEventListener("input", ()=> {
+    if (strengthB) strengthB.textContent = strengthLabel(pw.value);
+  });
+
+  // Disable "Create account" until Terms checked
+  if (tos && signupBtn){
+    signupBtn.disabled = !tos.checked;
+    tos.addEventListener("change", ()=> {
+      signupBtn.disabled = !tos.checked;
+    });
+  }
+
+  // Handle submit
   signupForm.addEventListener("submit", async (e)=>{
     e.preventDefault();
     const email = $("#signupEmail").value.trim();
     const pass  = pw.value;
-    if (!$("#tos").checked) { msg($("#authMsg"), "Please accept Terms & Privacy."); return; }
+
+    if (!tos?.checked){
+      msg($("#authMsg"), "Please accept the Terms & Privacy.");
+      return;
+    }
+
     try{
       const cred = await createUserWithEmailAndPassword(auth, email, pass);
       await sendEmailVerification(cred.user);
+      await setDoc(doc(db, "users", cred.user.uid), {
+        email,
+        wishlist: []
+      }, { merge: true });
+
       msg($("#authMsg"), "Account created! Verification email sent. Redirecting…");
       setTimeout(()=> location.href = "account.html", 800);
-    }catch(err){ msg($("#authMsg"), err.message); }
+    }catch(err){
+      msg($("#authMsg"), err.message);
+    }
   });
 }
 
+// --- Login form ---
 const loginForm = $("#loginForm");
 if (loginForm){
   loginForm.addEventListener("submit", async (e)=>{
@@ -71,7 +106,9 @@ if (loginForm){
     try{
       await signInWithEmailAndPassword(auth, email, pass);
       location.href = "account.html";
-    }catch(err){ msg($("#authMsg"), err.message); }
+    }catch(err){
+      msg($("#authMsg"), err.message);
+    }
   });
 
   $("#forgotBtn")?.addEventListener("click", async ()=>{
@@ -80,11 +117,19 @@ if (loginForm){
     try{
       await sendPasswordResetEmail(auth, email);
       msg($("#authMsg"), "Password reset email sent.");
-    }catch(err){ msg($("#authMsg"), err.message); }
+    }catch(err){
+      msg($("#authMsg"), err.message);
+    }
   });
 }
 
-/* ================= ACCOUNT PAGE (account.html) ================= */
+/* ============================================================
+   ACCOUNT PAGE (account.html)
+   - Guard route
+   - Show email
+   - Resend verification
+   - Sign out
+   ============================================================ */
 if (location.pathname.endsWith("account.html")){
   onAuthStateChanged(auth, (user)=>{
     if(!user){ location.replace("login.html"); return; }
@@ -95,31 +140,32 @@ if (location.pathname.endsWith("account.html")){
     await signOut(auth);
     location.href = "login.html";
   });
+
   $("#sendVerify")?.addEventListener("click", async ()=>{
-    if(auth.currentUser){ await sendEmailVerification(auth.currentUser); msg($("#acctMsg"), "Verification email sent."); }
+    if(auth.currentUser){
+      await sendEmailVerification(auth.currentUser);
+      msg($("#acctMsg"), "Verification email sent.");
+    }
   });
 }
 
-/* ================= WISHLIST — LIVE SYNC & TOGGLE (all pages) ================= */
-/*
-  Behavior:
-  - If signed in, we listen to /users/{uid} and keep ALL .wishlist-btn labels in sync:
-      present in wishlist  -> "✓ Wishlisted"
-      absent               -> "♡ Wishlist"
-  - Clicking toggles arrayUnion/arrayRemove.
-  - If not signed in, clicking sends the user to login.html (optional).
-*/
+/* ============================================================
+   WISHLIST (all pages)
+   - Live sync all .wishlist-btn labels using onSnapshot
+   - Toggle add/remove on click
+   - If signed out -> redirect to login
+   ============================================================ */
 
-function setButtonState(btn, isSaved){
-  btn.textContent = isSaved ? "✓ Wishlisted" : "♡ Wishlist";
+function setButtonState(btn, saved){
+  btn.textContent = saved ? "✓ Wishlisted" : "♡ Wishlist";
 }
 
 onAuthStateChanged(auth, async (user) => {
   const buttons = document.querySelectorAll(".wishlist-btn");
-  if (!buttons.length) return; // no wishlist buttons on this page
+  if (!buttons.length) return; // page has no wishlist buttons
 
   if (!user){
-    // Not signed in: show default label, clicking brings to login
+    // Not signed in → default label + redirect to login on click
     buttons.forEach(btn => {
       setButtonState(btn, false);
       btn.onclick = () => { location.href = "login.html"; };
@@ -129,7 +175,7 @@ onAuthStateChanged(auth, async (user) => {
 
   const uref = doc(db, "users", user.uid);
 
-  // Live listener keeps UI in sync across tabs/pages
+  // Keep buttons in sync live with Firestore
   onSnapshot(uref, (snap) => {
     const list = snap.exists() && Array.isArray(snap.data().wishlist) ? snap.data().wishlist : [];
     buttons.forEach(btn => {
@@ -138,7 +184,7 @@ onAuthStateChanged(auth, async (user) => {
     });
   });
 
-  // Toggle logic on click
+  // Toggle on click
   buttons.forEach(btn => {
     btn.onclick = async () => {
       const pid = btn.dataset.product;
@@ -149,7 +195,6 @@ onAuthStateChanged(auth, async (user) => {
       } else {
         await setDoc(uref, { wishlist: arrayUnion(pid) }, { merge: true });
       }
-      // label updates via onSnapshot
     };
   });
 });
