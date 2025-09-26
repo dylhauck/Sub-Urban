@@ -5,79 +5,30 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Contact Us — SUB•URBAN</title>
   <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" href="favicon.ico"/>
-  <style>
-    /* Override global font to Arial */
-    body, input, textarea, button, label, h1, h2, h3, h4, p, a {
-      font-family: Arial, sans-serif !important;
-    }
-
-    /* Contact form grid */
-    .contact-form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      width: 100%;
-    }
-    .contact-form .col-span {
-      grid-column: span 2;
-    }
-    .contact-form input, 
-    .contact-form textarea {
-      width: 100%;
-      padding: 0.6rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-family: Arial, sans-serif;
-      font-size: 1rem;
-    }
-    .contact-form textarea {
-      resize: vertical;
-      min-height: 150px;
-    }
-    .auth-actions {
-      margin-top: 1rem;
-      grid-column: span 2;
-    }
-    #contactMsg {
-      margin-top: 1rem;
-      font-size: 0.95rem;
-    }
-    #contactMsg.success { color: #1a7f37; }
-    #contactMsg.error { color: #d93025; }
-  </style>
 </head>
 <body>
-  <!-- Top bar -->
-  <div class="bar">
-    <a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a>
-    — Contact Us
-  </div>
+  <div class="bar"><a href="index.html" class="logo"><span>SUB</span>•URBAN</a> — Contact Us</div>
 
-  <!-- Header -->
   <header class="header">
     <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav">
       <a href="index.html#new">New</a>
       <a href="index.html#tops">Tops</a>
       <a href="index.html#dresses">Dresses</a>
       <a href="index.html#about">About</a>
       <div class="menu account-menu">
-        <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">
-          My Account ▾
-        </button>
-        <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
-          <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
-          <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
+        <button class="menu-trigger" id="acctMenuBtn">My Account ▾</button>
+        <div class="menu-list" id="acctMenu">
+          <a data-acct="account"  href="account.html">My Account</a>
+          <a data-acct="orders"   href="orders.html">My Orders</a>
+          <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+          <a id="authAction" href="login.html">Log in</a>
         </div>
       </div>
     </nav>
-    <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+    <button class="icon-btn" id="menuBtn">☰</button>
   </header>
 
-  <!-- Mobile drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
     <a href="index.html#new">New</a>
     <a href="index.html#tops">Tops</a>
@@ -89,13 +40,13 @@
     <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
-  <!-- Main content -->
   <main class="auth-wrap">
     <section class="auth-card">
       <h1>Contact Us</h1>
-      <p class="muted">We’d love to hear from you! Fill out the form below and we’ll reply by email.</p>
+      <p class="muted">We’ll get back to you by email.</p>
 
-      <form id="contactForm" class="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOURS" method="POST">
+      <!-- IMPORTANT: your real Formspree endpoint -->
+      <form id="contactForm" class="contact-form" action="https://formspree.io/f/mqayezez" method="POST">
         <div>
           <label for="name">Your Name</label>
           <input id="name" name="name" type="text" placeholder="Full name" required>
@@ -106,27 +57,29 @@
         </div>
         <div class="col-span">
           <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Write your message…" required></textarea>
+          <textarea id="message" name="message" rows="6" placeholder="Write your message…" required></textarea>
         </div>
+
+        <!-- optional helpers -->
         <input type="hidden" name="_subject" value="New SUB•URBAN Contact">
         <input type="text" name="_gotcha" style="display:none">
+
         <div class="auth-actions">
           <button class="btn primary" type="submit">Send message</button>
         </div>
       </form>
 
-      <div id="contactMsg" class="muted"></div>
+      <div id="contactMsg" class="muted" style="margin-top:1rem;"></div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="footer-grid">
       <div class="footer-brand">
         <h4>SUB•URBAN</h4>
         <p>Future-ready womenswear.</p>
       </div>
-      <nav class="footer-nav" aria-label="Footer">
+      <nav class="footer-nav">
         <a href="#">Shipping &amp; Returns</a>
         <a href="#">Size Guide</a>
         <a href="contact.html">Contact</a>
@@ -135,9 +88,11 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Keep your existing site scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
+
+  <!-- Better error reporting so we see EXACT reason if it fails -->
   <script>
     const form = document.getElementById('contactForm');
     const status = document.getElementById('contactMsg');
@@ -147,6 +102,7 @@
       status.className = '';
       const btn = form.querySelector('button[type="submit"]');
       btn?.setAttribute('disabled','true');
+
       try{
         const data = new FormData(form);
         const res = await fetch(form.action, {
@@ -154,12 +110,18 @@
           body: data,
           headers: { 'Accept': 'application/json' }
         });
+
         if (res.ok){
           status.textContent = '✓ Thanks! Your message has been sent.';
           status.className = 'success';
           form.reset();
         } else {
-          status.textContent = '⚠️ Sorry, something went wrong.';
+          let msg = 'Sorry, something went wrong.';
+          try {
+            const json = await res.json();
+            if (json?.errors?.length) msg = json.errors.map(e => e.message).join(' ');
+          } catch {}
+          status.textContent = '⚠️ ' + msg;
           status.className = 'error';
         }
       } catch {
