@@ -10,25 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="favicon.ico"/>
-  <!-- Basic structured data for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org/",
-    "@type":"Product",
-    "name":"Iridescent Slip Dress",
-    "image":["/images/iridescent-slip-1.jpg","/images/iridescent-slip-2.jpg"],
-    "description":"Bias-cut silhouette with luminous sheen.",
-    "sku":"SUB-DRS-IRID-001",
-    "brand":{"@type":"Brand","name":"SUB•URBAN"},
-    "offers":{
-      "@type":"Offer",
-      "url":"https://dylhauck.github.io/Sub-Urban/product.html",
-      "priceCurrency":"USD",
-      "price":"98.00",
-      "availability":"https://schema.org/InStock"
-    }
-  }
-  </script>
 </head>
 <body>
   <div class="bar"><a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a> — Free shipping over $75 • Easy 30-day returns</div>
@@ -47,17 +28,16 @@
     <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
   </div>
 
-  <!-- Breadcrumbs -->
   <nav class="crumbs" aria-label="Breadcrumb">
     <a href="index.html">Home</a> › <a href="index.html#dresses">Dresses</a> › <span aria-current="page">Iridescent Slip Dress</span>
   </nav>
 
-  <!-- PDP layout -->
   <main class="pdp">
-    <!-- Gallery -->
+    <!-- GALLERY -->
     <section class="pdp-gallery">
-      <img id="mainImage" class="pdp-main" src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1600&auto=format&fit=crop" alt="Iridescent slip dress front view">
-      <div class="pdp-thumbs" role="list">
+      <img id="mainImage" class="pdp-main" src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1600&auto=format&fit=crop" alt="Iridescent slip dress — front view">
+      <div class="pdp-thumbs" role="list" id="thumbs">
+        <!-- 6 thumbs; JS will refresh these when color/size changes -->
         <button class="thumb" aria-label="Front view" data-src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1600&auto=format&fit=crop">
           <img src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=400&auto=format&fit=crop" alt="">
         </button>
@@ -67,33 +47,42 @@
         <button class="thumb" aria-label="Back view" data-src="https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1600&auto=format&fit=crop">
           <img src="https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=400&auto=format&fit=crop" alt="">
         </button>
+        <button class="thumb" aria-label="Studio angle" data-src="https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1600&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=400&auto=format&fit=crop" alt="">
+        </button>
+        <button class="thumb" aria-label="Fabric detail" data-src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1600&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=400&auto=format&fit=crop" alt="">
+        </button>
+        <button class="thumb" aria-label="Lifestyle" data-src="https://images.unsplash.com/photo-1520974735194-98f3c7a4bafc?q=80&w=1600&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1520974735194-98f3c7a4bafc?q=80&w=400&auto=format&fit=crop" alt="">
+        </button>
       </div>
     </section>
 
-    <!-- Info -->
+    <!-- INFO -->
     <section class="pdp-info">
       <h1 class="pdp-title">Iridescent Slip Dress</h1>
       <div class="pdp-meta">
         <span class="stars" aria-label="Rated 4.7 out of 5">★★★★★</span>
         <span class="sku">SKU: SUB-DRS-IRID-001</span>
       </div>
-
       <p class="pdp-price">$98</p>
 
-      <!-- Options -->
+      <!-- OPTIONS -->
       <form class="pdp-form" action="#" method="post">
         <label class="opt-label">Color</label>
-        <div class="swatches">
-          <button class="swatch" aria-label="Soft Pink" data-color="soft-pink" style="background: var(--soft-pink)"></button>
-          <button class="swatch" aria-label="Rose Gold" data-color="rose-gold" style="background: linear-gradient(135deg,var(--rose-gold),var(--rose-gold-2))"></button>
-          <button class="swatch" aria-label="Electric Violet" data-color="violet" style="background: var(--violet)"></button>
-          <button class="swatch" aria-label="Teal" data-color="teal" style="background: var(--teal)"></button>
-          <button class="swatch" aria-label="Silver" data-color="silver" style="background: var(--silver)"></button>
+        <div class="swatches" id="colorSwatches">
+          <!-- data-key must match keys in the JS images map -->
+          <button class="swatch" type="button" aria-label="Soft Pink" data-key="soft-pink" style="background:#F7D6E0" title="Soft Pink"></button>
+          <button class="swatch" type="button" aria-label="Rose Gold" data-key="rose-gold" style="background:linear-gradient(135deg,#B76E79,#E6B8A2)" title="Rose Gold"></button>
+          <button class="swatch" type="button" aria-label="Electric Violet" data-key="violet" style="background:#7C3AED" title="Electric Violet"></button>
+          <button class="swatch" type="button" aria-label="Teal" data-key="teal" style="background:#14B8A6" title="Teal"></button>
+          <button class="swatch" type="button" aria-label="Silver" data-key="silver" style="background:#C0C0C0" title="Silver"></button>
         </div>
 
         <label class="opt-label" for="size">Size</label>
-        <div class="sizes" role="radiogroup" aria-label="Choose size">
-          <input type="radio" name="size" id="size-xs" value="XS" required><label for="size-xs">XS</label>
+        <div class="sizes" id="sizes" role="radiogroup" aria-label="Choose size">
+          <input type="radio" name="size" id="size-xs" value="XS" checked><label for="size-xs">XS</label>
           <input type="radio" name="size" id="size-s" value="S"><label for="size-s">S</label>
           <input type="radio" name="size" id="size-m" value="M"><label for="size-m">M</label>
           <input type="radio" name="size" id="size-l" value="L"><label for="size-l">L</label>
@@ -102,7 +91,6 @@
         </div>
 
         <div class="pdp-actions">
-          <!-- Replace href with your Shopify/Stripe link -->
           <a class="btn primary" href="#" target="_blank" rel="noopener">Buy now</a>
           <button class="btn outline" id="addToBag" type="button">Add to bag</button>
         </div>
@@ -122,7 +110,7 @@
     </section>
   </main>
 
-  <!-- Size guide modal -->
+  <!-- Size guide -->
   <dialog id="sizeGuide">
     <form method="dialog" class="size-modal">
       <h3>Size Guide</h3>
@@ -138,12 +126,11 @@
     </form>
   </dialog>
 
-  <!-- Related products -->
   <section class="related">
     <h2>Related pieces</h2>
     <div class="grid">
       <article class="card">
-        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop" alt="Holographic Panel Dress" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop" alt="Holographic Panel Dress">
         <div class="card-body">
           <h3>Holographic Panel Dress</h3>
           <p class="price">$120</p>
@@ -151,7 +138,7 @@
         </div>
       </article>
       <article class="card">
-        <img src="https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1200&auto=format&fit=crop" alt="Tech Fleece Set" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1200&auto=format&fit=crop" alt="Tech Fleece Set">
         <div class="card-body">
           <h3>Tech Fleece Set</h3>
           <p class="price">$86</p>
@@ -173,31 +160,5 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">Added to bag</div>
   <script src="script.js" defer></script>
-  <script>
-    // PDP thumbnail switching
-    const mainImage = document.getElementById('mainImage');
-    document.querySelectorAll('.thumb').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        mainImage.src = btn.dataset.src;
-      });
-    });
-
-    // size guide modal
-    const sg = document.getElementById('sizeGuide');
-    document.getElementById('sizeGuideBtn').addEventListener('click', ()=> sg.showModal());
-
-    // add to bag demo
-    document.getElementById('addToBag').addEventListener('click', e=>{
-      e.preventDefault();
-      const t = document.getElementById('toast');
-      t.textContent = 'Added to bag';
-      t.style.opacity = 1;
-      t.style.transform = 'translateX(-50%) translateY(0)';
-      setTimeout(()=>{ t.style.opacity = 0; t.style.transform = 'translateX(-50%) translateY(20px)' }, 1600);
-    });
-
-    // year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
