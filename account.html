@@ -21,13 +21,24 @@
   <header class="header">
     <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html#new">New</a>
-      <a href="index.html#tops">Tops</a>
-      <a href="index.html#dresses">Dresses</a>
-      <a href="index.html#about">About</a>
-      <a href="wishlist.html">Wishlist</a>
-      <a href="login.html">Account</a>
-    </nav>
+  <a href="index.html#new">New</a>
+  <a href="index.html#tops">Tops</a>
+  <a href="index.html#dresses">Dresses</a>
+  <a href="index.html#about">About</a>
+
+  <!-- My Account dropdown -->
+  <div class="menu account-menu">
+    <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">
+      My Account ▾
+    </button>
+    <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
+      <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
+      <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+      <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
+      <button role="menuitem" id="authAction" type="button" class="menu-link-btn">Log in</button>
+    </div>
+  </div>
+</nav>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
