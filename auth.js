@@ -131,9 +131,85 @@ if (loginForm){
    - Sign out
    ============================================================ */
 if (location.pathname.endsWith("account.html")){
-  onAuthStateChanged(auth, (user)=>{
+  onAuthStateChanged(auth, async (user)=>{
     if(!user){ location.replace("login.html"); return; }
     $("#displayEmail").textContent = user.email || "Member";
+
+    const uref = doc(db, "users", user.uid);
+
+    // ------- Load existing profile on first visit -------
+    try{
+      const snap = await getDoc(uref);
+      const data = snap.exists() ? snap.data() : {};
+
+      // Sizes
+      const defaultSize = data.defaultSize || "M";
+      const sizePerType = data.sizePerType || {};
+      $("#defaultSize").value   = defaultSize;
+      $("#sizeTops").value      = sizePerType.tops    || defaultSize;
+      $("#sizeDresses").value   = sizePerType.dresses || defaultSize;
+      $("#sizeJackets").value   = sizePerType.jackets || defaultSize;
+
+      // Address
+      const addr = (data.addresses && data.addresses.shipping) || {};
+      $("#shipName").value   = addr.fullName || "";
+      $("#shipPhone").value  = addr.phone || "";
+      $("#shipLine1").value  = addr.line1 || "";
+      $("#shipLine2").value  = addr.line2 || "";
+      $("#shipCity").value   = addr.city || "";
+      $("#shipState").value  = addr.state || "";
+      $("#shipPostal").value = addr.postal || "";
+      $("#shipCountry").value= addr.country || "US";
+    }catch(e){
+      console.warn("Load user profile failed:", e);
+    }
+
+    // ------- Save sizes -------
+    $("#sizesForm")?.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      const defaultSize = $("#defaultSize").value;
+      const sizePerType = {
+        tops:    $("#sizeTops").value,
+        dresses: $("#sizeDresses").value,
+        jackets: $("#sizeJackets").value
+      };
+      try{
+        await setDoc(uref, { defaultSize, sizePerType }, { merge: true });
+        msg($("#sizesMsg"), "Saved ✓");
+        setTimeout(()=> msg($("#sizesMsg"), ""), 1400);
+      }catch(err){
+        msg($("#sizesMsg"), err.message);
+      }
+    });
+
+    // ------- Save address -------
+    $("#addrForm")?.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      const shipping = {
+        fullName: $("#shipName").value.trim(),
+        phone:    $("#shipPhone").value.trim(),
+        line1:    $("#shipLine1").value.trim(),
+        line2:    $("#shipLine2").value.trim(),
+        city:     $("#shipCity").value.trim(),
+        state:    $("#shipState").value.trim(),
+        postal:   $("#shipPostal").value.trim(),
+        country:  $("#shipCountry").value.trim()
+      };
+
+      // Simple validations
+      if(!shipping.fullName || !shipping.line1 || !shipping.city || !shipping.state || !shipping.postal || !shipping.country){
+        msg($("#addrMsg"), "Please fill all required fields.");
+        return;
+      }
+
+      try{
+        await setDoc(uref, { addresses: { shipping } }, { merge: true });
+        msg($("#addrMsg"), "Saved ✓");
+        setTimeout(()=> msg($("#addrMsg"), ""), 1400);
+      }catch(err){
+        msg($("#addrMsg"), err.message);
+      }
+    });
   });
 
   $("#signOutBtn")?.addEventListener("click", async ()=>{
