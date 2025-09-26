@@ -6,38 +6,17 @@
   <title>Contact Us — SUB•URBAN</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    body, input, textarea, button, label, h1, h2, h3, p, a {
-      font-family: Arial, sans-serif !important;
-    }
-    .contact-form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      width: 100%;
-    }
+    body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }
+    .contact-form { display:grid; grid-template-columns:1fr 1fr; gap:1rem; width:100%; }
     .contact-form .col-span { grid-column: span 2; }
-    .contact-form input, 
-    .contact-form textarea {
-      width: 100%;
-      padding: 0.6rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
+    .contact-form input, .contact-form textarea {
+      width:100%; padding:0.6rem; border:1px solid #ccc; border-radius:4px; font-size:1rem;
     }
-    .contact-form textarea {
-      resize: vertical;
-      min-height: 150px;
-    }
-    .auth-actions {
-      margin-top: 1rem;
-      grid-column: span 2;
-    }
-    #contactMsg {
-      margin-top: 1rem;
-      font-size: 0.95rem;
-    }
-    #contactMsg.success { color: #1a7f37; }
-    #contactMsg.error { color: #d93025; }
+    .contact-form textarea { resize: vertical; min-height: 150px; }
+    .auth-actions { margin-top:1rem; grid-column: span 2; }
+    #contactMsg { margin-top:1rem; font-size:0.95rem; }
+    #contactMsg.success { color:#1a7f37; }
+    #contactMsg.error   { color:#d93025; }
   </style>
 </head>
 <body>
@@ -74,29 +53,26 @@
       <h1>Contact Us</h1>
       <p class="muted">We’d love to hear from you! Fill out the form below and we’ll reply by email.</p>
 
-      <!-- Formspree form -->
-      <form id="contactForm" class="contact-form" action="https://formspree.io/f/mqayezez" method="POST">
+      <!-- EMAILJS form -->
+      <form id="contactForm" class="contact-form">
         <div>
           <label for="name">Your Name</label>
-          <input id="name" name="name" type="text" placeholder="Full name" required>
+          <input id="name" name="from_name" type="text" placeholder="Full name" required>
         </div>
         <div>
           <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" required>
+          <input id="email" name="reply_to" type="email" placeholder="you@example.com" required>
         </div>
         <div class="col-span">
           <label for="message">Message</label>
           <textarea id="message" name="message" placeholder="Write your message…" required></textarea>
         </div>
-        <!-- helpers -->
-        <input type="hidden" name="_subject" value="New SUB•URBAN Contact">
-        <input type="text" name="_gotcha" style="display:none">
         <div class="auth-actions">
-          <button class="btn primary" type="submit">Send message</button>
+          <button class="btn primary" type="submit" id="sendBtn">Send message</button>
         </div>
       </form>
 
-      <div id="contactMsg" class="muted"></div>
+      <div id="contactMsg" class="muted" role="status" aria-live="polite"></div>
     </section>
   </main>
 
@@ -116,48 +92,44 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+  <!-- Site scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
-  <script>
-    const form = document.getElementById('contactForm');
-    const status = document.getElementById('contactMsg');
 
-    form?.addEventListener('submit', async (e)=>{
+  <!-- EmailJS init + submit handler -->
+  <script>
+    (function(){ emailjs.init('qUrw0dBqyEZAcaLqI'); })();
+
+    const form   = document.getElementById('contactForm');
+    const status = document.getElementById('contactMsg');
+    const btn    = document.getElementById('sendBtn');
+
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       status.textContent = 'Sending…';
       status.className = '';
-      const btn = form.querySelector('button[type="submit"]');
-      btn?.setAttribute('disabled','true');
+      btn.setAttribute('disabled','true');
+
+      const templateParams = {
+        from_name: form.from_name.value,
+        reply_to:  form.reply_to.value,
+        message:   form.message.value
+      };
 
       try {
-        const data = new FormData(form);
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (res.ok) {
-          status.textContent = '✓ Thanks! Your message has been sent.';
-          status.className = 'success';
-          form.reset();
-        } else {
-          let msg = 'Sorry, something went wrong.';
-          try {
-            const json = await res.json();
-            if (json?.errors?.length) {
-              msg = json.errors.map(e => e.message).join(' ');
-            }
-          } catch {}
-          status.textContent = '⚠️ ' + msg;
-          status.className = 'error';
-        }
-      } catch {
-        status.textContent = '⚠️ Network error. Please try again.';
+        await emailjs.send('service_sub-urban', 'template_sub-urban', templateParams);
+        status.textContent = '✓ Thanks! Your message has been sent.';
+        status.className = 'success';
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        status.textContent = '⚠️ Could not send message. Please try again.';
         status.className = 'error';
       } finally {
-        btn?.removeAttribute('disabled');
+        btn.removeAttribute('disabled');
       }
     });
   </script>
