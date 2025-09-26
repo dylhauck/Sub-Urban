@@ -244,6 +244,7 @@ onAuthStateChanged(auth, async (user) => {
 
 /* ============================================================
    Account dropdown labels + gating (all pages with the dropdown)
+   - "authAction" is now an <a> with href="login.html" by default
    - Shows "Log in" if signed out, "Log out" if signed in
    - If signed out, My Account / Orders / Wishlist redirect to login
    ============================================================ */
@@ -256,34 +257,50 @@ function protectLinksWhenLoggedOut(){
     }, { once: true });
   });
   const mobileAuth = document.getElementById('authActionMobile');
-  if (mobileAuth) mobileAuth.textContent = 'Log in';
+  if (mobileAuth){
+    mobileAuth.textContent = 'Log in';
+    mobileAuth.setAttribute('href','login.html');
+    mobileAuth.onclick = null;
+  }
 }
 
 onAuthStateChanged(auth, (user) => {
-  const authBtn       = document.getElementById('authAction');        // dropdown button (desktop)
-  const authBtnMobile = document.getElementById('authActionMobile');  // drawer link (mobile)
+  const authBtn       = document.getElementById('authAction');        // <a> in dropdown
+  const authBtnMobile = document.getElementById('authActionMobile');  // <a> in drawer
 
   if (!authBtn && !authBtnMobile) return; // page might not have dropdown; safe to skip
 
   if (!user){
-    if (authBtn){ authBtn.textContent = 'Log in'; authBtn.onclick = () => { location.href = 'login.html'; }; }
-    if (authBtnMobile){ authBtnMobile.textContent = 'Log in'; authBtnMobile.onclick = (e)=>{ e.preventDefault(); location.href='login.html'; }; }
+    // Ensure labels & hrefs go to login even before JS handlers
+    if (authBtn){
+      authBtn.textContent = 'Log in';
+      authBtn.setAttribute('href','login.html');
+      authBtn.onclick = null; // default link behavior
+    }
+    if (authBtnMobile){
+      authBtnMobile.textContent = 'Log in';
+      authBtnMobile.setAttribute('href','login.html');
+      authBtnMobile.onclick = null; // default link behavior
+    }
     protectLinksWhenLoggedOut();
     return;
   }
 
-  // Logged in: remove previous gating by cloning nodes
+  // Logged in: remove previous gating by cloning nodes (resets listeners)
   document.querySelectorAll('[data-acct]').forEach(el=>{
     const clone = el.cloneNode(true);
     el.parentNode.replaceChild(clone, el);
   });
 
+  // Turn the auth links into Log out actions
   if (authBtn){
     authBtn.textContent = 'Log out';
-    authBtn.onclick = async () => { await signOut(auth); location.href = 'login.html'; };
+    authBtn.setAttribute('href', '#');
+    authBtn.onclick = async (e) => { e.preventDefault(); await signOut(auth); location.href = 'login.html'; };
   }
   if (authBtnMobile){
     authBtnMobile.textContent = 'Log out';
+    authBtnMobile.setAttribute('href', '#');
     authBtnMobile.onclick = async (e) => { e.preventDefault(); await signOut(auth); location.href = 'login.html'; };
   }
 });
