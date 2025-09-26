@@ -1,17 +1,22 @@
-// auth.js — Firebase Auth + Firestore Profile + Wishlist + Account dropdown gating
-// Uses your Firebase project config
-
-// -------- Firebase SDK imports --------
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+// auth.js  — ES Module
+// Firebase via CDN
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
 import {
-  getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  sendPasswordResetEmail, sendEmailVerification, signOut, setPersistence, browserLocalPersistence
-} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 import {
-  getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove, onSnapshot
-} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
-// -------- Your Firebase config --------
+/* ---------- Your Firebase config ---------- */
 const firebaseConfig = {
   apiKey: "AIzaSyA8UG7du46d8w76VrSNrEgg7WgD7S6YX_0",
   authDomain: "sub-urban-5366e.firebaseapp.com",
@@ -22,288 +27,151 @@ const firebaseConfig = {
   measurementId: "G-5PG1HV20ED"
 };
 
-// -------- Init --------
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db   = getFirestore(app);
-setPersistence(auth, browserLocalPersistence);
+/* ---------- Initialize ---------- */
+export const app  = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db   = getFirestore(app);
 
-// -------- Small helpers --------
-const $   = (sel) => document.querySelector(sel);
-const msg = (el, text) => { if (el) el.textContent = text; };
+/* ---------- Helpers ---------- */
+function byId(id){ return document.getElementById(id); }
+function setMsg(el, text, kind=""){ if(!el) return; el.textContent = text || ""; el.className = kind; }
+function goHome(){ window.location.href = "index.html"; }
 
-function strengthLabel(pw){
-  let s = 0;
-  if (pw.length >= 8) s++;
-  if (/[A-Z]/.test(pw)) s++;
-  if (/[0-9]/.test(pw)) s++;
-  if (/[^A-Za-z0-9]/.test(pw)) s++;
-  return ["Weak","Okay","Good","Strong"][Math.max(0, s-1)];
-}
+/* ---------- Dropdown login/logout handling & guards ---------- */
+function wireAccountUI(user){
+  const loginLink = byId("authAction");
+  const loginLinkMobile = byId("authActionMobile");
 
-/* ============================================================
-   LOGIN PAGE (login.html)
-   - Sign in / Forgot password
-   - Create account (Terms checkbox + strength meter + email verify)
-   ============================================================ */
-const signupForm = $("#signupForm");
-if (signupForm){
-  const pw        = $("#signupPassword");
-  const strengthB = $("#strength b");
-  const tos       = $("#tos");
-  const signupBtn = $("#signupBtn");
-
-  // Strength meter
-  pw?.addEventListener("input", () => { if (strengthB) strengthB.textContent = strengthLabel(pw.value); });
-
-  // Terms gate
-  if (tos && signupBtn){
-    signupBtn.disabled = !tos.checked;
-    tos.addEventListener("change", () => { signupBtn.disabled = !tos.checked; });
-  }
-
-  signupForm.addEventListener("submit", async (e)=>{
-    e.preventDefault();
-    const email = $("#signupEmail").value.trim();
-    const pass  = pw.value;
-
-    if (!tos?.checked){ msg($("#authMsg"), "Please accept the Terms & Privacy."); return; }
-
-    try{
-      const cred = await createUserWithEmailAndPassword(auth, email, pass);
-      await sendEmailVerification(cred.user);
-      // create starter user doc
-      await setDoc(doc(db, "users", cred.user.uid), { email, wishlist: [] }, { merge: true });
-
-      msg($("#authMsg"), "Account created! Verification email sent. Redirecting…");
-      // ⬇️ Redirect new user to HOME (index.html)
-      setTimeout(()=> location.href = "index.html", 800);
-    }catch(err){ msg($("#authMsg"), err.message); }
-  });
-}
-
-const loginForm = $("#loginForm");
-if (loginForm){
-  loginForm.addEventListener("submit", async (e)=>{
-    e.preventDefault();
-    const email = $("#loginEmail").value.trim();
-    const pass  = $("#loginPassword").value;
-    try{
-      await signInWithEmailAndPassword(auth, email, pass);
-      // ⬇️ Redirect existing user to HOME (index.html)
-      location.href = "index.html";
-    }catch(err){ msg($("#authMsg"), err.message); }
-  });
-
-  $("#forgotBtn")?.addEventListener("click", async ()=>{
-    const email = $("#loginEmail").value.trim();
-    if(!email){ msg($("#authMsg"), "Enter your email first, then click Forgot."); return; }
-    try{
-      await sendPasswordResetEmail(auth, email);
-      msg($("#authMsg"), "Password reset email sent.");
-    }catch(err){ msg($("#authMsg"), err.message); }
-  });
-}
-
-/* ============================================================
-   ACCOUNT PAGE (account.html)
-   - Guard
-   - Resend verify / Sign out
-   - Load & Save Sizes + Address
-   ============================================================ */
-if (location.pathname.endsWith("account.html")){
-  onAuthStateChanged(auth, async (user)=>{
-    if(!user){ location.replace("login.html"); return; }
-    $("#displayEmail").textContent = user.email || "Member";
-
-    const uref = doc(db, "users", user.uid);
-
-    // Load profile
-    try{
-      const snap = await getDoc(uref);
-      const data = snap.exists() ? snap.data() : {};
-
-      // Sizes
-      const defaultSize = data.defaultSize || "M";
-      const sizePerType = data.sizePerType || {};
-      $("#defaultSize") && ($("#defaultSize").value = defaultSize);
-      $("#sizeTops") && ($("#sizeTops").value = sizePerType.tops || defaultSize);
-      $("#sizeDresses") && ($("#sizeDresses").value = sizePerType.dresses || defaultSize);
-      $("#sizeJackets") && ($("#sizeJackets").value = sizePerType.jackets || defaultSize);
-
-      // Address
-      const addr = (data.addresses && data.addresses.shipping) || {};
-      const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ""; };
-      setVal("shipName",   addr.fullName);
-      setVal("shipPhone",  addr.phone);
-      setVal("shipLine1",  addr.line1);
-      setVal("shipLine2",  addr.line2);
-      setVal("shipCity",   addr.city);
-      setVal("shipState",  addr.state);
-      setVal("shipPostal", addr.postal);
-      setVal("shipCountry",addr.country || "US");
-    }catch(e){ console.warn("Load user profile failed:", e); }
-
-    // Save sizes
-    $("#sizesForm")?.addEventListener("submit", async (e)=>{
-      e.preventDefault();
-      const defaultSize = $("#defaultSize").value;
-      const sizePerType = {
-        tops:    $("#sizeTops").value,
-        dresses: $("#sizeDresses").value,
-        jackets: $("#sizeJackets").value
-      };
-      try{
-        await setDoc(uref, { defaultSize, sizePerType }, { merge: true });
-        msg($("#sizesMsg"), "Saved ✓");
-        setTimeout(()=> msg($("#sizesMsg"), ""), 1400);
-      }catch(err){ msg($("#sizesMsg"), err.message); }
-    });
-
-    // Save address
-    $("#addrForm")?.addEventListener("submit", async (e)=>{
-      e.preventDefault();
-      const shipping = {
-        fullName: $("#shipName").value.trim(),
-        phone:    $("#shipPhone").value.trim(),
-        line1:    $("#shipLine1").value.trim(),
-        line2:    $("#shipLine2").value.trim(),
-        city:     $("#shipCity").value.trim(),
-        state:    $("#shipState").value.trim(),
-        postal:   $("#shipPostal").value.trim(),
-        country:  $("#shipCountry").value.trim()
-      };
-      if(!shipping.fullName || !shipping.line1 || !shipping.city || !shipping.state || !shipping.postal || !shipping.country){
-        msg($("#addrMsg"), "Please fill all required fields."); return;
-      }
-      try{
-        await setDoc(uref, { addresses: { shipping } }, { merge: true });
-        msg($("#addrMsg"), "Saved ✓");
-        setTimeout(()=> msg($("#addrMsg"), ""), 1400);
-      }catch(err){ msg($("#addrMsg"), err.message); }
-    });
-  });
-
-  $("#signOutBtn")?.addEventListener("click", async ()=>{
-    await signOut(auth);
-    location.href = "login.html";
-  });
-
-  $("#sendVerify")?.addEventListener("click", async ()=>{
-    if(auth.currentUser){
-      await sendEmailVerification(auth.currentUser);
-      msg($("#acctMsg"), "Verification email sent.");
-    }
-  });
-}
-
-/* ============================================================
-   WISHLIST (all pages)
-   - Live sync all .wishlist-btn labels via onSnapshot
-   - Toggle add/remove on click
-   - If signed out -> redirect to login
-   ============================================================ */
-function setButtonState(btn, saved){
-  btn.textContent = saved ? "✓ Wishlisted" : "♡ Wishlist";
-}
-
-onAuthStateChanged(auth, async (user) => {
-  const buttons = document.querySelectorAll(".wishlist-btn");
-  if (!buttons.length) return;
-
-  if (!user){
-    buttons.forEach(btn => {
-      setButtonState(btn, false);
-      btn.onclick = () => { location.href = "login.html"; };
-    });
-    return;
-  }
-
-  const uref = doc(db, "users", user.uid);
-
-  // Live sync
-  onSnapshot(uref, (snap) => {
-    const list = snap.exists() && Array.isArray(snap.data().wishlist) ? snap.data().wishlist : [];
-    buttons.forEach(btn => {
-      const pid = btn.dataset.product;
-      setButtonState(btn, list.includes(pid));
-    });
-  });
-
-  // Toggle
-  buttons.forEach(btn => {
-    btn.onclick = async () => {
-      const pid = btn.dataset.product;
-      const snap = await getDoc(uref);
-      const list = snap.exists() && Array.isArray(snap.data().wishlist) ? snap.data().wishlist : [];
-      if (list.includes(pid)){
-        await updateDoc(uref, { wishlist: arrayRemove(pid) });
-      } else {
-        await setDoc(uref, { wishlist: arrayUnion(pid) }, { merge: true });
-      }
+  // Update label
+  [loginLink, loginLinkMobile].forEach(link=>{
+    if (!link) return;
+    link.textContent = user ? "Log out" : "Log in";
+    link.onclick = (e)=>{
+      if (user){ // log out inline
+        e.preventDefault();
+        signOut(auth).catch(console.error);
+      } // if logged out, default link goes to login.html
     };
   });
-});
 
-/* ============================================================
-   Account dropdown labels + gating (all pages with the dropdown)
-   - "authAction" is an <a> with href="login.html" by default
-   - Shows "Log in" if signed out, "Log out" if signed in
-   - If signed out, My Account / Orders / Wishlist redirect to login
-   ============================================================ */
-function protectLinksWhenLoggedOut(){
-  // Any link with data-acct should redirect to login if signed out
-  document.querySelectorAll('[data-acct]').forEach(el=>{
-    el.addEventListener('click', (ev)=>{
-      ev.preventDefault();
-      location.href = 'login.html';
-    }, { once: true });
+  // Guard account links if logged out
+  const protectedLinks = document.querySelectorAll('[data-acct]');
+  protectedLinks.forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      if (!auth.currentUser){
+        // send to login page if not authenticated
+        e.preventDefault();
+        window.location.href = "login.html";
+      }
+    });
   });
-  const mobileAuth = document.getElementById('authActionMobile');
-  if (mobileAuth){
-    mobileAuth.textContent = 'Log in';
-    mobileAuth.setAttribute('href','login.html');
-    mobileAuth.onclick = null;
+}
+
+/* ---------- Auth form bindings (if present on the page) ---------- */
+function wireLoginForm(){
+  const form = byId("loginForm");
+  if (!form) return;
+  const emailEl = byId("loginEmail");
+  const passEl  = byId("loginPassword");
+  const msgEl   = byId("loginMsg");
+  const forgot  = byId("forgotPasswordBtn");
+
+  form.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    setMsg(msgEl, "Signing in…");
+    try{
+      await signInWithEmailAndPassword(auth, emailEl.value.trim(), passEl.value);
+      setMsg(msgEl, "Signed in.", "success");
+      goHome();
+    }catch(err){
+      console.error(err);
+      setMsg(msgEl, friendlyAuthError(err), "error");
+    }
+  });
+
+  if (forgot){
+    forgot.addEventListener("click", async ()=>{
+      const email = (emailEl?.value || "").trim();
+      if (!email){ setMsg(msgEl, "Enter your email above first.", "error"); return; }
+      try{
+        await sendPasswordResetEmail(auth, email);
+        setMsg(msgEl, "Password reset email sent.", "success");
+      }catch(err){
+        console.error(err);
+        setMsg(msgEl, friendlyAuthError(err), "error");
+      }
+    });
   }
 }
 
-onAuthStateChanged(auth, (user) => {
-  const authBtn       = document.getElementById('authAction');        // <a> in dropdown
-  const authBtnMobile = document.getElementById('authActionMobile');  // <a> in drawer
+function wireSignupForm(){
+  const form = byId("signupForm");
+  if (!form) return;
+  const emailEl = byId("signupEmail");
+  const passEl  = byId("signupPassword");
+  const tosEl   = byId("acceptTos");
+  const msgEl   = byId("authMsg");
+  const strengthEl = byId("passwordStrength");
 
-  if (!authBtn && !authBtnMobile) return; // page might not have dropdown; safe to skip
-
-  if (!user){
-    // Ensure labels & hrefs go to login even before JS handlers
-    if (authBtn){
-      authBtn.textContent = 'Log in';
-      authBtn.setAttribute('href','login.html');
-      authBtn.onclick = null; // default link behavior
-    }
-    if (authBtnMobile){
-      authBtnMobile.textContent = 'Log in';
-      authBtnMobile.setAttribute('href','login.html');
-      authBtnMobile.onclick = null; // default link behavior
-    }
-    protectLinksWhenLoggedOut();
-    return;
-  }
-
-  // Logged in: remove previous gating by cloning nodes (resets listeners)
-  document.querySelectorAll('[data-acct]').forEach(el=>{
-    const clone = el.cloneNode(true);
-    el.parentNode.replaceChild(clone, el);
+  // simple strength hint
+  passEl?.addEventListener("input", ()=>{
+    const v = passEl.value;
+    let score = 0;
+    if (v.length >= 8) score++;
+    if (/[A-Z]/.test(v)) score++;
+    if (/[0-9]/.test(v)) score++;
+    if (/[^A-Za-z0-9]/.test(v)) score++;
+    const labels = ["—","Weak","Okay","Good","Strong"];
+    if (strengthEl) strengthEl.textContent = `Password strength: ${labels[score]}`;
   });
 
-  // Turn the auth links into Log out actions
-  if (authBtn){
-    authBtn.textContent = 'Log out';
-    authBtn.setAttribute('href', '#');
-    authBtn.onclick = async (e) => { e.preventDefault(); await signOut(auth); location.href = 'login.html'; };
-  }
-  if (authBtnMobile){
-    authBtnMobile.textContent = 'Log out';
-    authBtnMobile.setAttribute('href', '#');
-    authBtnMobile.onclick = async (e) => { e.preventDefault(); await signOut(auth); location.href = 'login.html'; };
-  }
+  form.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    if (tosEl && !tosEl.checked){
+      setMsg(msgEl, "Please accept the Terms & Privacy.", "error");
+      return;
+    }
+    setMsg(msgEl, "Creating account…");
+    try{
+      const cred = await createUserWithEmailAndPassword(auth, emailEl.value.trim(), passEl.value);
+      // Create user doc so Firestore rules allow subsequent writes
+      const userRef = doc(db, "users", cred.user.uid);
+      const existing = await getDoc(userRef);
+      if (!existing.exists()){
+        await setDoc(userRef, {
+          email: cred.user.email || emailEl.value.trim(),
+          createdAt: Date.now()
+        }, { merge: true });
+      }
+      setMsg(msgEl, "Account created.", "success");
+      goHome();
+    }catch(err){
+      console.error(err);
+      setMsg(msgEl, friendlyAuthError(err), "error");
+    }
+  });
+}
+
+/* ---------- Error messages ---------- */
+function friendlyAuthError(err){
+  const code = err?.code || "";
+  if (code.includes("invalid-email")) return "That email looks invalid.";
+  if (code.includes("user-not-found")) return "No account found for that email.";
+  if (code.includes("wrong-password")) return "Incorrect password.";
+  if (code.includes("email-already-in-use")) return "An account already exists for that email.";
+  if (code.includes("weak-password")) return "Password should be at least 6–8 characters.";
+  if (code.includes("network-request-failed")) return "Network error, please try again.";
+  return "Something went wrong. Please try again.";
+}
+
+/* ---------- Auth state listener ---------- */
+onAuthStateChanged(auth, (user)=>{
+  wireAccountUI(user);
+  // (Optional) you could show a greeting, etc.
+});
+
+/* ---------- Auto-bind forms on load ---------- */
+document.addEventListener("DOMContentLoaded", ()=>{
+  wireLoginForm();
+  wireSignupForm();
 });
