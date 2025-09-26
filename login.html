@@ -7,37 +7,26 @@
   <link rel="stylesheet" href="style.css"/>
   <style>
     body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }
-    .auth-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-    @media (max-width: 800px) {
-      .auth-split {
-        grid-template-columns: 1fr;
-      }
-    }
-    .auth-card h1 { margin-bottom: 1rem; }
-    .auth-card label { font-weight: bold; }
-    .auth-card input {
-      width: 100%;
-      padding: 0.8rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-bottom: 1rem;
-    }
+    .auth-split { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+    @media (max-width: 800px){ .auth-split { grid-template-columns:1fr; } }
+    .auth-card input { width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ccc; margin-bottom:1rem; }
     .auth-actions { display:flex; gap:0.8rem; flex-wrap:wrap; }
-    .muted { font-size: 0.9rem; color: #555; }
-    .divider {
-      border-left: 1px solid rgba(0,0,0,.1);
-      margin: 0 1rem;
-    }
+    .muted { font-size:0.9rem; color:#555; }
   </style>
 </head>
 <body>
+  <!-- Top bar -->
+  <div class="bar">
+    <a href="index.html" class="logo" style="text-decoration:none;">
+      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </a> — Sign In / Create Account
+  </div>
+
   <!-- Header -->
   <header class="header">
-    <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
+    <a class="logo" href="index.html">
+      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </a>
     <nav class="nav">
       <a href="index.html#new">New</a>
       <a href="index.html#tops">Tops</a>
@@ -45,23 +34,20 @@
       <a href="index.html#about">About</a>
       <a href="contact.html">Contact</a>
     </nav>
+    <button class="icon-btn" id="menuBtn">☰</button>
   </header>
 
-  <!-- Main -->
   <main class="auth-wrap">
     <section class="auth-card">
       <div class="auth-split">
-        
-        <!-- LEFT: Sign In -->
+        <!-- Sign In -->
         <div>
           <h1>Sign In</h1>
           <form id="loginForm">
             <label for="loginEmail">Email</label>
             <input id="loginEmail" type="email" placeholder="you@example.com" required>
-            
             <label for="loginPassword">Password</label>
             <input id="loginPassword" type="password" placeholder="••••••••" required>
-            
             <div class="auth-actions">
               <button type="submit" class="btn primary">Sign In</button>
               <button type="button" id="forgotPasswordBtn" class="btn ghost">Forgot Password?</button>
@@ -69,49 +55,43 @@
             <div id="loginMsg" class="muted"></div>
           </form>
         </div>
-        
-        <!-- RIGHT: Create Account -->
+        <!-- Create Account -->
         <div>
           <h1>Create Account</h1>
           <form id="signupForm">
             <label for="signupEmail">Email</label>
             <input id="signupEmail" type="email" placeholder="you@example.com" required>
-            
             <label for="signupPassword">Password</label>
             <input id="signupPassword" type="password" placeholder="Minimum 8 characters" required>
             <div id="passwordStrength" class="muted">Password strength: —</div>
-            
             <label class="tos">
               <input type="checkbox" id="acceptTos" required>
               <span>I agree to the <a href="terms.html" target="_blank">Terms & Privacy</a></span>
             </label>
-            
             <div class="auth-actions">
               <button type="submit" class="btn primary">Create Account</button>
             </div>
             <div id="authMsg" class="muted"></div>
           </form>
         </div>
-
       </div>
     </section>
   </main>
 
   <!-- Footer -->
   <footer class="footer">
-  <div class="footer-brand">SUB•URBAN</div>
+    <div class="footer-brand">
+      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="index.html#new">New Arrivals</a>
+      <a href="#">Shipping &amp; Returns</a>
+      <a href="#">Size Guide</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="footer-meta">© 2025 SUB•URBAN</div>
+  </footer>
 
-  <nav class="footer-nav" aria-label="Footer">
-    <a href="index.html#new">New Arrivals</a>
-    <a href="#">Shipping &amp; Returns</a>
-    <a href="#">Size Guide</a>
-    <a href="contact.html">Contact Us</a>
-  </nav>
-
-  <div class="footer-meta">© 2025 SUB•URBAN</div>
-</footer>
-
-  <!-- Scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
 </body>
