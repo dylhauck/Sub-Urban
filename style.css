@@ -2,6 +2,11 @@
 Palette: Soft Pink #F7D6E0, Rose Gold #B76E79/#E6B8A2, Electric Violet #7C3AED, Teal #14B8A6, Silver #C0C0C0
 Fonts: Inter (UI), Space Grotesk (display)
 */
+/* Set site-wide font to Arial */
+html, body {
+  font-family: Arial, sans-serif !important;
+}
+
 :root{
   /* Core surface (light-first) */
   --bg:#f6f7fb;               /* pearl */
