@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="favicon.ico"/>
 </head>
 <body>
   <div class="bar"><a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a> — Account & Rewards</div>
@@ -19,39 +20,51 @@
       <a href="index.html#tops">Tops</a>
       <a href="index.html#dresses">Dresses</a>
       <a href="index.html#about">About</a>
+      <a href="wishlist.html">Wishlist</a>
       <a href="login.html">Account</a>
     </nav>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a><a href="login.html">Account</a>
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a><a href="wishlist.html">Wishlist</a><a href="login.html">Account</a>
   </div>
 
   <main class="auth-wrap">
     <section class="auth-card">
-      <h1>Welcome back</h1>
-      <p class="muted">Sign in to see member-only drops and discounts.</p>
+      <h1>Sign in</h1>
+      <p class="muted">Welcome back — access member-only drops and discounts.</p>
 
+      <!-- Sign in -->
       <form id="loginForm" autocomplete="on">
-        <label>Email</label>
+        <label for="loginEmail">Email</label>
         <input type="email" id="loginEmail" required placeholder="you@example.com" />
-        <label>Password</label>
+        <label for="loginPassword">Password</label>
         <input type="password" id="loginPassword" required placeholder="••••••••" />
-        <button class="btn primary block" type="submit">Sign in</button>
-        <button class="btn ghost block" id="forgotBtn" type="button">Forgot password</button>
+        <div class="auth-actions">
+          <button class="btn primary" type="submit">Sign in</button>
+          <button class="btn ghost" id="forgotBtn" type="button">Forgot password</button>
+        </div>
       </form>
 
       <hr class="hr">
 
+      <!-- Create account -->
       <h2>Create account</h2>
       <form id="signupForm" autocomplete="on">
-        <label>Email</label>
+        <label for="signupEmail">Email</label>
         <input type="email" id="signupEmail" required placeholder="you@example.com" />
-        <label>Password</label>
+        <label for="signupPassword">Password</label>
         <input type="password" id="signupPassword" required placeholder="Minimum 8 characters" />
         <div id="strength" class="strength">Password strength: <b>—</b></div>
-        <label><input type="checkbox" id="tos" required> I agree to the Terms & Privacy</label>
-        <button class="btn outline block" type="submit">Create account</button>
+
+        <!-- Terms checkbox with link -->
+        <label class="tos">
+          <input type="checkbox" id="tos" required>
+          <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms &amp; Privacy</a></span>
+        </label>
+
+        <!-- Disabled until checkbox is checked -->
+        <button class="btn outline block" type="submit" id="signupBtn" disabled>Create account</button>
       </form>
 
       <p id="authMsg" class="muted" role="status" aria-live="polite"></p>
@@ -66,8 +79,9 @@
     </div>
   </footer>
 
-  <!-- Firebase SDKs (no bundler needed on Pages) -->
+  <!-- Firebase SDK + auth logic -->
   <script type="module" src="auth.js"></script>
+  <!-- Site scripts (header drawer, footer year, etc.) -->
   <script src="script.js" defer></script>
 </body>
 </html>
