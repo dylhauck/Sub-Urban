@@ -4,49 +4,134 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Terms & Privacy — SUB•URBAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="favicon.ico"/>
 </head>
 <body>
-  <div class="bar"><a href="index.html" class="logo"><span>SUB</span>•URBAN</a> — Terms & Privacy</div>
+  <!-- Top bar -->
+  <div class="bar">
+    <a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a>
+    — Terms &amp; Privacy
+  </div>
 
-  <main class="legal-wrap">
-    <h1>Terms & Privacy</h1>
-    <p>Welcome to SUB•URBAN. By creating an account or using our services, you agree to the following terms:</p>
+  <!-- Header -->
+  <header class="header">
+    <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html#new">New</a>
+      <a href="index.html#tops">Tops</a>
+      <a href="index.html#dresses">Dresses</a>
+      <a href="index.html#about">About</a>
 
-    <h2>1. Account</h2>
-    <p>You are responsible for maintaining the confidentiality of your account credentials.</p>
+      <!-- My Account dropdown -->
+      <div class="menu account-menu">
+        <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">
+          My Account ▾
+        </button>
+        <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
+          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
+          <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
+        </div>
+      </div>
+    </nav>
+    <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+  </header>
 
-    <h2>2. Use of Services</h2>
-    <p>Our website is intended for personal, non-commercial use related to shopping our collections.</p>
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <a href="index.html#new">New</a>
+    <a href="index.html#tops">Tops</a>
+    <a href="index.html#dresses">Dresses</a>
+    <a href="index.html#about">About</a>
+    <a data-acct="account"  href="account.html">My Account</a>
+    <a data-acct="orders"   href="orders.html">My Orders</a>
+    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a id="authActionMobile" href="login.html">Log in</a>
+  </div>
 
-    <h2>3. Privacy</h2>
-    <p>We collect your email, preferences, and wishlist to improve your shopping experience. We do not store credit/debit card details directly; payments are processed securely by third-party providers.</p>
+  <!-- Main content -->
+  <main class="legal-wrap auth-wrap">
+    <section class="auth-card">
+      <h1>Terms &amp; Privacy</h1>
+      <p class="muted">Last updated: September 2025</p>
 
-    <h2>4. Data Rights</h2>
-    <p>You may request deletion of your account and personal data at any time by contacting support.</p>
+      <h2>1. Introduction</h2>
+      <p>Welcome to SUB•URBAN (“we”, “us”, “our”). By accessing or using our website, you agree to these Terms &amp; Privacy. If you do not agree, please do not use the site.</p>
 
-    <h2>5. Updates</h2>
-    <p>These terms may be updated periodically. Continued use of our services constitutes acceptance of changes.</p>
+      <h2>2. Accounts</h2>
+      <ul>
+        <li>You are responsible for keeping your login credentials confidential.</li>
+        <li>You must provide accurate information and notify us of any changes.</li>
+        <li>We may suspend or terminate accounts for suspected misuse or violation of these terms.</li>
+      </ul>
 
-    <p class="muted small">Last updated: September 2025</p>
+      <h2>3. Orders &amp; Payments</h2>
+      <ul>
+        <li>Prices and availability are subject to change without notice.</li>
+        <li>Taxes and shipping are calculated at checkout where applicable.</li>
+        <li>We reserve the right to cancel or refuse any order at our discretion.</li>
+      </ul>
+
+      <h2>4. Shipping &amp; Returns</h2>
+      <p>See our <a href="#">Shipping &amp; Returns</a> page for full details on processing times, carriers, and return eligibility.</p>
+
+      <h2>5. Acceptable Use</h2>
+      <ul>
+        <li>Do not attempt to disrupt or interfere with site operations.</li>
+        <li>No unauthorized scraping, reverse engineering, or automated abuse.</li>
+        <li>Use the site for lawful purposes only.</li>
+      </ul>
+
+      <h2>6. Intellectual Property</h2>
+      <p>All content, designs, trademarks, and logos on this site are owned by SUB•URBAN or its licensors. You may not copy, distribute, or create derivative works without permission.</p>
+
+      <h2>7. Privacy Notice</h2>
+      <p>We collect information you provide (like email, sizes, wishlist) and technical data (like device and usage info) to operate and improve the site.</p>
+      <ul>
+        <li><strong>What we collect:</strong> account details, preferences (e.g., sizes), wishlist, and contact form submissions.</li>
+        <li><strong>How we use it:</strong> to provide services, personalize your experience, process orders, and communicate updates.</li>
+        <li><strong>Sharing:</strong> we may share limited data with service providers (e.g., payment, hosting, analytics) to run the site.</li>
+        <li><strong>Security:</strong> we use reasonable safeguards but no method is 100% secure.</li>
+        <li><strong>Your rights:</strong> request access, correction, or deletion of your information where applicable.</li>
+      </ul>
+
+      <h2>8. Cookies</h2>
+      <p>We use cookies and similar technologies for core functionality (e.g., session) and analytics. You can control cookies in your browser settings.</p>
+
+      <h2>9. Third-Party Services</h2>
+      <p>We may link to third-party sites (e.g., social or payment). Their terms and privacy policies govern your use of those services.</p>
+
+      <h2>10. Changes</h2>
+      <p>We may update these Terms &amp; Privacy periodically. Material changes will be posted on this page with a new “Last updated” date.</p>
+
+      <h2>11. Contact</h2>
+      <p>Questions? Reach us via our <a href="contact.html">Contact</a> page.</p>
+    </section>
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <h4>SUB•URBAN</h4>
-      <p>Future-ready womenswear.</p>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>SUB•URBAN</h4>
+        <p>Future-ready womenswear.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#">Shipping &amp; Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
     </div>
+  </footer>
 
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="#">Contact</a>
-    </nav>
-
-    <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
-  </div>
-</footer>
+  <!-- Scripts -->
+  <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
 </body>
 </html>
