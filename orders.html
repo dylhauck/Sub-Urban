@@ -5,13 +5,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>My Orders — SUB•URBAN</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="favicon.ico"/>
+  <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
 </head>
 <body>
-  <div class="bar"><a href="index.html" class="logo"><span>SUB</span>•URBAN</a> — My Orders</div>
+  <!-- Top bar -->
+  <div class="bar">
+    <a href="index.html" class="logo" style="text-decoration:none;">
+      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </a> — My Orders
+  </div>
 
+  <!-- Header -->
   <header class="header">
-    <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
-    <!-- same nav block as above -->
+    <a class="logo" href="index.html">
+      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </a>
     <nav class="nav" aria-label="Primary">
       <a href="index.html#new">New</a>
       <a href="index.html#tops">Tops</a>
@@ -23,43 +32,34 @@
           <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
           <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
           <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
-          <button role="menuitem" id="authAction" type="button" class="menu-link-btn">Log in</button>
+          <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
         </div>
       </div>
     </nav>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a>
-    <a href="index.html#tops">Tops</a>
-    <a href="index.html#dresses">Dresses</a>
-    <a href="index.html#about">About</a>
-    <a data-acct="account"  href="account.html">My Account</a>
-    <a data-acct="orders"   href="orders.html">My Orders</a>
-    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
-    <a id="authActionMobile" href="login.html">Log in</a>
-  </div>
-
+  <!-- Content -->
   <main class="auth-wrap">
     <section class="auth-card">
       <h1>My Orders</h1>
-      <p class="muted">Order history will appear here once you start selling.</p>
+      <p class="muted">Order history will appear here.</p>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
-  <div class="footer-brand">SUB•URBAN</div>
-
-  <nav class="footer-nav" aria-label="Footer">
-    <a href="index.html#new">New Arrivals</a>
-    <a href="#">Shipping &amp; Returns</a>
-    <a href="#">Size Guide</a>
-    <a href="contact.html">Contact Us</a>
-  </nav>
-
-  <div class="footer-meta">© 2025 SUB•URBAN</div>
-</footer>
+    <div class="footer-brand">
+      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="index.html#new">New Arrivals</a>
+      <a href="#">Shipping &amp; Returns</a>
+      <a href="#">Size Guide</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="footer-meta">© 2025 SUB•URBAN</div>
+  </footer>
 
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
