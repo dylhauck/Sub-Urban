@@ -307,3 +307,22 @@ label.tos a:hover {
 .form-grid input, .form-grid select{
   width:100%; padding:.85rem 1rem; border-radius:12px; border:1px solid rgba(0,0,0,.12); background:#fff;
 }
+
+/* My Account dropdown */
+.menu{position:relative}
+.menu-trigger{
+  background:transparent;border:1px solid rgba(0,0,0,.12);
+  padding:.5rem .7rem;border-radius:10px;cursor:pointer;color:var(--text)
+}
+.menu-trigger:hover{background:rgba(0,0,0,.04)}
+.menu-list{
+  position:absolute;right:0;top:calc(100% + 8px);min-width:200px;
+  background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:12px;
+  box-shadow:var(--shadow);padding:.4rem;display:none;z-index:60
+}
+.menu-list a,.menu-list .menu-link-btn{
+  display:block;width:100%;text-align:left;padding:.55rem .7rem;border-radius:8px;
+  text-decoration:none;color:var(--text);background:transparent;border:0;cursor:pointer
+}
+.menu-list a:hover,.menu-list .menu-link-btn:hover{background:rgba(0,0,0,.05)}
+.menu.account-menu.open .menu-list{display:block}
