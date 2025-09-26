@@ -1,198 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SUB•URBAN — Futuristic Womenswear</title>
-  <meta name="description" content="Futuristic, elevated womenswear with clean silhouettes and luminous accents." />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SUB•URBAN — Future-ready womenswear</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="favicon.ico"/>
 </head>
 <body>
-  <div class="bar">Free shipping over $75 • Easy 30-day returns</div>
+  <div class="bar"><a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a> — New drops weekly</div>
 
   <header class="header">
-    <a class="logo" href="/"><span>SUB</span>•URBAN</a>
+    <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
     <nav class="nav" aria-label="Primary">
-  <a href="index.html#new">New</a>
-  <a href="index.html#tops">Tops</a>
-  <a href="index.html#dresses">Dresses</a>
-  <a href="index.html#about">About</a>
+      <a href="#new">New</a>
+      <a href="#tops">Tops</a>
+      <a href="#dresses">Dresses</a>
+      <a href="#about">About</a>
 
-  <!-- My Account dropdown -->
-  <div class="menu account-menu">
-    <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">
-      My Account ▾
-    </button>
-    <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-      <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-      <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
-      <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
-      <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
-    </div>
-  </div>
-</nav>
+      <div class="menu account-menu">
+        <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
+        <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
+          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
+          <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
+        </div>
+      </div>
+    </nav>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="#new">New</a>
-    <a href="#tops">Tops</a>
-    <a href="#dresses">Dresses</a>
-    <a href="#about">About</a>
+    <a href="#new">New</a><a href="#tops">Tops</a><a href="#dresses">Dresses</a><a href="#about">About</a>
+    <a data-acct="account"  href="account.html">My Account</a>
+    <a data-acct="orders"   href="orders.html">My Orders</a>
+    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <h1>Stretch the plains of womenswear.</h1>
-      <p>Minimal lines. Technical fabrics. Iridescent details that catch the light — and the moment.</p>
-      <div class="cta-row">
-        <a class="btn primary" href="#collection">Shop the drop</a>
-        <a class="btn ghost" href="#about">Learn more</a>
+  <main>
+    <!-- Your existing homepage content (hero, grids, newsletter, about, etc.) goes here. -->
+    <section class="hero" id="new">
+      <div class="hero-inner">
+        <h1>Neo-luxury for every day</h1>
+        <p class="muted">Soft pinks, rose gold accents, and future-forward silhouettes.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#collection">Shop New</a>
+          <a class="btn outline" href="wishlist.html">Wishlist</a>
+        </div>
       </div>
-    </div>
-    <img class="hero-img" src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1600&auto=format&fit=crop" alt="Model wearing futuristic dress with luminous accents">
-  </section>
-
-  <section class="features" role="list" aria-label="Store benefits">
-    <div class="feat">⚡ Fast shipping</div>
-    <div class="feat">🧵 Premium fabrics</div>
-    <div class="feat">♻️ Responsible sourcing</div>
-    <div class="feat">↩️ Easy returns</div>
-  </section>
-
-  <!-- Collection Grid -->
-  <main id="collection" class="grid">
-    <!-- 1 -->
-    <article class="card" id="new">
-      <img src="https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1200&auto=format&fit=crop" alt="Iridescent satin slip dress" loading="lazy">
-      <div class="card-body">
-        <h3>Iridescent Slip Dress</h3>
-        <p class="price">$98</p>
-        <p class="desc">Bias-cut silhouette with luminous sheen.</p>
-        <div class="pill-row"><span class="pill">New</span><span class="pill">Limited</span></div>
-        <a class="btn primary block" href="product.html">View details</a>
-      </div>
-    </article>
-
-    <!-- 2 -->
-    <article class="card" id="tops">
-      <img src="https://images.unsplash.com/photo-1548883354-7622d03acae1?q=80&w=1200&auto=format&fit=crop" alt="Neon piped crop top" loading="lazy">
-      <div class="card-body">
-        <h3>Neon-Piped Crop</h3>
-        <p class="price">$54</p>
-        <p class="desc">Clean cut, soft stretch, glow piping.</p>
-        <a class="btn outline block" href="product.html">View details</a>
-      </div>
-    </article>
-
-    <!-- 3 -->
-    <article class="card" id="dresses">
-      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop" alt="Holographic panel dress" loading="lazy">
-      <div class="card-body">
-        <h3>Holographic Panel Dress</h3>
-        <p class="price">$120</p>
-        <p class="desc">Structured lines with light-shifting panels.</p>
-        <a class="btn outline block" href="product.html">View details</a>
-      </div>
-    </article>
-
-    <!-- 4 -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1200&auto=format&fit=crop" alt="Tech fleece set" loading="lazy">
-      <div class="card-body">
-        <h3>Tech Fleece Set</h3>
-        <p class="price">$86</p>
-        <p class="desc">Off-duty comfort, future-forward lines.</p>
-        <a class="btn outline block" href="product.html">View details</a>
-      </div>
-    </article>
-
-    <!-- 5 -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200&auto=format&fit=crop" alt="Metallic midi skirt" loading="lazy">
-      <div class="card-body">
-        <h3>Metallic Midi Skirt</h3>
-        <p class="price">$74</p>
-        <p class="desc">Silver-sheen pleats, weightless movement.</p>
-        <a class="btn outline block" href="product.html">View details</a>
-      </div>
-    </article>
-
-    <!-- 6 -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=1200&auto=format&fit=crop" alt="Teal satin blouse" loading="lazy">
-      <div class="card-body">
-        <h3>Teal Satin Blouse</h3>
-        <p class="price">$62</p>
-        <p class="desc">Liquid drape, luminous finish.</p>
-        <a class="btn outline block" href="product.html">View details</a>
-      </div>
-    </article>
-
-    <!-- 7 -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200&auto=format&fit=crop" alt="Quilted metallic jacket" loading="lazy">
-      <div class="card-body">
-        <h3>Quilted Metallic Jacket</h3>
-        <p class="price">$132</p>
-        <p class="desc">Warmth with a subtle chrome glow.</p>
-        <a class="btn outline block" href="product.html">View details</a>
-      </div>
-    </article>
-
-    <!-- 8 -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1200&auto=format&fit=crop" alt="Studio set — tonal dress" loading="lazy">
-      <div class="card-body">
-        <h3>Tonal Knit Dress</h3>
-        <p class="price">$96</p>
-        <p class="desc">Second-skin knit with sculpted lines.</p>
-        <a class="btn outline block" href="product.html">View details</a>
-      </div>
-    </article>
+      <img class="hero-img" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1600&auto=format&fit=crop" alt="">
+      <div class="hero-glow"></div>
+    </section>
   </main>
 
-  <section class="newsletter" aria-labelledby="nl-title">
-    <h2 id="nl-title">Join the signal</h2>
-    <p>Be first for drops, private sales, and early access.</p>
-    <form class="nl-form" action="#" method="post">
-      <label for="email" class="sr-only">Email address</label>
-      <input id="email" name="email" type="email" placeholder="you@example.com" required>
-      <button class="btn primary" type="submit">Subscribe</button>
-    </form>
-  </section>
-
-  <section id="about" class="about">
-    <div class="glass">
-      <h2>Designed for forward motion</h2>
-      <p>SUB•URBAN blends minimal silhouettes with technical materials and gentle luminosity.</p>
-    </div>
-  </section>
-
   <footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <h4>SUB•URBAN</h4>
-      <p>Future-ready womenswear.</p>
+    <div class="footer-grid">
+      <div class="footer-brand"><h4>SUB•URBAN</h4><p>Future-ready womenswear.</p></div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#">Shipping &amp; Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
     </div>
+  </footer>
 
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="#">Contact</a>
-    </nav>
-
-    <div class="footer-meta small">© <span id="year"></span> SUB•URBAN</div>
-  </div>
-</footer>
-
-  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">Added to bag</div>
+  <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
 </body>
 </html>
