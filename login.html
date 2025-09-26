@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Account — SUB•URBAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="bar"><a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a> — Account & Rewards</div>
+
+  <header class="header">
+    <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html#new">New</a>
+      <a href="index.html#tops">Tops</a>
+      <a href="index.html#dresses">Dresses</a>
+      <a href="index.html#about">About</a>
+      <a href="login.html">Account</a>
+    </nav>
+    <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+  </header>
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a><a href="login.html">Account</a>
+  </div>
+
+  <main class="auth-wrap">
+    <section class="auth-card">
+      <h1>Welcome back</h1>
+      <p class="muted">Sign in to see member-only drops and discounts.</p>
+
+      <form id="loginForm" autocomplete="on">
+        <label>Email</label>
+        <input type="email" id="loginEmail" required placeholder="you@example.com" />
+        <label>Password</label>
+        <input type="password" id="loginPassword" required placeholder="••••••••" />
+        <button class="btn primary block" type="submit">Sign in</button>
+        <button class="btn ghost block" id="forgotBtn" type="button">Forgot password</button>
+      </form>
+
+      <hr class="hr">
+
+      <h2>Create account</h2>
+      <form id="signupForm" autocomplete="on">
+        <label>Email</label>
+        <input type="email" id="signupEmail" required placeholder="you@example.com" />
+        <label>Password</label>
+        <input type="password" id="signupPassword" required placeholder="Minimum 8 characters" />
+        <div id="strength" class="strength">Password strength: <b>—</b></div>
+        <label><input type="checkbox" id="tos" required> I agree to the Terms & Privacy</label>
+        <button class="btn outline block" type="submit">Create account</button>
+      </form>
+
+      <p id="authMsg" class="muted" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div><h4>SUB•URBAN</h4><p>Future-ready womenswear.</p></div>
+      <nav aria-label="Footer"><a href="#">Shipping & Returns</a><a href="#">Size Guide</a><a href="#">Contact</a></nav>
+      <div class="small">© <span id="year"></span> SUB•URBAN</div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDKs (no bundler needed on Pages) -->
+  <script type="module" src="auth.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
