@@ -6,14 +6,26 @@
   <title>Product — SUB•URBAN</title>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="favicon.ico"/>
+  <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
 </head>
 <body>
-  <div class="bar"><a href="index.html" class="logo" style="text-decoration:none;"><span>SUB</span>•URBAN</a> — Limited release</div>
+  <!-- Top bar -->
+  <div class="bar">
+    <a href="index.html" class="logo" style="text-decoration:none;">
+      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </a> — Product
+  </div>
 
+  <!-- Header -->
   <header class="header">
-    <a class="logo" href="index.html"><span>SUB</span>•URBAN</a>
+    <a class="logo" href="index.html">
+      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+      <a href="index.html#new">New</a>
+      <a href="index.html#tops">Tops</a>
+      <a href="index.html#dresses">Dresses</a>
+      <a href="index.html#about">About</a>
       <div class="menu account-menu">
         <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
         <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
@@ -27,85 +39,22 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
-    <a data-acct="account"  href="account.html">My Account</a>
-    <a data-acct="orders"   href="orders.html">My Orders</a>
-    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
-    <a id="authActionMobile" href="login.html">Log in</a>
-  </div>
+  <!-- Keep your existing static PDP content here -->
+  <!-- (images, color options, sizes, description, etc.) -->
 
-  <nav class="crumbs"><a href="index.html">Home</a> / Product</nav>
-
-  <main class="pdp">
-    <div class="pdp-gallery">
-      <img id="mainImage" class="pdp-main" src="" alt="Product image">
-      <div id="thumbs" class="pdp-thumbs"></div>
-    </div>
-
-    <div class="pdp-info">
-      <h1 class="pdp-title">Aurora Satin Slip</h1>
-      <div class="pdp-meta">
-        <div class="stars">★★★★★</div>
-        <div class="sku">SKU: SLIP-AURORA</div>
-      </div>
-      <div class="pdp-price">$128</div>
-
-      <label class="opt-label">Color</label>
-      <div id="colorSwatches" class="swatches">
-        <button class="swatch" data-key="soft-pink" style="background:#F7D6E0" aria-label="Soft Pink"></button>
-        <button class="swatch" data-key="rose-gold" style="background:#B76E79" aria-label="Rose Gold"></button>
-        <button class="swatch" data-key="violet"    style="background:#7C3AED" aria-label="Violet"></button>
-        <button class="swatch" data-key="teal"      style="background:#14B8A6" aria-label="Teal"></button>
-        <button class="swatch" data-key="silver"    style="background:#C0C0C0" aria-label="Silver"></button>
-      </div>
-
-      <label class="opt-label">Size</label>
-      <div id="sizes" class="sizes">
-        <input type="radio" id="s-xs" name="size" value="XS" checked><label for="s-xs">XS</label>
-        <input type="radio" id="s-s"  name="size" value="S"><label for="s-s">S</label>
-        <input type="radio" id="s-m"  name="size" value="M"><label for="s-m">M</label>
-        <input type="radio" id="s-l"  name="size" value="L"><label for="s-l">L</label>
-        <input type="radio" id="s-xl" name="size" value="XL"><label for="s-xl">XL</label>
-        <button class="link" id="sizeGuideBtn" type="button">Size guide</button>
-      </div>
-
-      <div class="pdp-actions">
-        <button class="btn primary" id="addToBag">Add to bag</button>
-        <button class="btn ghost wishlist-btn" data-product="aurora-slip">♡ Wishlist</button>
-      </div>
-      <p class="pdp-note">Free shipping on orders over $150.</p>
-
-      <div class="pdp-desc">
-        <h2>Details</h2>
-        <ul>
-          <li>Bias-cut satin with rose-gold hardware</li>
-          <li>Machine wash cold</li>
-          <li>Made responsibly</li>
-        </ul>
-      </div>
-    </div>
-  </main>
-
-  <section class="related">
-    <h3>Related</h3>
-    <!-- optional related grid -->
-  </section>
-
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
+  <!-- Footer -->
   <footer class="footer">
-  <div class="footer-brand">SUB•URBAN</div>
-
-  <nav class="footer-nav" aria-label="Footer">
-    <a href="index.html#new">New Arrivals</a>
-    <a href="#">Shipping &amp; Returns</a>
-    <a href="#">Size Guide</a>
-    <a href="contact.html">Contact Us</a>
-  </nav>
-
-  <div class="footer-meta">© 2025 SUB•URBAN</div>
-</footer>
+    <div class="footer-brand">
+      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="index.html#new">New Arrivals</a>
+      <a href="#">Shipping &amp; Returns</a>
+      <a href="#">Size Guide</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="footer-meta">© 2025 SUB•URBAN</div>
+  </footer>
 
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
