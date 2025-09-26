@@ -1,17 +1,31 @@
-// Mobile drawer
+// script.js — site-wide UI bits (drawer, footer year, toasts, images, PDP gallery, account dropdown)
+
+// ----- Mobile drawer -----
 const menuBtn = document.getElementById('menuBtn');
-const drawer = document.getElementById('drawer');
+const drawer  = document.getElementById('drawer');
 menuBtn?.addEventListener('click', () => {
-  const open = drawer.style.display === 'flex';
+  const open = drawer?.style.display === 'flex';
+  if (!drawer) return;
   drawer.style.display = open ? 'none' : 'flex';
   menuBtn.setAttribute('aria-expanded', String(!open));
   drawer.setAttribute('aria-hidden', String(open));
 });
 
-// Year
+// Close drawer when clicking outside (mobile)
+document.addEventListener('click', (e)=>{
+  if (!drawer || !menuBtn) return;
+  const isInside = drawer.contains(e.target) || e.target === menuBtn;
+  if (!isInside && drawer.style.display === 'flex'){
+    drawer.style.display = 'none';
+    menuBtn.setAttribute('aria-expanded','false');
+    drawer.setAttribute('aria-hidden','true');
+  }
+});
+
+// ----- Footer year -----
 document.getElementById('year')?.append(new Date().getFullYear());
 
-// Toast helper
+// ----- Toast helper -----
 function showToast(msg='Added to bag'){
   const t = document.getElementById('toast');
   if(!t) return;
@@ -22,18 +36,18 @@ function showToast(msg='Added to bag'){
 }
 document.getElementById('addToBag')?.addEventListener('click', e => { e.preventDefault(); showToast(); });
 
-// Size guide modal
+// ----- Size guide modal (PDP) -----
 document.getElementById('sizeGuideBtn')?.addEventListener('click', () => {
-  document.getElementById('sizeGuide').showModal();
+  document.getElementById('sizeGuide')?.showModal();
 });
 
-/* ===== UNIVERSAL IMAGE FALLBACK ===== */
+// ----- Universal image fallback -----
 const PLACEHOLDER = 'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop';
 document.querySelectorAll('img').forEach(img=>{
   img.onerror = () => { if (img.src !== PLACEHOLDER) img.src = PLACEHOLDER; };
 });
 
-/* ===== PDP COLOR/SIZE → IMAGES (only runs on product.html) ===== */
+// ----- PDP color/size → gallery (only runs on product.html safely) -----
 const images = {
   'soft-pink': { default: [
     'https://images.unsplash.com/photo-1520974735194-98f3c7a4bafc?q=80&w=1600&auto=format&fit=crop',
@@ -113,6 +127,26 @@ function updateGallery(scrollTop=true){
   bindThumbClicks();
   if(scrollTop) window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-// Init (runs harmlessly on index too)
+// Init safely (only runs on PDP if elements exist)
 if(mainImage){ updateGallery(false); }
+
+// ----- Account dropdown open/close (desktop) -----
+const acctBtn  = document.getElementById('acctMenuBtn');
+const acctMenu = document.querySelector('.account-menu');
+document.addEventListener('click', (e)=>{
+  if (!acctBtn || !acctMenu) return;
+  const open = acctMenu.classList.contains('open');
+  if (e.target === acctBtn){
+    acctMenu.classList.toggle('open');
+    acctBtn.setAttribute('aria-expanded', String(!open));
+  } else if (!acctMenu.contains(e.target)){
+    acctMenu.classList.remove('open');
+    acctBtn.setAttribute('aria-expanded', 'false');
+  }
+});
+document.addEventListener('keydown', (e)=>{
+  if (e.key === 'Escape' && acctMenu?.classList.contains('open')){
+    acctMenu.classList.remove('open');
+    acctBtn?.setAttribute('aria-expanded', 'false');
+  }
+});
