@@ -1,6 +1,6 @@
 /* ========== Theme (Light, Lux Futuristic) ==========
 Palette: Soft Pink #F7D6E0, Rose Gold #B76E79/#E6B8A2, Electric Violet #7C3AED, Teal #14B8A6, Silver #C0C0C0
-Fonts: Inter (UI), Space Grotesk (display)
+Fonts: Arial (site-wide)
 */
 /* Set site-wide font to Arial */
 html, body {
@@ -38,7 +38,7 @@ html, body {
 html,body{height:100%}
 body{
   margin:0;
-  font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  font-family: Arial, sans-serif !important; /* ensure body sticks to Arial */
   color:var(--text);
   background:
     radial-gradient(1200px 800px at 100% -10%, rgba(183,110,121,.12), transparent 60%), /* rose-gold haze */
@@ -47,6 +47,9 @@ body{
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
 }
+
+/* Ensure form/UI elements inherit Arial */
+input, textarea, select, button, label { font-family: Arial, sans-serif !important; }
 
 /* Utility */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -66,7 +69,7 @@ body{
   padding:1rem 1.25rem;background:rgba(255,255,255,.75);backdrop-filter:saturate(140%) blur(10px);
   border-bottom:1px solid rgba(0,0,0,.08);
 }
-.logo{font-family:"Space Grotesk",Inter,sans-serif;font-weight:700;letter-spacing:.04em;text-decoration:none;color:var(--text);font-size:1.1rem}
+.logo{font-family: Arial, sans-serif; font-weight:700;letter-spacing:.04em;text-decoration:none;color:var(--text);font-size:1.1rem}
 .logo span{background:var(--rose-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .nav{display:flex;gap:1.2rem}
 .nav a{color:var(--muted);text-decoration:none;font-weight:500}
@@ -80,7 +83,7 @@ body{
 /* Hero (lighter with rose-gold glow) */
 .hero{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;padding:3rem 1.25rem 2rem;max-width:1200px;margin:0 auto}
 .hero-inner{z-index:1}
-.hero h1{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;margin:0 0 .75rem}
+.hero h1{font-family: Arial, sans-serif; font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;margin:0 0 .75rem}
 .hero p{color:var(--muted);max-width:52ch;margin:0 0 1.25rem}
 .cta-row{display:flex;gap:.8rem;flex-wrap:wrap}
 .hero-img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow);object-fit:cover;min-height:320px}
@@ -123,7 +126,7 @@ body{
 .card:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(13,18,36,.16)}
 .card img{width:100%;height:280px;object-fit:cover;border-bottom:1px solid rgba(0,0,0,.06)}
 .card-body{padding:1rem}
-.card h3{margin:.2rem 0 .4rem;font-family:"Space Grotesk",Inter,sans-serif}
+.card h3{margin:.2rem 0 .4rem;font-family: Arial, sans-serif;}
 .price{margin:0;font-weight:800;color:#111}
 .desc{color:var(--muted);margin:.4rem 0 .8rem}
 .pill-row{display:flex;gap:.4rem;flex-wrap:wrap;margin:.3rem 0 .9rem}
@@ -131,7 +134,7 @@ body{
 
 /* Newsletter */
 .newsletter{max-width:900px;margin:3rem auto 0;padding:2rem 1.25rem;text-align:center}
-.newsletter h2{font-family:"Space Grotesk",Inter,sans-serif;font-size:2rem;margin:.2rem 0 .4rem}
+.newsletter h2{font-family: Arial, sans-serif; font-size:2rem;margin:.2rem 0 .4rem}
 .nl-form{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-top:1rem}
 .nl-form input{
   min-width:260px;padding:.95rem 1rem;border-radius:12px;
@@ -175,12 +178,12 @@ body{
 
 .footer-brand h4 {
   margin: 0 0 .4rem;
-  font-family: "Space Grotesk", Inter, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .footer-nav {
   display: flex;
-  gap: 1rem;               /* ← spaces between links */
+  gap: 1rem;               /* spaces between links */
   flex-wrap: wrap;         /* wraps to next line on small screens */
   align-items: center;
   padding-top: .2rem;
@@ -230,7 +233,7 @@ body{
 .thumb img{width:100%;height:80px;object-fit:cover;border-radius:9px}
 
 .pdp-info{display:flex;flex-direction:column;gap:1rem}
-.pdp-title{font-family:"Space Grotesk",Inter,sans-serif;font-size:2rem;margin:0}
+.pdp-title{font-family: Arial, sans-serif; font-size:2rem;margin:0}
 .pdp-meta{display:flex;gap:1rem;align-items:center;color:var(--muted)}
 .stars{letter-spacing:.1em;color:#c0486a}
 .sku{font-size:.9rem}
@@ -251,7 +254,7 @@ body{
 .pdp-actions{display:flex;gap:.6rem;margin:.4rem 0 0;flex-wrap:wrap}
 .pdp-note{color:var(--muted);font-size:.95rem}
 
-.pdp-desc h2{font-family:"Space Grotesk",Inter,sans-serif;margin:1rem 0 .3rem}
+.pdp-desc h2{font-family: Arial, sans-serif; margin:1rem 0 .3rem}
 .pdp-desc ul{margin:.2rem 0 0 1rem}
 
 .related{max-width:1200px;margin:2rem auto 3rem;padding:0 1.25rem}
@@ -306,8 +309,8 @@ dialog::backdrop{background:rgba(0,0,0,.3)}
 /* Auth forms */
 .auth-wrap{max-width:800px;margin:2rem auto 4rem;padding:0 1.25rem}
 .auth-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:1.25rem;box-shadow:var(--shadow)}
-.auth-card h1{font-family:"Space Grotesk",Inter,sans-serif;margin:.2rem 0}
-.auth-card h2{font-family:"Space Grotesk",Inter,sans-serif;margin:1rem 0 .4rem}
+.auth-card h1{font-family: Arial, sans-serif; margin:.2rem 0}
+.auth-card h2{font-family: Arial, sans-serif; margin:1rem 0 .4rem}
 .auth-card label{display:block;margin:.5rem 0 .25rem;color:var(--muted)}
 .auth-card input{width:100%;padding:.9rem 1rem;border-radius:12px;border:1px solid rgba(0,0,0,.12);background:#fff;margin-bottom:.7rem}
 .auth-actions{display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap}
@@ -315,7 +318,7 @@ dialog::backdrop{background:rgba(0,0,0,.3)}
 .hr{border:0;border-top:1px solid rgba(0,0,0,.08);margin:1rem 0}
 .strength{font-size:.95rem;margin:-.4rem 0 .6rem;color:var(--muted)}
 
-.page-title { font-family:"Space Grotesk",Inter,sans-serif; margin:1.2rem 1.25rem .2rem }
+.page-title { font-family: Arial, sans-serif; margin:1.2rem 1.25rem .2rem }
 .wish-wrap { max-width:1200px; margin:0 auto 3rem; padding:0 1.25rem }
 .empty { display:flex; flex-direction:column; align-items:center; justify-content:center;
   gap:.8rem; padding:2rem; margin:1rem 0; border:1px dashed rgba(0,0,0,.12);
@@ -409,4 +412,4 @@ label.tos a:hover {
 /* Contact form status messages */
 #contactMsg { font-size: .95rem; margin-top: 1rem; }
 #contactMsg.success { color: #1a7f37; } /* green */
-#contactMsg.error { color: #d93025; }   /* red */
+#contactMsg.error   { color: #d93025; } /* red */
