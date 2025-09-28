@@ -1,130 +1,95 @@
-// wishlist.js — renders the logged-in user's wishlist as product cards,
-// supports live updates and removing items.
+// wishlist.js — render/manage wishlist stored in localStorage
+// Uses the same key as index.html and product.html
+const WL_KEY = 'wishlist_local';
 
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-import {
-  getFirestore, doc, onSnapshot, updateDoc, arrayRemove
-} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
-const auth = getAuth();             // uses app initialized in auth.js
-const db   = getFirestore();
-
-// Minimal product catalog (IDs must match data-product values used on buttons)
-const CATALOG = {
-  "prod-iridescent-slip": {
-    title: "Iridescent Slip Dress",
-    price: 98,
-    image: "https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1200&auto=format&fit=crop",
-    href: "product.html"
-  },
-  "prod-holo-dress": {
-    title: "Holographic Panel Dress",
-    price: 120,
-    image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop",
-    href: "product.html"
-  },
-  "prod-teal-blouse": {
-    title: "Teal Satin Blouse",
-    price: 62,
-    image: "https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=1200&auto=format&fit=crop",
-    href: "product.html"
-  },
-  "prod-metallic-midi": {
-    title: "Metallic Midi Skirt",
-    price: 74,
-    image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200&auto=format&fit=crop",
-    href: "product.html"
-  },
-  "prod-metallic-jacket": {
-    title: "Quilted Metallic Jacket",
-    price: 132,
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200&auto=format&fit=crop",
-    href: "product.html"
-  },
-  "prod-tonal-knit": {
-    title: "Tonal Knit Dress",
-    price: 96,
-    image: "https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1200&auto=format&fit=crop",
-    href: "product.html"
-  },
-  "prod-tech-fleece": {
-    title: "Tech Fleece Set",
-    price: 86,
-    image: "https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1200&auto=format&fit=crop",
-    href: "product.html"
-  }
-};
-
-const PLACEHOLDER = "https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop";
-const $ = (s) => document.querySelector(s);
-const wishGrid = $("#wishGrid");
-const empty    = $("#emptyState");
-const hint     = $("#wishHint");
-
-// Render helper with image fallback
-function cardHTML(pid, uid){
-  const p = CATALOG[pid] || {
-    title: "Saved item",
-    price: null,
-    image: PLACEHOLDER,
-    href: "product.html"
-  };
-  const price = p.price !== null ? `$${p.price}` : "—";
-  return `
-    <article class="card">
-      <img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.src='${PLACEHOLDER}'">
-      <div class="card-body">
-        <h3>${p.title}</h3>
-        <p class="price">${price}</p>
-        <div class="card-actions">
-          <a class="btn outline" href="${p.href}">View details</a>
-          <button class="btn ghost remove-btn" type="button" data-product="${pid}" data-uid="${uid}">Remove</button>
-        </div>
-      </div>
-    </article>
-  `;
+/* ---------- Helpers ---------- */
+function readWishlist() {
+  try { return JSON.parse(localStorage.getItem(WL_KEY) || '[]'); }
+  catch { return []; }
 }
+function writeWishlist(items) {
+  try { localStorage.setItem(WL_KEY, JSON.stringify(items)); }
+  catch {}
+}
+function currency(v) { return `$${Number(v).toFixed(0)}`; }
 
-function bindRemove(uid){
-  document.querySelectorAll(".remove-btn").forEach(btn=>{
-    btn.onclick = async () => {
-      const pid = btn.dataset.product;
-      await updateDoc(doc(db, "users", uid), { wishlist: arrayRemove(pid) });
-    };
+function toast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(() => {
+    t.style.opacity = 1;
+    t.style.transform = 'translateX(-50%)';
   });
+  setTimeout(() => { t.style.opacity = 0; }, 1400);
+  setTimeout(() => { t.remove(); }, 1800);
 }
 
-function showEmpty(isEmpty){
-  if(isEmpty){
-    empty.classList.remove("hidden");
-  }else{
-    empty.classList.add("hidden");
-  }
-}
+/* ---------- Rendering ---------- */
+function renderWishlist() {
+  const root = document.getElementById('wishlistRoot');
+  if (!root) return;
 
-// Entry
-onAuthStateChanged(auth, (user) => {
-  if (!user){
-    hint.textContent = "Please sign in to view your wishlist.";
-    wishGrid.innerHTML = "";
-    showEmpty(true);
+  const items = readWishlist();
+  root.innerHTML = '';
+
+  if (!items.length) {
+    root.innerHTML = `
+      <div class="empty">
+        <strong>No items yet</strong>
+        <p class="muted">Save items you love from the <a href="index.html#collection">collection</a>.</p>
+      </div>`;
     return;
   }
 
-  hint.textContent = "These are your saved items.";
-  const uref = doc(db, "users", user.uid);
+  const grid = document.createElement('section');
+  grid.className = 'grid';
 
-  // Live updates
-  onSnapshot(uref, (snap) => {
-    const data = snap.data() || {};
-    const list = Array.isArray(data.wishlist) ? data.wishlist : [];
-    if (!list.length){
-      wishGrid.innerHTML = "";
-      showEmpty(true);
-      return;
-    }
-    wishGrid.innerHTML = list.map(pid => cardHTML(pid, user.uid)).join("");
-    showEmpty(false);
-    bindRemove(user.uid);
+  items.forEach((it, idx) => {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${it.image}" alt="${it.title}" />
+      <div class="card-body">
+        <h3>${it.title}</h3>
+        <p class="price">${currency(it.price)}</p>
+        <div class="card-actions">
+          <a class="btn outline" href="product.html">View details</a>
+          <button class="btn ghost remove-wl" data-index="${idx}" type="button">Remove</button>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
   });
+
+  root.appendChild(grid);
+}
+
+/* ---------- Events ---------- */
+// Remove a single item
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.remove-wl');
+  if (!btn) return;
+
+  const idx = Number(btn.getAttribute('data-index'));
+  const items = readWishlist();
+  if (Number.isInteger(idx) && idx >= 0 && idx < items.length) {
+    items.splice(idx, 1);
+    writeWishlist(items);
+    renderWishlist();
+    toast('Removed from wishlist');
+  }
+});
+
+// Initial render
+document.addEventListener('DOMContentLoaded', () => {
+  // If wishlistEmpty placeholder exists from HTML, remove it when items are present
+  try {
+    const arr = readWishlist();
+    if (arr.length > 0) {
+      document.getElementById('wishlistEmpty')?.remove();
+    }
+  } catch {}
+  renderWishlist();
 });
