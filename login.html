@@ -74,5 +74,20 @@
 
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.querySelector('#loginBtn');
+  const email = document.querySelector('#loginEmail');
+  const pass = document.querySelector('#loginPassword');
+  if (!btn) { console.log('[diag] #loginBtn not found'); return; }
+  console.log('[diag] login button present');
+
+  // Do NOT keep this — for diagnostics only:
+  btn.addEventListener('click', () => {
+    console.log('[diag] click ->', email?.value, pass?.value ? '••••••' : '(no pass)');
+  }, { once: true });
+});
+</script>
 </body>
 </html>
