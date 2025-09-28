@@ -1,7 +1,7 @@
 /* ========== Custom Logo Font (Rachella Kyle) ========== */
 @font-face {
   font-family: 'Purplehaze';
-  src: url('fonts/PurplehazepersonaluseBlack-51n3a.otf.ttf') format('truetype');
+  src: url('fonts/PurplehazepersonaluseBlack-51n3a.otf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -9,7 +9,7 @@
 /* Use Rachella Kyle for header/footer wordmark */
 .logo,
 .footer-brand {
-  font-family: 'RachellaKyle', Arial, sans-serif !important;
+  font-family: 'Purplehaze', Arial, sans-serif !important;
   font-size: 2rem;
   letter-spacing: .05em;
 }
