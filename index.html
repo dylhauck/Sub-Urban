@@ -9,13 +9,10 @@
   <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
 </head>
 <body>
-  <!-- Announcement bar -->
-  <div class="bar">
-    Free shipping over $75
-  </div>
+  <div class="bar">Free shipping over $75</div>
 
-  <!-- Header (nav-only; logo removed per your request) -->
-  <header class="header">
+  <!-- Header centered -->
+  <header class="header center-nav">
     <nav class="nav" aria-label="Primary">
       <a href="#new">New</a>
       <a href="#tops">Tops</a>
@@ -34,7 +31,7 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <!-- Mobile drawer -->
+  <!-- Drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
     <a href="#new">New</a>
     <a href="#tops">Tops</a>
@@ -49,18 +46,13 @@
   <!-- Hero -->
   <section class="hero" id="new">
     <div class="hero-inner">
-      <!-- Big centered brand -->
       <h1 class="logo" style="font-size: clamp(2.8rem, 7vw, 5rem); text-align:center; margin-bottom: .75rem;">
         <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
       </h1>
-
-      <!-- Tagline -->
       <h2 style="font-weight:400; text-align:center; margin:.2rem 0 1.1rem;">Luxury meets future</h2>
-
       <p style="text-align:center; max-width:52ch; margin:0 auto 1.25rem; color:var(--muted);">
         Soft pinks, rose-gold accents, electric violet highlights, and cool teal details—crafted for statement makers.
       </p>
-
       <div class="cta-row" style="justify-content:center;">
         <a class="btn primary" href="#collection">Shop New</a>
         <a class="btn ghost" href="#about">About the Brand</a>
@@ -71,7 +63,7 @@
     <div class="hero-glow" aria-hidden="true"></div>
   </section>
 
-  <!-- Feature chips -->
+  <!-- Features -->
   <div class="features">
     <div class="feat">Free returns, 30 days</div>
     <div class="feat">Insider rewards</div>
@@ -79,7 +71,7 @@
     <div class="feat">US & Intl shipping</div>
   </div>
 
-  <!-- Product grid (restored) -->
+  <!-- Products -->
   <section class="grid" id="collection" aria-label="Featured products">
     <!-- Card 1 -->
     <article class="card" data-product-id="aurora-set">
@@ -236,11 +228,9 @@
     </form>
   </section>
 
-  <!-- Footer (centered) -->
+  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-brand">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </div>
+    <div class="footer-brand"><span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
     <nav class="footer-nav" aria-label="Footer">
       <a href="index.html#new">New Arrivals</a>
       <a href="#">Shipping &amp; Returns</a>
@@ -253,18 +243,32 @@
   <!-- Scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
+
+  <!-- Wishlist Save (localStorage) -->
   <script>
-    // tiny wishlist toast fallback (optional)
-    document.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.add-to-wishlist');
-      if (!btn) return;
-      const t = document.createElement('div');
-      t.className = 'toast';
-      t.textContent = 'Added to wishlist';
-      document.body.appendChild(t);
+    const WISHLIST_CATALOG = {
+      "aurora-set": { id:"aurora-set", title:"Aurora Satin Set", price:129, image:"https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=1200&auto=format&fit=crop" },
+      "neon-violet-slip": { id:"neon-violet-slip", title:"Neon Violet Slip", price:98, image:"https://images.unsplash.com/photo-1549216962-9f7b6ac7f8a9?q=80&w=1200&auto=format&fit=crop" },
+      "teal-rib-top": { id:"teal-rib-top", title:"Teal Ribbed Top", price:54, image:"https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop" },
+      "silver-parka": { id:"silver-parka", title:"Silver Tech Parka", price:189, image:"https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop" },
+      "rose-gold-blazer": { id:"rose-gold-blazer", title:"Rose-Gold Blazer", price:149, image:"https://images.unsplash.com/photo-1548883354-94bc1d1c1a70?q=80&w=1200&auto=format&fit=crop" },
+      "holo-skirt": { id:"holo-skirt", title:"Holographic Midi Skirt", price:79, image:"https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1200&auto=format&fit=crop" },
+      "neo-bomber": { id:"neo-bomber", title:"Neo Bomber Jacket", price:139, image:"https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=1200&auto=format&fit=crop" },
+      "teal-wrap-dress": { id:"teal-wrap-dress", title:"Teal Wrap Dress", price:119, image:"https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop" }
+    };
+    const WL_KEY = 'wishlist_local';
+    function showToast(msg){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t);
       requestAnimationFrame(()=>{ t.style.opacity=1; t.style.transform='translateX(-50%)'; });
-      setTimeout(()=>{ t.style.opacity=0; }, 1400);
-      setTimeout(()=>{ t.remove(); }, 1800);
+      setTimeout(()=>{ t.style.opacity=0; }, 1400); setTimeout(()=>{ t.remove(); }, 1800); }
+    function addToWishlistById(productId){
+      const meta = WISHLIST_CATALOG[productId]; if (!meta){ showToast('Could not add'); return; }
+      const item = { id:meta.id, title:meta.title, price:meta.price, image:meta.image, ts:Date.now() };
+      try{ const arr=JSON.parse(localStorage.getItem(WL_KEY)||'[]'); if(!arr.find(x=>x.id===item.id)){ arr.push(item); localStorage.setItem(WL_KEY,JSON.stringify(arr)); }
+        showToast('Added to wishlist'); }catch(e){ console.warn(e); showToast('Could not add'); }
+    }
+    document.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.add-to-wishlist'); if(!btn) return;
+      const pid = btn.getAttribute('data-product-id'); if(pid) addToWishlistById(pid);
     });
   </script>
 </body>
