@@ -9,18 +9,11 @@
   <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
 </head>
 <body>
-  <!-- Top bar -->
-  <div class="bar">
-    <a href="index.html" class="logo" style="text-decoration:none;">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </a> — Member Area
-  </div>
+  <!-- Announcement bar -->
+  <div class="bar">Welcome back</div>
 
-  <!-- Header -->
+  <!-- Header (nav-only) -->
   <header class="header">
-    <a class="logo" href="index.html">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </a>
     <nav class="nav" aria-label="Primary">
       <a href="index.html#new">New</a>
       <a href="index.html#tops">Tops</a>
@@ -39,7 +32,55 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <!-- (Keep the sizes/verify content you have working) -->
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <a href="index.html#new">New</a>
+    <a href="index.html#tops">Tops</a>
+    <a href="index.html#dresses">Dresses</a>
+    <a href="index.html#about">About</a>
+    <a data-acct="account"  href="account.html">My Account</a>
+    <a data-acct="orders"   href="orders.html">My Orders</a>
+    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a id="authActionMobile" href="login.html">Log in</a>
+  </div>
+
+  <main class="auth-wrap">
+    <section class="auth-card">
+      <h1>My Account</h1>
+      <p class="muted" id="acctGreeting">Signed in as: <span id="acctEmail">—</span></p>
+
+      <h2>Saved Sizes</h2>
+      <form id="sizesForm" class="form-grid">
+        <div>
+          <label for="sizeTop">Top Size</label>
+          <select id="sizeTop">
+            <option value="">—</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
+          </select>
+        </div>
+        <div>
+          <label for="sizeBottom">Bottom Size</label>
+          <select id="sizeBottom">
+            <option value="">—</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
+          </select>
+        </div>
+        <div>
+          <label for="sizeDress">Dress Size</label>
+          <select id="sizeDress">
+            <option value="">—</option><option>0</option><option>2</option><option>4</option><option>6</option><option>8</option><option>10</option><option>12</option>
+          </select>
+        </div>
+        <div class="col-span">
+          <button type="submit" class="btn primary">Save sizes</button>
+          <span id="sizesMsg" class="muted"></span>
+        </div>
+      </form>
+
+      <div class="hr"></div>
+
+      <h2>Wishlist</h2>
+      <p class="muted">Manage wishlist items on the <a href="wishlist.html">Wishlist page</a>.</p>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -55,12 +96,47 @@
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
+  <!-- Scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
 
-  <!-- Keep your Firestore code for sizes + verification -->
+  <!-- Minimal account wiring (keeps your existing Firestore logic workable) -->
   <script type="module">
-    /* your existing account logic */
+    // If your existing account JS already handles loading/saving, keep this minimal.
+    // Populate email from Firebase auth if available (non-blocking).
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    const auth = getAuth();
+    const acctEmail = document.getElementById('acctEmail');
+    onAuthStateChanged(auth, (user) => { acctEmail.textContent = user?.email || "Guest"; });
+
+    // Let your existing Firestore handler hook this form by ID if you have one.
+    // Fall back to a simple localStorage demo so the page isn't "blank".
+    const sizesForm = document.getElementById('sizesForm');
+    const sizesMsg  = document.getElementById('sizesMsg');
+    const sizeTop   = document.getElementById('sizeTop');
+    const sizeBottom= document.getElementById('sizeBottom');
+    const sizeDress = document.getElementById('sizeDress');
+
+    // Load previously saved (local) as a non-blocking fallback.
+    try {
+      const saved = JSON.parse(localStorage.getItem('sizes_demo') || '{}');
+      if (saved.top) sizeTop.value = saved.top;
+      if (saved.bottom) sizeBottom.value = saved.bottom;
+      if (saved.dress) sizeDress.value = saved.dress;
+    } catch {}
+
+    sizesForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      sizesMsg.textContent = 'Saving…';
+      // Fallback local storage (your Firestore code can override with real save)
+      const data = { top: sizeTop.value, bottom: sizeBottom.value, dress: sizeDress.value };
+      try {
+        localStorage.setItem('sizes_demo', JSON.stringify(data));
+        sizesMsg.textContent = '✓ Saved';
+      } catch {
+        sizesMsg.textContent = '⚠️ Could not save';
+      }
+    });
   </script>
 </body>
 </html>
