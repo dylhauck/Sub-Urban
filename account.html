@@ -9,21 +9,19 @@
   <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
 </head>
 <body>
-  <!-- Announcement bar -->
-  <div class="bar">Manage your profile, sizes & address</div>
+  <div class="bar">Manage your profile</div>
 
-  <!-- Header (centered nav) -->
   <header class="header center-nav">
+    <a href="index.html" class="logo" aria-label="SUB URBAN — home">
+      <span class="sub">SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html#new">New</a>
-      <a href="index.html#tops">Tops</a>
-      <a href="index.html#dresses">Dresses</a>
-      <a href="index.html#about">About</a>
+      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
       <div class="menu account-menu">
         <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
         <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="account" href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders" href="orders.html">My Orders</a>
           <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
           <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
         </div>
@@ -32,310 +30,68 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <!-- Mobile drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a>
-    <a href="index.html#tops">Tops</a>
-    <a href="index.html#dresses">Dresses</a>
-    <a href="index.html#about">About</a>
-    <a data-acct="account"  href="account.html">My Account</a>
-    <a data-acct="orders"   href="orders.html">My Orders</a>
-    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a data-acct="account" href="account.html">My Account</a><a data-acct="orders" href="orders.html">My Orders</a><a data-acct="wishlist" href="wishlist.html">Wishlist</a>
     <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
   <main class="auth-wrap">
     <section class="auth-card">
       <h1>My Account</h1>
-      <p class="muted" id="acctGreeting">Signed in as: <span id="acctEmail">Guest</span></p>
+      <div id="authMsg" class="muted" aria-live="polite"></div>
 
-      <!-- ================== Sizes ================== -->
-      <h2>Saved Sizes</h2>
-      <form id="sizesForm" class="form-grid" autocomplete="on">
+      <h2>Sizes</h2>
+      <div class="form-grid">
         <div>
-          <label for="sizeTop">Top Size</label>
-          <select id="sizeTop">
-            <option value="">—</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
-          </select>
+          <label for="sizeTop">Top</label>
+          <select id="sizeTop"><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select>
         </div>
         <div>
-          <label for="sizeBottom">Bottom Size</label>
-          <select id="sizeBottom">
-            <option value="">—</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
-          </select>
+          <label for="sizeBottom">Bottom</label>
+          <select id="sizeBottom"><option>0</option><option>2</option><option>4</option><option>6</option><option>8</option><option>10</option><option>12</option></select>
         </div>
-        <div>
-          <label for="sizeDress">Dress Size</label>
-          <select id="sizeDress">
-            <option value="">—</option><option>0</option><option>2</option><option>4</option><option>6</option><option>8</option><option>10</option><option>12</option>
-          </select>
-        </div>
-        <div class="col-span">
-          <button type="submit" class="btn primary">Save sizes</button>
-          <span id="sizesMsg" class="muted" aria-live="polite"></span>
-        </div>
-      </form>
+      </div>
 
-      <div class="hr"></div>
+      <h2>Default Address</h2>
+      <div class="form-grid">
+        <div><label for="addrName">Full name</label><input id="addrName" type="text" placeholder="Jane Doe"></div>
+        <div><label for="addrPhone">Phone</label><input id="addrPhone" type="tel" placeholder="(555) 555-5555"></div>
+        <div class="col-span"><label for="addr1">Address line 1</label><input id="addr1" type="text" placeholder="123 Main St"></div>
+        <div class="col-span"><label for="addr2">Address line 2</label><input id="addr2" type="text" placeholder="Apt / Suite (optional)"></div>
+        <div><label for="addrCity">City</label><input id="addrCity" type="text"></div>
+        <div><label for="addrState">State</label><input id="addrState" type="text" maxlength="2" placeholder="IL"></div>
+        <div><label for="addrZip">ZIP</label><input id="addrZip" type="text" maxlength="10"></div>
+        <div><label for="addrCountry">Country</label><input id="addrCountry" type="text" value="USA"></div>
+      </div>
 
-      <!-- ================== Address ================== -->
-      <h2>Saved Address</h2>
-      <form id="addressForm" class="form-grid" autocomplete="on">
-        <div class="col-span">
-          <label for="addrName">Full Name</label>
-          <input id="addrName" type="text" placeholder="Jane Doe" autocomplete="name"/>
-        </div>
-
-        <div>
-          <label for="addrPhone">Phone</label>
-          <input id="addrPhone" type="tel" placeholder="(555) 555-5555" autocomplete="tel"/>
-        </div>
-        <div>
-          <label for="addrCountry">Country</label>
-          <input id="addrCountry" type="text" placeholder="United States" autocomplete="country-name"/>
-        </div>
-
-        <div class="col-span">
-          <label for="addrLine1">Address Line 1</label>
-          <input id="addrLine1" type="text" placeholder="123 Market St" autocomplete="address-line1"/>
-        </div>
-        <div class="col-span">
-          <label for="addrLine2">Address Line 2 (optional)</label>
-          <input id="addrLine2" type="text" placeholder="Apt, suite, etc." autocomplete="address-line2"/>
-        </div>
-
-        <div>
-          <label for="addrCity">City</label>
-          <input id="addrCity" type="text" placeholder="Chicago" autocomplete="address-level2"/>
-        </div>
-        <div>
-          <label for="addrState">State / Province</label>
-          <input id="addrState" type="text" placeholder="IL" autocomplete="address-level1"/>
-        </div>
-        <div>
-          <label for="addrZip">Postal Code</label>
-          <input id="addrZip" type="text" placeholder="60601" autocomplete="postal-code"/>
-        </div>
-        <div>
-          <label class="tos" for="addrDefault">
-            <input id="addrDefault" type="checkbox"/>
-            <span>Set as default shipping address</span>
-          </label>
-        </div>
-
-        <div class="col-span">
-          <button type="submit" class="btn primary">Save address</button>
-          <span id="addrMsg" class="muted" aria-live="polite"></span>
-        </div>
-      </form>
-
-      <div class="hr"></div>
-
-      <h2>Wishlist</h2>
-      <p class="muted">Manage wishlist items on the <a href="wishlist.html">Wishlist page</a>.</p>
+      <div class="auth-actions">
+        <button id="saveAccount" class="btn primary" type="button">Save</button>
+        <button id="logoutBtn" class="btn ghost" type="button">Log out</button>
+      </div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-brand">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </div>
+    <div class="footer-brand"><span class="sub">SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
     <nav class="footer-nav" aria-label="Footer">
-      <a href="index.html#new">New Arrivals</a>
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="index.html#new">New Arrivals</a><a href="#">Shipping &amp; Returns</a><a href="#">Size Guide</a><a href="contact.html">Contact Us</a>
     </nav>
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
-  <!-- Core scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
-
-  <!-- Inline account wiring: loads/saves sizes & address (Firestore + fallback) -->
-  <script type="module">
-    // Attempt Firestore save/load if available; gracefully fall back to localStorage.
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    const auth = getAuth();
-    const db = (()=>{ try { return getFirestore(); } catch { return null; } })();
-
-    // Elements
-    const acctEmail = document.getElementById('acctEmail');
-
-    const sizesForm = document.getElementById('sizesForm');
-    const sizesMsg  = document.getElementById('sizesMsg');
-    const sizeTop   = document.getElementById('sizeTop');
-    const sizeBottom= document.getElementById('sizeBottom');
-    const sizeDress = document.getElementById('sizeDress');
-
-    const addressForm= document.getElementById('addressForm');
-    const addrMsg    = document.getElementById('addrMsg');
-    const addrName   = document.getElementById('addrName');
-    const addrPhone  = document.getElementById('addrPhone');
-    const addrCountry= document.getElementById('addrCountry');
-    const addrLine1  = document.getElementById('addrLine1');
-    const addrLine2  = document.getElementById('addrLine2');
-    const addrCity   = document.getElementById('addrCity');
-    const addrState  = document.getElementById('addrState');
-    const addrZip    = document.getElementById('addrZip');
-    const addrDefault= document.getElementById('addrDefault');
-
-    // Local fallback helpers
-    const LS_KEY = 'account_profile_fallback';
-    function loadLocal(){
-      try{
-        const data = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
-        if (data.email) acctEmail.textContent = data.email;
-        if (data.sizes){
-          sizeTop.value    = data.sizes.top    || '';
-          sizeBottom.value = data.sizes.bottom || '';
-          sizeDress.value  = data.sizes.dress  || '';
-        }
-        if (data.address){
-          const a = data.address;
-          addrName.value    = a.name    || '';
-          addrPhone.value   = a.phone   || '';
-          addrCountry.value = a.country || '';
-          addrLine1.value   = a.line1   || '';
-          addrLine2.value   = a.line2   || '';
-          addrCity.value    = a.city    || '';
-          addrState.value   = a.state   || '';
-          addrZip.value     = a.postal  || '';
-          addrDefault.checked = !!a.isDefault;
-        }
-      }catch{}
-    }
-    function saveLocal(partial){
-      try{
-        const cur = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
-        localStorage.setItem(LS_KEY, JSON.stringify({ ...cur, ...partial }));
-      }catch{}
-    }
-
-    async function loadFromFirestore(user){
-      if (!db || !user) return;
-      try{
-        const ref = doc(db, 'users', user.uid);
-        const snap = await getDoc(ref);
-        if (snap.exists()){
-          const data = snap.data() || {};
-          // email display
-          acctEmail.textContent = user.email || '—';
-
-          // sizes
-          if (data.sizes){
-            sizeTop.value    = data.sizes.top    || '';
-            sizeBottom.value = data.sizes.bottom || '';
-            sizeDress.value  = data.sizes.dress  || '';
-          }
-          // address
-          if (data.address){
-            const a = data.address;
-            addrName.value    = a.name    || '';
-            addrPhone.value   = a.phone   || '';
-            addrCountry.value = a.country || '';
-            addrLine1.value   = a.line1   || '';
-            addrLine2.value   = a.line2   || '';
-            addrCity.value    = a.city    || '';
-            addrState.value   = a.state   || '';
-            addrZip.value     = a.postal  || '';
-            addrDefault.checked = !!a.isDefault;
-          }
-        } else {
-          acctEmail.textContent = user.email || '—';
-        }
-      }catch(e){
-        // If rules block, fall back to local
-        loadLocal();
-      }
-    }
-
-    async function saveSizesFirestore(user, sizes){
-      const ref = doc(db, 'users', user.uid);
-      // merge sizes with existing doc
-      try{
-        await setDoc(ref, { sizes }, { merge: true });
-        sizesMsg.textContent = '✓ Saved';
-      }catch(e){
-        sizesMsg.textContent = '⚠️ Could not save (using device only)';
-        saveLocal({ sizes });
-      }
-    }
-
-    async function saveAddressFirestore(user, address){
-      const ref = doc(db, 'users', user.uid);
-      try{
-        await setDoc(ref, { address }, { merge: true });
-        addrMsg.textContent = '✓ Saved';
-      }catch(e){
-        addrMsg.textContent = '⚠️ Could not save (using device only)';
-        saveLocal({ address });
-      }
-    }
-
-    // Auth state → load data
-    onAuthStateChanged(auth, (user)=>{
-      acctEmail.textContent = user?.email || 'Guest';
-      if (user && db){
-        loadFromFirestore(user);
-      } else {
-        loadLocal();
-      }
-    });
-
-    // Save sizes
-    sizesForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const sizes = {
-        top:    sizeTop.value || '',
-        bottom: sizeBottom.value || '',
-        dress:  sizeDress.value || ''
-      };
-      sizesMsg.textContent = 'Saving…';
-
-      const user = auth.currentUser;
-      if (user && db){
-        await saveSizesFirestore(user, sizes);
-      } else {
-        saveLocal({ sizes });
-        sizesMsg.textContent = '✓ Saved (on this device)';
-      }
-    });
-
-    // Save address
-    addressForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const address = {
-        name:    addrName.value.trim(),
-        phone:   addrPhone.value.trim(),
-        country: addrCountry.value.trim(),
-        line1:   addrLine1.value.trim(),
-        line2:   addrLine2.value.trim(),
-        city:    addrCity.value.trim(),
-        state:   addrState.value.trim(),
-        postal:  addrZip.value.trim(),
-        isDefault: !!addrDefault.checked
-      };
-
-      // simple required fields check
-      if (!address.name || !address.line1 || !address.city || !address.state || !address.postal || !address.country){
-        addrMsg.textContent = 'Please fill in all required fields.';
-        return;
-      }
-
-      addrMsg.textContent = 'Saving…';
-      const user = auth.currentUser;
-      if (user && db){
-        await saveAddressFirestore(user, address);
-      } else {
-        saveLocal({ address });
-        addrMsg.textContent = '✓ Saved (on this device)';
-      }
-    });
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrap = document.querySelector('.account-menu');
+    const btn  = document.getElementById('acctMenuBtn');
+    if (!wrap || !btn) return;
+    const close = () => { wrap.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+    btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); const o = wrap.classList.toggle('open'); btn.setAttribute('aria-expanded', o?'true':'false'); });
+    document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) close(); });
+    btn.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); btn.click(); } if (e.key==='Escape') close(); });
+  });
   </script>
 </body>
 </html>
