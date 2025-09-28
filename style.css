@@ -1,7 +1,7 @@
 /* ========== Custom Logo Font (Purple Haze) ========== */
 @font-face {
-  font-family: 'PurpleHaze';
-  src: url('fonts/PurplehazepersonaluseBlack-51n3a.otf') format('opentype');
+  font-family: 'RachellaKyle';
+  src: url('fonts/RachellaKyleDemo-R9gee.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -9,7 +9,7 @@
 /* Logo + footer brand use Purple Haze */
 .logo,
 .footer-brand {
-  font-family: 'PurpleHaze', Arial, sans-serif !important;
+  font-family: 'RachellaKyle', Arial, sans-serif !important;
   font-size: 2rem;
   letter-spacing: .05em;
 }
