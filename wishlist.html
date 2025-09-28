@@ -11,9 +11,13 @@
 <body>
   <div class="bar">Your saved items</div>
 
+  <!-- Centered header -->
   <header class="header center-nav">
     <nav class="nav" aria-label="Primary">
-      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+      <a href="index.html#new">New</a>
+      <a href="index.html#tops">Tops</a>
+      <a href="index.html#dresses">Dresses</a>
+      <a href="index.html#about">About</a>
       <div class="menu account-menu">
         <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
         <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
@@ -27,9 +31,15 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
+  <!-- Mobile drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
-    <a data-acct="account" href="account.html">My Account</a><a data-acct="orders" href="orders.html">My Orders</a><a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a href="index.html#new">New</a>
+    <a href="index.html#tops">Tops</a>
+    <a href="index.html#dresses">Dresses</a>
+    <a href="index.html#about">About</a>
+    <a data-acct="account" href="account.html">My Account</a>
+    <a data-acct="orders" href="orders.html">My Orders</a>
+    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
     <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
@@ -44,16 +54,24 @@
   <footer class="footer">
     <div class="footer-brand"><span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
     <nav class="footer-nav" aria-label="Footer">
-      <a href="index.html#new">New Arrivals</a><a href="#">Shipping &amp; Returns</a><a href="#">Size Guide</a><a href="contact.html">Contact Us</a>
+      <a href="index.html#new">New Arrivals</a>
+      <a href="#">Shipping &amp; Returns</a>
+      <a href="#">Size Guide</a>
+      <a href="contact.html">Contact Us</a>
     </nav>
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
+  <!-- Scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
   <script src="wishlist.js" defer></script>
   <script>
-    try{ const arr=JSON.parse(localStorage.getItem('wishlist_local')||'[]'); if(arr.length>0) document.getElementById('wishlistEmpty')?.remove(); }catch{}
+    // Hide the empty state if items exist (quick flash guard)
+    try {
+      const arr = JSON.parse(localStorage.getItem('wishlist_local') || '[]');
+      if (arr.length > 0) document.getElementById('wishlistEmpty')?.remove();
+    } catch {}
   </script>
 </body>
 </html>
