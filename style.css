@@ -1,19 +1,18 @@
-/* ========== Custom Logo Font (Rachella Kyle) ========== */
+/* ========== Custom Logo Font (Purple Haze) ========== */
 @font-face {
-  font-family: 'Purplehaze';
-  src: url('fonts/PurplehazepersonaluseBlack-51n3a.otf') format('truetype');
+  font-family: 'PurpleHaze';
+  src: url('fonts/PurplehazepersonaluseBlack-51n3a.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
-/* Use Rachella Kyle for header/footer wordmark */
+/* Logo + footer brand use Purple Haze */
 .logo,
 .footer-brand {
-  font-family: 'Purplehaze', Arial, sans-serif !important;
+  font-family: 'PurpleHaze', Arial, sans-serif !important;
   font-size: 2rem;
   letter-spacing: .05em;
 }
-
 /* ========== Theme (Light, Lux Futuristic) ==========
 Palette: Soft Pink #F7D6E0, Rose Gold #B76E79/#E6B8A2, Electric Violet #7C3AED, Teal #14B8A6, Silver #C0C0C0
 Fonts: Arial (site-wide), Snorter (logo only)
