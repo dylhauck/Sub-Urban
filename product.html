@@ -6,24 +6,22 @@
   <title>Product — SUB•URBAN</title>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="favicon.ico"/>
-  <!-- Arial site-wide -->
   <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
 </head>
 <body>
   <div class="bar">Free shipping on orders over $75</div>
 
-  <!-- Header (matches your existing structure) -->
   <header class="header center-nav">
+    <a href="index.html" class="logo" aria-label="SUB URBAN — home">
+      <span class="sub">SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html#new">New</a>
-      <a href="index.html#tops">Tops</a>
-      <a href="index.html#dresses">Dresses</a>
-      <a href="index.html#about">About</a>
+      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
       <div class="menu account-menu">
         <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
         <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="account" href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders" href="orders.html">My Orders</a>
           <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
           <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
         </div>
@@ -32,70 +30,41 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <!-- Mobile drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a>
-    <a href="index.html#tops">Tops</a>
-    <a href="index.html#dresses">Dresses</a>
-    <a href="index.html#about">About</a>
-    <a data-acct="account"  href="account.html">My Account</a>
-    <a data-acct="orders"   href="orders.html">My Orders</a>
-    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a data-acct="account" href="account.html">My Account</a><a data-acct="orders" href="orders.html">My Orders</a><a data-acct="wishlist" href="wishlist.html">Wishlist</a>
     <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
-  <!-- Breadcrumbs -->
-  <div class="crumbs">
-    <a href="index.html">Home</a> › <a href="index.html#dresses">Dresses</a> › Luxe Satin Midi
-  </div>
+  <div class="crumbs"><a href="index.html">Home</a> › <a href="index.html#dresses">Dresses</a> › Luxe Satin Midi</div>
 
-  <!-- PDP -->
   <main class="pdp">
-    <!-- Gallery -->
     <section class="pdp-gallery">
-      <img id="pdpMain" class="pdp-main" src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1200&auto=format&fit=crop" alt="Luxe Satin Midi — main"/>
+      <img id="pdpMain" class="pdp-main" src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1200&auto=format&fit=crop" alt="Luxe Satin Midi — main">
       <div class="pdp-thumbs">
-        <button class="thumb" data-full="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1200&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=300&auto=format&fit=crop" alt="Front view">
-        </button>
-        <button class="thumb" data-full="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=300&auto=format&fit=crop" alt="Back view">
-        </button>
-        <button class="thumb" data-full="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=300&auto=format&fit=crop" alt="Detail">
-        </button>
-        <button class="thumb" data-full="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=1200&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=300&auto=format&fit=crop" alt="Lifestyle">
-        </button>
-        <button class="thumb" data-full="https://images.unsplash.com/photo-1475180098004-ca77a66827be?q=80&w=1200&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1475180098004-ca77a66827be?q=80&w=300&auto=format&fit=crop" alt="Angle">
-        </button>
-        <button class="thumb" data-full="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop">
-          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=300&auto=format&fit=crop" alt="Close-up">
-        </button>
+        <button class="thumb" data-full="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1200&auto=format&fit=crop"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=300&auto=format&fit=crop" alt="Front"></button>
+        <button class="thumb" data-full="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=300&auto=format&fit=crop" alt="Back"></button>
+        <button class="thumb" data-full="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200&auto=format&fit=crop"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=300&auto=format&fit=crop" alt="Detail"></button>
+        <button class="thumb" data-full="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=1200&auto=format&fit=crop"><img src="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=300&auto=format&fit=crop" alt="Lifestyle"></button>
+        <button class="thumb" data-full="https://images.unsplash.com/photo-1475180098004-ca77a66827be?q=80&w=1200&auto=format&fit=crop"><img src="https://images.unsplash.com/photo-1475180098004-ca77a66827be?q=80&w=300&auto=format&fit=crop" alt="Angle"></button>
+        <button class="thumb" data-full="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=300&auto=format&fit=crop" alt="Close-up"></button>
       </div>
     </section>
 
-    <!-- Info -->
     <section class="pdp-info">
       <h1 class="pdp-title">Luxe Satin Midi</h1>
-      <div class="pdp-meta">
-        <div class="stars">★★★★★</div>
-        <div class="sku">SKU: LX-2025-01</div>
-      </div>
+      <div class="pdp-meta"><div class="stars">★★★★★</div><div class="sku">SKU: LX-2025-01</div></div>
       <div class="pdp-price">$129</div>
       <p class="desc">A sleek satin midi with a futuristic silhouette and rose-gold hardware accents.</p>
 
-      <!-- Color -->
-      <label class="opt-label" for="color">Color</label>
+      <label class="opt-label">Color</label>
       <div class="swatches" id="colorSwatches" role="radiogroup" aria-label="Color">
-        <button class="swatch" role="radio" aria-checked="true" title="Rose Gold" data-color="rose" data-img="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1200&auto=format&fit=crop" style="background:#E6B8A2"></button>
-        <button class="swatch" role="radio" aria-checked="false" title="Teal" data-color="teal" data-img="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop" style="background:#14B8A6"></button>
-        <button class="swatch" role="radio" aria-checked="false" title="Violet" data-color="violet" data-img="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200&auto=format&fit=crop" style="background:#7C3AED"></button>
-        <button class="swatch" role="radio" aria-checked="false" title="Silver" data-color="silver" data-img="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=1200&auto=format&fit=crop" style="background:#C0C0C0"></button>
+        <button class="swatch" role="radio" aria-checked="true"  title="Rose Gold" data-img="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1200&auto=format&fit=crop" style="background:#E6B8A2"></button>
+        <button class="swatch" role="radio" aria-checked="false" title="Teal"      data-img="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop" style="background:#14B8A6"></button>
+        <button class="swatch" role="radio" aria-checked="false" title="Violet"    data-img="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200&auto=format&fit=crop" style="background:#7C3AED"></button>
+        <button class="swatch" role="radio" aria-checked="false" title="Silver"    data-img="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=1200&auto=format&fit=crop" style="background:#C0C0C0"></button>
       </div>
 
-      <!-- Size -->
       <label class="opt-label">Size</label>
       <div class="sizes" role="radiogroup" aria-label="Size">
         <input type="radio" id="s-xs" name="size" value="XS" checked><label for="s-xs">XS</label>
@@ -110,6 +79,7 @@
         <a href="#" class="btn primary">Add to bag</a>
         <button id="wishBtn" class="btn ghost" type="button">♥ Add to wishlist</button>
       </div>
+
       <p class="pdp-note">Free returns within 30 days.</p>
 
       <section class="pdp-desc">
@@ -123,90 +93,46 @@
     </section>
   </main>
 
-  <!-- Related -->
   <section class="related">
     <h2 class="pdp-desc">You may also like</h2>
     <div class="grid">
-      <a class="card" href="product.html">
-        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=800&auto=format&fit=crop" alt="">
-        <div class="card-body">
-          <h3>Neo Knit Top</h3>
-          <p class="price">$59</p>
-        </div>
-      </a>
-      <a class="card" href="product.html">
-        <img src="https://images.unsplash.com/photo-1520975922203-bc1cf2f7b1f4?q=80&w=800&auto=format&fit=crop" alt="">
-        <div class="card-body">
-          <h3>Orbit Pleat Skirt</h3>
-          <p class="price">$79</p>
-        </div>
-      </a>
-      <a class="card" href="product.html">
-        <img src="https://images.unsplash.com/photo-1548449112-96a38f2a1a56?q=80&w=800&auto=format&fit=crop" alt="">
-        <div class="card-body">
-          <h3>Holo Trench</h3>
-          <p class="price">$149</p>
-        </div>
-      </a>
-      <a class="card" href="product.html">
-        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop" alt="">
-        <div class="card-body">
-          <h3>Prism Heels</h3>
-          <p class="price">$99</p>
-        </div>
-      </a>
+      <a class="card" href="product.html"><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=800&auto=format&fit=crop" alt=""><div class="card-body"><h3>Neo Knit Top</h3><p class="price">$59</p></div></a>
+      <a class="card" href="product.html"><img src="https://images.unsplash.com/photo-1520975922203-bc1cf2f7b1f4?q=80&w=800&auto=format&fit=crop" alt=""><div class="card-body"><h3>Orbit Pleat Skirt</h3><p class="price">$79</p></div></a>
+      <a class="card" href="product.html"><img src="https://images.unsplash.com/photo-1548449112-96a38f2a1a56?q=80&w=800&auto=format&fit=crop" alt=""><div class="card-body"><h3>Holo Trench</h3><p class="price">$149</p></div></a>
+      <a class="card" href="product.html"><img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop" alt=""><div class="card-body"><h3>Prism Heels</h3><p class="price">$99</p></div></a>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-brand"><span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
+    <div class="footer-brand"><span class="sub">SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
     <nav class="footer-nav" aria-label="Footer">
-      <a href="index.html#new">New Arrivals</a>
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="index.html#new">New Arrivals</a><a href="#">Shipping &amp; Returns</a><a href="#">Size Guide</a><a href="contact.html">Contact Us</a>
     </nav>
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
-  <!-- Scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
-
-  <!-- PDP behavior: thumbs + color swatches (self-contained) -->
   <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const wrap = document.querySelector('.account-menu');
+    const btn  = document.getElementById('acctMenuBtn');
+    if (wrap && btn) {
+      const close = () => { wrap.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+      btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); const o = wrap.classList.toggle('open'); btn.setAttribute('aria-expanded', o?'true':'false'); });
+      document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) close(); });
+      btn.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); btn.click(); } if (e.key==='Escape') close(); });
+    }
+
     const mainImg = document.getElementById('pdpMain');
-
-    // Thumbnails swap
-    document.querySelectorAll('.thumb').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const full = btn.getAttribute('data-full');
-        if (full) mainImg.src = full;
-      });
-    });
-
-    // Color swatches swap
-    const swatches = document.getElementById('colorSwatches');
-    swatches?.querySelectorAll('.swatch').forEach(s => {
-      s.addEventListener('click', () => {
-        swatches.querySelectorAll('.swatch').forEach(x => x.setAttribute('aria-checked', 'false'));
-        s.setAttribute('aria-checked', 'true');
-        const img = s.getAttribute('data-img');
-        if (img) mainImg.src = img;
-      });
-    });
-
-    // Optional: Add to wishlist button can later hook into your wishlist.js
-    document.getElementById('wishBtn')?.addEventListener('click', () => {
-      alert('Added to wishlist (UI demo).');
-    });
-
-    // Size guide (demo)
-    document.getElementById('sizeGuideBtn')?.addEventListener('click', () => {
-      alert('Size guide coming soon.');
-    });
+    document.querySelectorAll('.thumb').forEach(b => b.addEventListener('click', () => {
+      const full = b.getAttribute('data-full'); if (full) mainImg.src = full;
+    }));
+    document.querySelectorAll('#colorSwatches .swatch').forEach(s => s.addEventListener('click', () => {
+      document.querySelectorAll('#colorSwatches .swatch').forEach(x => x.setAttribute('aria-checked','false'));
+      s.setAttribute('aria-checked','true');
+      const img = s.getAttribute('data-img'); if (img) mainImg.src = img;
+    }));
   });
   </script>
 </body>
