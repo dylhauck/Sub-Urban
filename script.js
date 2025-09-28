@@ -1,152 +1,91 @@
-// script.js — site-wide UI bits (drawer, footer year, toasts, images, PDP gallery, account dropdown)
+// script.js — nav drawer + My Account dropdown (defensive, page-agnostic)
 
-// ----- Mobile drawer -----
-const menuBtn = document.getElementById('menuBtn');
-const drawer  = document.getElementById('drawer');
-menuBtn?.addEventListener('click', () => {
-  const open = drawer?.style.display === 'flex';
-  if (!drawer) return;
-  drawer.style.display = open ? 'none' : 'flex';
-  menuBtn.setAttribute('aria-expanded', String(!open));
-  drawer.setAttribute('aria-hidden', String(open));
-});
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
-// Close drawer when clicking outside (mobile)
-document.addEventListener('click', (e)=>{
-  if (!drawer || !menuBtn) return;
-  const isInside = drawer.contains(e.target) || e.target === menuBtn;
-  if (!isInside && drawer.style.display === 'flex'){
-    drawer.style.display = 'none';
-    menuBtn.setAttribute('aria-expanded','false');
-    drawer.setAttribute('aria-hidden','true');
+  function wireDrawer() {
+    const menuBtn = $("#menuBtn");
+    const drawer  = $("#drawer");
+    if (!menuBtn || !drawer) return;
+
+    const open = () => {
+      drawer.style.display = "flex";
+      menuBtn.setAttribute("aria-expanded", "true");
+      drawer.setAttribute("aria-hidden", "false");
+      document.addEventListener("keydown", onEsc);
+      // close when any link clicked
+      $$("#drawer a").forEach(a => a.addEventListener("click", close, { once: true }));
+      // close on outside click (mobile full width, but keep it consistent)
+      setTimeout(() => document.addEventListener("click", onOutside), 0);
+    };
+    const close = () => {
+      drawer.style.display = "none";
+      menuBtn.setAttribute("aria-expanded", "false");
+      drawer.setAttribute("aria-hidden", "true");
+      document.removeEventListener("keydown", onEsc);
+      document.removeEventListener("click", onOutside);
+    };
+    const onEsc = (e) => { if (e.key === "Escape") close(); };
+    const onOutside = (e) => { if (!drawer.contains(e.target) && e.target !== menuBtn) close(); };
+
+    menuBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const isOpen = menuBtn.getAttribute("aria-expanded") === "true";
+      isOpen ? close() : open();
+      e.stopPropagation();
+    });
   }
-});
 
-// ----- Footer year -----
-document.getElementById('year')?.append(new Date().getFullYear());
+  function wireAccountMenu() {
+    const wrap = $(".account-menu");         // <div class="menu account-menu">
+    const btn  = $("#acctMenuBtn");          // <button id="acctMenuBtn">
+    const list = $("#acctMenu");             // <div id="acctMenu" class="menu-list">
 
-// ----- Toast helper -----
-function showToast(msg='Added to bag'){
-  const t = document.getElementById('toast');
-  if(!t) return;
-  t.textContent = msg;
-  t.style.opacity = 1;
-  t.style.transform = 'translateX(-50%) translateY(0)';
-  setTimeout(()=>{ t.style.opacity = 0; t.style.transform = 'translateX(-50%) translateY(20px)' }, 1600);
-}
-document.getElementById('addToBag')?.addEventListener('click', e => { e.preventDefault(); showToast(); });
+    if (!wrap || !btn || !list) return;
 
-// ----- Size guide modal (PDP) -----
-document.getElementById('sizeGuideBtn')?.addEventListener('click', () => {
-  document.getElementById('sizeGuide')?.showModal();
-});
+    // Ensure the menu renders above content
+    list.style.zIndex = list.style.zIndex || "60";
 
-// ----- Universal image fallback -----
-const PLACEHOLDER = 'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop';
-document.querySelectorAll('img').forEach(img=>{
-  img.onerror = () => { if (img.src !== PLACEHOLDER) img.src = PLACEHOLDER; };
-});
+    const open = () => {
+      wrap.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+      document.addEventListener("click", onOutside);
+      document.addEventListener("keydown", onEsc);
+    };
+    const close = () => {
+      wrap.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+      document.removeEventListener("click", onOutside);
+      document.removeEventListener("keydown", onEsc);
+    };
+    const onOutside = (e) => { if (!wrap.contains(e.target)) close(); };
+    const onEsc = (e) => { if (e.key === "Escape") close(); };
 
-// ----- PDP color/size → gallery (only runs on product.html safely) -----
-const images = {
-  'soft-pink': { default: [
-    'https://images.unsplash.com/photo-1520974735194-98f3c7a4bafc?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1531910961019-5f9b8778f3b9?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1600&auto=format&fit=crop'
-  ]},
-  'rose-gold': { default: [
-    'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1551041101-dc05d4f8c927?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1508856080171-0f4f66f78e4e?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1600&auto=format&fit=crop'
-  ]},
-  'violet': { default: [
-    'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1520974735194-98f3c7a4bafc?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1531907700752-62799b2a3e3b?q=80&w=1600&auto=format&fit=crop'
-  ]},
-  'teal': { default: [
-    'https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1600&auto=format&fit=crop'
-  ]},
-  'silver': { default: [
-    'https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1542897646-1f27e1b3802a?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1600&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1520974735194-98f3c7a4bafc?q=80&w=1600&auto=format&fit=crop'
-  ]}
-};
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = wrap.classList.contains("open");
+      isOpen ? close() : open();
+    });
 
-let currentColor = 'violet';
-let currentSize  = 'XS';
+    // Keyboard support: open on Enter/Space when focused
+    btn.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        const isOpen = wrap.classList.contains("open");
+        isOpen ? close() : open();
+      }
+    });
 
-const colorWrap = document.getElementById('colorSwatches');
-const sizeWrap  = document.getElementById('sizes');
-const mainImage = document.getElementById('mainImage');
-const thumbsEl  = document.getElementById('thumbs');
+    // Optional: close when clicking a menu item
+    $$("#acctMenu a, #acctMenu .menu-link-btn").forEach(el => {
+      el.addEventListener("click", () => close());
+    });
+  }
 
-colorWrap?.addEventListener('click', (e) => {
-  const btn = e.target.closest('.swatch');
-  if(!btn) return;
-  currentColor = btn.dataset.key;
-  updateGallery();
-});
-sizeWrap?.addEventListener('change', (e) => {
-  if(e.target.name === 'size'){ currentSize = e.target.value; updateGallery(false); }
-});
-
-function bindThumbClicks(){
-  document.querySelectorAll('.thumb').forEach(b=>{
-    b.onclick = () => { mainImage.src = b.dataset.src; };
+  document.addEventListener("DOMContentLoaded", () => {
+    wireDrawer();
+    wireAccountMenu();
   });
-}
-function updateGallery(scrollTop=true){
-  if(!mainImage || !thumbsEl) return;
-  const list = images[currentColor] || images['violet'];
-  const set  = (list[currentSize] && list[currentSize].length) ? list[currentSize] : list.default;
-  thumbsEl.innerHTML = set.slice(0,6).map(url =>
-    `<button class="thumb" aria-label="alt image" data-src="${url}">
-       <img src="${url.replace('w=1600','w=400')}" alt="">
-     </button>`
-  ).join('');
-  mainImage.src = set[0];
-  bindThumbClicks();
-  if(scrollTop) window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-// Init safely (only runs on PDP if elements exist)
-if(mainImage){ updateGallery(false); }
-
-// ----- Account dropdown open/close (desktop) -----
-const acctBtn  = document.getElementById('acctMenuBtn');
-const acctMenu = document.querySelector('.account-menu');
-document.addEventListener('click', (e)=>{
-  if (!acctBtn || !acctMenu) return;
-  const open = acctMenu.classList.contains('open');
-  if (e.target === acctBtn){
-    acctMenu.classList.toggle('open');
-    acctBtn.setAttribute('aria-expanded', String(!open));
-  } else if (!acctMenu.contains(e.target)){
-    acctMenu.classList.remove('open');
-    acctBtn.setAttribute('aria-expanded', 'false');
-  }
-});
-document.addEventListener('keydown', (e)=>{
-  if (e.key === 'Escape' && acctMenu?.classList.contains('open')){
-    acctMenu.classList.remove('open');
-    acctBtn?.setAttribute('aria-expanded', 'false');
-  }
-});
+})();
