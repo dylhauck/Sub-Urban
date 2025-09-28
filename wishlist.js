@@ -1,18 +1,19 @@
 // wishlist.js — render/manage wishlist stored in localStorage
-// Uses the same key as index.html and product.html
 const WL_KEY = 'wishlist_local';
 
-/* ---------- Helpers ---------- */
+/* ---------- Storage helpers (with in-memory fallback) ---------- */
+let __memWL = [];
 function readWishlist() {
   try { return JSON.parse(localStorage.getItem(WL_KEY) || '[]'); }
-  catch { return []; }
+  catch { return __memWL.slice(); }
 }
 function writeWishlist(items) {
   try { localStorage.setItem(WL_KEY, JSON.stringify(items)); }
-  catch {}
+  catch { __memWL = items.slice(); }
 }
 function currency(v) { return `$${Number(v).toFixed(0)}`; }
 
+/* ---------- Toast ---------- */
 function toast(msg) {
   const t = document.createElement('div');
   t.className = 'toast';
@@ -26,7 +27,7 @@ function toast(msg) {
   setTimeout(() => { t.remove(); }, 1800);
 }
 
-/* ---------- Rendering ---------- */
+/* ---------- Render ---------- */
 function renderWishlist() {
   const root = document.getElementById('wishlistRoot');
   if (!root) return;
@@ -82,9 +83,15 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// Clear all (optional hook if you add a "Clear All" button with id="clearWishlist")
+document.getElementById('clearWishlist')?.addEventListener('click', () => {
+  writeWishlist([]);
+  renderWishlist();
+  toast('Wishlist cleared');
+});
+
 // Initial render
 document.addEventListener('DOMContentLoaded', () => {
-  // If wishlistEmpty placeholder exists from HTML, remove it when items are present
   try {
     const arr = readWishlist();
     if (arr.length > 0) {
