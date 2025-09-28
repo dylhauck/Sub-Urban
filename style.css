@@ -1,6 +1,22 @@
+/* ========== Custom Logo Font ========== */
+@font-face {
+  font-family: 'Snorter';
+  src: url('fonts/SnorterPersonalUseRegular-p7DPO.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Logo + footer brand use Snorter */
+.logo,
+.footer-brand {
+  font-family: 'Snorter', Arial, sans-serif !important;
+  font-size: 2rem;
+  letter-spacing: .05em;
+}
+
 /* ========== Theme (Light, Lux Futuristic) ==========
 Palette: Soft Pink #F7D6E0, Rose Gold #B76E79/#E6B8A2, Electric Violet #7C3AED, Teal #14B8A6, Silver #C0C0C0
-Fonts: Arial (site-wide)
+Fonts: Arial (site-wide), Snorter (logo only)
 */
 
 /* Site-wide font: Arial */
@@ -65,8 +81,6 @@ body{
 .header.center-nav{ justify-content:center; }
 .header.center-nav .nav{ margin:0 auto; }
 
-.logo{font-weight:700;letter-spacing:.04em;text-decoration:none;color:var(--text);font-size:1.1rem}
-.logo span{background:var(--rose-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .footer-brand, .logo { display:inline-flex; gap:.15rem; align-items:center; }
 .footer-brand .dot, .logo .dot { color:#000; }
 .footer-brand .urban, .logo .urban { color:var(--violet); }
