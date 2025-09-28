@@ -3,26 +3,26 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Contact — SUB•URBAN</title>
+  <title>Contact Us — SUB•URBAN</title>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="favicon.ico"/>
-  <style>
-    body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }
-    form{max-width:800px;margin:1rem auto 3rem;padding:1.25rem;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;box-shadow:var(--shadow)}
-    textarea{min-height:160px}
-  </style>
+  <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
 </head>
 <body>
-  <div class="bar">We’d love to hear from you</div>
+  <div class="bar">Contact Us</div>
 
+  <!-- Centered header -->
   <header class="header center-nav">
     <nav class="nav" aria-label="Primary">
-      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+      <a href="index.html#new">New</a>
+      <a href="index.html#tops">Tops</a>
+      <a href="index.html#dresses">Dresses</a>
+      <a href="index.html#about">About</a>
       <div class="menu account-menu">
         <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
         <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-          <a role="menuitem" data-acct="account" href="account.html">My Account</a>
-          <a role="menuitem" data-acct="orders" href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
           <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
           <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
         </div>
@@ -31,68 +31,109 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
+  <!-- Drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
-    <a data-acct="account" href="account.html">My Account</a><a data-acct="orders" href="orders.html">My Orders</a><a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a href="index.html#new">New</a>
+    <a href="index.html#tops">Tops</a>
+    <a href="index.html#dresses">Dresses</a>
+    <a href="index.html#about">About</a>
+    <a data-acct="account"  href="account.html">My Account</a>
+    <a data-acct="orders"   href="orders.html">My Orders</a>
+    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
     <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
-  <main class="auth-wrap">
-    <h1>Contact Us</h1>
-    <form id="contactForm">
-      <div class="form-grid">
-        <div><label for="name">Your Name</label><input id="name" type="text" required placeholder="Jane Doe"/></div>
-        <div><label for="email">Email</label><input id="email" type="email" required placeholder="you@example.com"/></div>
-        <div class="col-span"><label for="subject">Subject</label><input id="subject" type="text" required placeholder="Question about an order"/></div>
-        <div class="col-span"><label for="message">Message</label><textarea id="message" required placeholder="How can we help?"></textarea></div>
-      </div>
-      <label class="tos"><input type="checkbox" id="agree" required/><span>I agree to the</span> <a href="terms.html" target="_blank" rel="noopener">Terms & Privacy</a></label>
-      <button class="btn primary" type="submit">Send</button>
-      <div id="contactMsg" aria-live="polite"></div>
-    </form>
+  <main class="about">
+    <div class="glass">
+      <h1 style="margin-top:0">Contact Us</h1>
+      <p class="muted">Have a question about sizing, shipping, or an order? Send us a note—we usually reply within 1 business day.</p>
+
+      <form id="contactForm" class="form-grid" onsubmit="return false;">
+        <div>
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" placeholder="Jane Doe" required/>
+        </div>
+        <div>
+          <label for="email">Your email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required/>
+        </div>
+        <div class="col-span">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" placeholder="How can we help?" required/>
+        </div>
+        <!-- Message spans full width -->
+        <div class="col-span">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="7" placeholder="Write your message…" required></textarea>
+        </div>
+
+        <div class="col-span auth-actions" style="justify-content:flex-start">
+          <button id="sendBtn" class="btn primary" type="button">Send message</button>
+          <span id="contactMsg" class="muted" aria-live="polite" style="align-self:center"></span>
+        </div>
+      </form>
+
+      <p class="muted" style="margin-top:1rem">Or email us directly: <a href="mailto:support@sub-urban.co">support@sub-urban.co</a></p>
+    </div>
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="footer-brand"><span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
     <nav class="footer-nav" aria-label="Footer">
-      <a href="index.html#new">New Arrivals</a><a href="#">Shipping &amp; Returns</a><a href="#">Size Guide</a><a href="contact.html">Contact Us</a>
+      <a href="index.html#new">New Arrivals</a>
+      <a href="#">Shipping &amp; Returns</a>
+      <a href="#">Size Guide</a>
+      <a href="contact.html">Contact Us</a>
     </nav>
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
-  <!-- EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <script>
-    // Replace with your actual EmailJS keys (you provided earlier)
-    const SERVICE_ID = "service_sub-urban";
-    const TEMPLATE_ID = "template_sub-urban";
-    const PUBLIC_KEY  = "qUrw0dBqyEZAcaLqI";
-    emailjs.init(PUBLIC_KEY);
-
-    const form = document.getElementById('contactForm');
-    const msg  = document.getElementById('contactMsg');
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      msg.textContent = 'Sending…';
-      const data = {
-        from_name: document.getElementById('name').value.trim(),
-        reply_to:  document.getElementById('email').value.trim(),
-        subject:   document.getElementById('subject').value.trim(),
-        message:   document.getElementById('message').value.trim()
-      };
-      try{
-        await emailjs.send(SERVICE_ID, TEMPLATE_ID, data);
-        msg.textContent = '✓ Sent! We will reply shortly.';
-        form.reset();
-      }catch(err){
-        console.error(err);
-        msg.textContent = 'Sorry, something went wrong.';
-        msg.className = 'error';
-      }
-    });
-  </script>
-
+  <!-- Auth + site scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
+
+  <!-- Inline account-menu safety toggle (guarantees dropdown works) -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrap = document.querySelector('.account-menu');
+    const btn  = document.getElementById('acctMenuBtn');
+    if (wrap && btn) {
+      const close = () => { wrap.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+      btn.addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        const isOpen = wrap.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) close(); });
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+        if (e.key === 'Escape') close();
+      });
+    }
+
+    // OPTIONAL: Submit handler (hook up your EmailJS or Formspree here)
+    const btnSend = document.getElementById('sendBtn');
+    const msgEl   = document.getElementById('contactMsg');
+    btnSend?.addEventListener('click', async () => {
+      msgEl.textContent = 'Sending…';
+      btnSend.disabled = true;
+      try {
+        // TODO: replace with your actual send logic (EmailJS or Formspree)
+        // await emailjs.send('service_sub-urban','template_sub-urban', {...});
+        await new Promise(r => setTimeout(r, 600)); // fake delay
+        msgEl.textContent = 'Thanks! Your message has been sent.';
+        msgEl.className = 'success';
+        (document.getElementById('contactForm')?.reset());
+      } catch (e) {
+        console.error(e);
+        msgEl.textContent = 'Sorry, something went wrong. Please try again.';
+        msgEl.className = 'error';
+      } finally {
+        btnSend.disabled = false;
+      }
+    });
+  });
+  </script>
 </body>
 </html>
