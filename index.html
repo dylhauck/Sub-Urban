@@ -9,18 +9,13 @@
   <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
 </head>
 <body>
-  <!-- Top bar -->
+  <!-- Announcement bar -->
   <div class="bar">
-    <a href="index.html" class="logo" style="text-decoration:none;">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </a> — Free shipping over $75
+    Free shipping over $75
   </div>
 
-  <!-- Header (BIG, centered logo) -->
-  <header class="header logo-big">
-    <a class="logo" href="index.html" aria-label="SUB•URBAN home">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </a>
+  <!-- Header (nav-only; logo removed per your request) -->
+  <header class="header">
     <nav class="nav" aria-label="Primary">
       <a href="#new">New</a>
       <a href="#tops">Tops</a>
@@ -54,14 +49,25 @@
   <!-- Hero -->
   <section class="hero" id="new">
     <div class="hero-inner">
-      <h1>Luxury meets future.</h1>
-      <p>Soft pinks, rose-gold accents, electric violet highlights, and cool teal details—crafted for statement makers.</p>
-      <div class="cta-row">
+      <!-- Big centered brand -->
+      <h1 class="logo" style="font-size: clamp(2.8rem, 7vw, 5rem); text-align:center; margin-bottom: .75rem;">
+        <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+      </h1>
+
+      <!-- Tagline -->
+      <h2 style="font-weight:400; text-align:center; margin:.2rem 0 1.1rem;">Luxury meets future</h2>
+
+      <p style="text-align:center; max-width:52ch; margin:0 auto 1.25rem; color:var(--muted);">
+        Soft pinks, rose-gold accents, electric violet highlights, and cool teal details—crafted for statement makers.
+      </p>
+
+      <div class="cta-row" style="justify-content:center;">
         <a class="btn primary" href="#collection">Shop New</a>
         <a class="btn ghost" href="#about">About the Brand</a>
       </div>
     </div>
-    <img class="hero-img" alt="Model wearing SUB•URBAN collection" src="https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=1200&auto=format&fit=crop"/>
+    <img class="hero-img" alt="Model wearing SUB•URBAN collection"
+         src="https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=1200&auto=format&fit=crop"/>
     <div class="hero-glow" aria-hidden="true"></div>
   </section>
 
@@ -77,18 +83,16 @@
   <section class="grid" id="collection" aria-label="Featured products">
     <!-- Card 1 -->
     <article class="card" data-product-id="aurora-set">
-      <a href="product.html?id=aurora-set" aria-label="View Aurora Satin Set">
+      <a href="product.html" aria-label="View Aurora Satin Set">
         <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=1200&auto=format&fit=crop" alt="Aurora Satin Set in rose-gold"/>
       </a>
       <div class="card-body">
-        <h3><a href="product.html?id=aurora-set" style="text-decoration:none;color:inherit">Aurora Satin Set</a></h3>
+        <h3><a href="product.html" style="text-decoration:none;color:inherit">Aurora Satin Set</a></h3>
         <p class="price">$129</p>
         <p class="desc">Rose-gold luster with silver piping. Limited drop.</p>
-        <div class="pill-row">
-          <span class="pill">Rose-Gold</span><span class="pill">Teal</span><span class="pill">XS-XL</span>
-        </div>
+        <div class="pill-row"><span class="pill">Rose-Gold</span><span class="pill">Teal</span><span class="pill">XS-XL</span></div>
         <div class="card-actions">
-          <a class="btn outline" href="product.html?id=aurora-set">View details</a>
+          <a class="btn outline" href="product.html">View details</a>
           <button class="btn ghost add-to-wishlist" type="button" data-product-id="aurora-set">♡ Wishlist</button>
         </div>
       </div>
@@ -96,14 +100,16 @@
 
     <!-- Card 2 -->
     <article class="card" data-product-id="neon-violet-slip">
-      <img src="https://images.unsplash.com/photo-1549216962-9f7b6ac7f8a9?q=80&w=1200&auto=format&fit=crop" alt="Neon Violet Slip Dress"/>
+      <a href="product.html" aria-label="View Neon Violet Slip">
+        <img src="https://images.unsplash.com/photo-1549216962-9f7b6ac7f8a9?q=80&w=1200&auto=format&fit=crop" alt="Neon Violet Slip Dress"/>
+      </a>
       <div class="card-body">
-        <h3>Neon Violet Slip</h3>
+        <h3><a href="product.html" style="text-decoration:none;color:inherit">Neon Violet Slip</a></h3>
         <p class="price">$98</p>
         <p class="desc">Electric violet with subtle metallic sheen.</p>
         <div class="pill-row"><span class="pill">Violet</span><span class="pill">XS-L</span></div>
         <div class="card-actions">
-          <a class="btn outline" href="product.html?id=neon-violet-slip">View details</a>
+          <a class="btn outline" href="product.html">View details</a>
           <button class="btn ghost add-to-wishlist" type="button" data-product-id="neon-violet-slip">♡ Wishlist</button>
         </div>
       </div>
@@ -111,14 +117,16 @@
 
     <!-- Card 3 -->
     <article class="card" data-product-id="teal-rib-top">
-      <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop" alt="Teal Ribbed Top"/>
+      <a href="product.html" aria-label="View Teal Ribbed Top">
+        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop" alt="Teal Ribbed Top"/>
+      </a>
       <div class="card-body">
-        <h3>Teal Ribbed Top</h3>
+        <h3><a href="product.html" style="text-decoration:none;color:inherit">Teal Ribbed Top</a></h3>
         <p class="price">$54</p>
         <p class="desc">Cooling teal, second-skin rib knit.</p>
         <div class="pill-row"><span class="pill">Teal</span><span class="pill">XS-XL</span></div>
         <div class="card-actions">
-          <a class="btn outline" href="product.html?id=teal-rib-top">View details</a>
+          <a class="btn outline" href="product.html">View details</a>
           <button class="btn ghost add-to-wishlist" type="button" data-product-id="teal-rib-top">♡ Wishlist</button>
         </div>
       </div>
@@ -126,14 +134,16 @@
 
     <!-- Card 4 -->
     <article class="card" data-product-id="silver-parka">
-      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop" alt="Silver Tech Parka"/>
+      <a href="product.html" aria-label="View Silver Tech Parka">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop" alt="Silver Tech Parka"/>
+      </a>
       <div class="card-body">
-        <h3>Silver Tech Parka</h3>
+        <h3><a href="product.html" style="text-decoration:none;color:inherit">Silver Tech Parka</a></h3>
         <p class="price">$189</p>
         <p class="desc">Weather-proof shell with silver finish.</p>
         <div class="pill-row"><span class="pill">Silver</span><span class="pill">S-XL</span></div>
         <div class="card-actions">
-          <a class="btn outline" href="product.html?id=silver-parka">View details</a>
+          <a class="btn outline" href="product.html">View details</a>
           <button class="btn ghost add-to-wishlist" type="button" data-product-id="silver-parka">♡ Wishlist</button>
         </div>
       </div>
@@ -141,14 +151,16 @@
 
     <!-- Card 5 -->
     <article class="card" data-product-id="rose-gold-blazer">
-      <img src="https://images.unsplash.com/photo-1548883354-94bc1d1c1a70?q=80&w=1200&auto=format&fit=crop" alt="Rose-Gold Blazer"/>
+      <a href="product.html" aria-label="View Rose-Gold Blazer">
+        <img src="https://images.unsplash.com/photo-1548883354-94bc1d1c1a70?q=80&w=1200&auto=format&fit=crop" alt="Rose-Gold Blazer"/>
+      </a>
       <div class="card-body">
-        <h3>Rose-Gold Blazer</h3>
+        <h3><a href="product.html" style="text-decoration:none;color:inherit">Rose-Gold Blazer</a></h3>
         <p class="price">$149</p>
         <p class="desc">Sculpted tailoring with rose-gold glow.</p>
         <div class="pill-row"><span class="pill">Rose-Gold</span><span class="pill">2-12</span></div>
         <div class="card-actions">
-          <a class="btn outline" href="product.html?id=rose-gold-blazer">View details</a>
+          <a class="btn outline" href="product.html">View details</a>
           <button class="btn ghost add-to-wishlist" type="button" data-product-id="rose-gold-blazer">♡ Wishlist</button>
         </div>
       </div>
@@ -156,14 +168,16 @@
 
     <!-- Card 6 -->
     <article class="card" data-product-id="holo-skirt">
-      <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1200&auto=format&fit=crop" alt="Holographic Midi Skirt"/>
+      <a href="product.html" aria-label="View Holographic Midi Skirt">
+        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1200&auto=format&fit=crop" alt="Holographic Midi Skirt"/>
+      </a>
       <div class="card-body">
-        <h3>Holographic Midi Skirt</h3>
+        <h3><a href="product.html" style="text-decoration:none;color:inherit">Holographic Midi Skirt</a></h3>
         <p class="price">$79</p>
         <p class="desc">Iridescent silver that catches every light.</p>
         <div class="pill-row"><span class="pill">Silver</span><span class="pill">XS-L</span></div>
         <div class="card-actions">
-          <a class="btn outline" href="product.html?id=holo-skirt">View details</a>
+          <a class="btn outline" href="product.html">View details</a>
           <button class="btn ghost add-to-wishlist" type="button" data-product-id="holo-skirt">♡ Wishlist</button>
         </div>
       </div>
@@ -171,14 +185,16 @@
 
     <!-- Card 7 -->
     <article class="card" data-product-id="neo-bomber">
-      <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=1200&auto=format&fit=crop" alt="Neo Bomber Jacket"/>
+      <a href="product.html" aria-label="View Neo Bomber Jacket">
+        <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=1200&auto=format&fit=crop" alt="Neo Bomber Jacket"/>
+      </a>
       <div class="card-body">
-        <h3>Neo Bomber Jacket</h3>
+        <h3><a href="product.html" style="text-decoration:none;color:inherit">Neo Bomber Jacket</a></h3>
         <p class="price">$139</p>
         <p class="desc">Matte violet paneling, chrome zip hardware.</p>
         <div class="pill-row"><span class="pill">Violet</span><span class="pill">S-XL</span></div>
         <div class="card-actions">
-          <a class="btn outline" href="product.html?id=neo-bomber">View details</a>
+          <a class="btn outline" href="product.html">View details</a>
           <button class="btn ghost add-to-wishlist" type="button" data-product-id="neo-bomber">♡ Wishlist</button>
         </div>
       </div>
@@ -186,14 +202,16 @@
 
     <!-- Card 8 -->
     <article class="card" data-product-id="teal-wrap-dress">
-      <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop" alt="Teal Wrap Dress"/>
+      <a href="product.html" aria-label="View Teal Wrap Dress">
+        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop" alt="Teal Wrap Dress"/>
+      </a>
       <div class="card-body">
-        <h3>Teal Wrap Dress</h3>
+        <h3><a href="product.html" style="text-decoration:none;color:inherit">Teal Wrap Dress</a></h3>
         <p class="price">$119</p>
         <p class="desc">Fluid satin wrap in signature teal.</p>
         <div class="pill-row"><span class="pill">Teal</span><span class="pill">XS-XL</span></div>
         <div class="card-actions">
-          <a class="btn outline" href="product.html?id=teal-wrap-dress">View details</a>
+          <a class="btn outline" href="product.html">View details</a>
           <button class="btn ghost add-to-wishlist" type="button" data-product-id="teal-wrap-dress">♡ Wishlist</button>
         </div>
       </div>
