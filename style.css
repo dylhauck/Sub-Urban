@@ -1,21 +1,16 @@
-/* ========== Custom Logo Font (Purple Haze / RachellaKyle) ========== */
+/* ========== Custom Logo Font (Rachella Kyle) ========== */
 @font-face {
   font-family: 'RachellaKyle';
-  src: url('fonts/PurplehazepersonaluseBlack-51n3a.otf') format('opentype');
+  src: url('fonts/RachellaKyleDemo-R9gee.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
-/* Logo + footer brand */
+/* Logo + footer brand use Snorter */
 .logo,
 .footer-brand {
   font-family: 'RachellaKyle', Arial, sans-serif !important;
-  font-size: 2.5rem;
   letter-spacing: .05em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .15rem;
 }
 
 /* Force the dot to always use Arial */
