@@ -12,6 +12,9 @@
   <div class="bar">Welcome</div>
 
   <header class="header center-nav">
+    <a href="index.html" class="logo" aria-label="SUB URBAN — home">
+      <span class="sub">SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </a>
     <nav class="nav" aria-label="Primary">
       <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
       <div class="menu account-menu">
@@ -40,9 +43,9 @@
         <div>
           <h2>Sign in</h2>
           <label for="loginEmail">Email</label>
-          <input id="loginEmail" type="email" autocomplete="email" required/>
+          <input id="loginEmail" type="email" autocomplete="email" required>
           <label for="loginPassword">Password</label>
-          <input id="loginPassword" type="password" autocomplete="current-password" required/>
+          <input id="loginPassword" type="password" autocomplete="current-password" required>
           <div class="auth-actions">
             <button id="loginBtn" class="btn primary" type="button">Sign in</button>
             <button id="forgotBtn" class="btn ghost" type="button">Forgot?</button>
@@ -51,13 +54,11 @@
         <div>
           <h2>Create account</h2>
           <label for="regEmail">Email</label>
-          <input id="regEmail" type="email" autocomplete="email" required/>
+          <input id="regEmail" type="email" autocomplete="email" required>
           <label for="regPassword">Password</label>
-          <input id="regPassword" type="password" autocomplete="new-password" required/>
-          <label class="tos"><input id="tos" type="checkbox" required/><span>I agree to the</span> <a href="terms.html" target="_blank" rel="noopener">Terms & Privacy</a></label>
-          <div class="auth-actions">
-            <button id="registerBtn" class="btn primary" type="button">Create account</button>
-          </div>
+          <input id="regPassword" type="password" autocomplete="new-password" required>
+          <label class="tos"><input id="tos" type="checkbox" required><span>I agree to the</span> <a href="terms.html" target="_blank" rel="noopener">Terms &amp; Privacy</a></label>
+          <div class="auth-actions"><button id="registerBtn" class="btn primary" type="button">Create account</button></div>
         </div>
       </div>
       <div id="authMsg" class="muted" aria-live="polite"></div>
@@ -65,7 +66,7 @@
   </main>
 
   <footer class="footer">
-    <div class="footer-brand"><span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
+    <div class="footer-brand"><span class="sub">SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
     <nav class="footer-nav" aria-label="Footer">
       <a href="index.html#new">New Arrivals</a><a href="#">Shipping &amp; Returns</a><a href="#">Size Guide</a><a href="contact.html">Contact Us</a>
     </nav>
@@ -74,6 +75,16 @@
 
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
-
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrap = document.querySelector('.account-menu');
+    const btn  = document.getElementById('acctMenuBtn');
+    if (!wrap || !btn) return;
+    const close = () => { wrap.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+    btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); const o = wrap.classList.toggle('open'); btn.setAttribute('aria-expanded', o?'true':'false'); });
+    document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) close(); });
+    btn.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); btn.click(); } if (e.key==='Escape') close(); });
+  });
+  </script>
 </body>
 </html>
