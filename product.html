@@ -7,17 +7,14 @@
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="favicon.ico"/>
   <style>
-    /* keep Arial everywhere per your site */
     body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }
-    /* smooth swap when images change */
     .pdp-main{ transition: opacity .18s ease; }
   </style>
 </head>
 <body>
-  <!-- Top notice -->
   <div class="bar">Product</div>
 
-  <!-- Centered header (same as other pages) -->
+  <!-- Header -->
   <header class="header center-nav">
     <nav class="nav" aria-label="Primary">
       <a href="index.html#new">New</a>
@@ -37,42 +34,26 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <!-- Mobile drawer -->
+  <!-- Drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a>
-    <a href="index.html#tops">Tops</a>
-    <a href="index.html#dresses">Dresses</a>
-    <a href="index.html#about">About</a>
-    <a data-acct="account"  href="account.html">My Account</a>
-    <a data-acct="orders"   href="orders.html">My Orders</a>
-    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a data-acct="account" href="account.html">My Account</a><a data-acct="orders" href="orders.html">My Orders</a><a data-acct="wishlist" href="wishlist.html">Wishlist</a>
     <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
   <!-- Breadcrumbs -->
-  <nav class="crumbs">
-    <a href="index.html">Home</a> /
-    <a href="index.html#collection">Collection</a> /
-    <span id="crumbName">Aurora Satin Set</span>
-  </nav>
+  <nav class="crumbs"><a href="index.html">Home</a> / <a href="index.html#collection">Collection</a> / <span id="crumbName">Aurora Satin Set</span></nav>
 
   <!-- PDP -->
   <main class="pdp" aria-live="polite">
-    <!-- Gallery -->
     <section class="pdp-gallery">
-      <img id="pdpMain" class="pdp-main"
-           src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=1600&auto=format&fit=crop"
-           alt="Aurora Satin Set in Rose-Gold"/>
+      <img id="pdpMain" class="pdp-main" src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=1600&auto=format&fit=crop" alt="Aurora Satin Set in Rose-Gold"/>
       <div id="pdpThumbs" class="pdp-thumbs"></div>
     </section>
 
-    <!-- Info -->
     <section class="pdp-info">
       <h1 id="pdpTitle" class="pdp-title">Aurora Satin Set</h1>
-      <div class="pdp-meta">
-        <div class="stars" aria-label="4.7 stars">★★★★★</div>
-        <div class="sku" id="pdpSku">SUB-AUR-001</div>
-      </div>
+      <div class="pdp-meta"><div class="stars" aria-label="4.7 stars">★★★★★</div><div class="sku" id="pdpSku">SUB-AUR-001</div></div>
       <div class="pdp-price" id="pdpPrice">$129</div>
 
       <label class="opt-label">Color</label>
@@ -85,7 +66,6 @@
         <button id="addToBag" class="btn primary" type="button">Add to bag</button>
         <button id="addToWishlist" class="btn ghost" type="button">♡ Wishlist</button>
       </div>
-
       <p class="pdp-note" id="pdpNote">Free shipping over $75. Free 30-day returns.</p>
 
       <div class="pdp-desc">
@@ -116,7 +96,6 @@
           </div>
         </div>
       </article>
-
       <article class="card">
         <a href="product.html" aria-label="Holographic Midi Skirt">
           <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1200&auto=format&fit=crop" alt="Holographic Midi Skirt"/>
@@ -130,7 +109,6 @@
           </div>
         </div>
       </article>
-
       <article class="card">
         <a href="product.html" aria-label="Teal Ribbed Top">
           <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop" alt="Teal Ribbed Top"/>
@@ -147,32 +125,22 @@
     </div>
   </section>
 
-  <!-- Footer (centered) -->
+  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-brand">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </div>
+    <div class="footer-brand"><span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
     <nav class="footer-nav" aria-label="Footer">
-      <a href="index.html#new">New Arrivals</a>
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="index.html#new">New Arrivals</a><a href="#">Shipping &amp; Returns</a><a href="#">Size Guide</a><a href="contact.html">Contact Us</a>
     </nav>
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
-  <!-- Core scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
 
-  <!-- PDP logic: swatches, sizes, images, wishlist add -->
+  <!-- PDP logic -->
   <script>
-    /* ---------- Product data (standalone) ---------- */
     const PRODUCT = {
-      id:"aurora-set",
-      title:"Aurora Satin Set",
-      price:129,
-      sku:"SUB-AUR-001",
+      id:"aurora-set", title:"Aurora Satin Set", price:129, sku:"SUB-AUR-001",
       sizes:["XS","S","M","L","XL"],
       colors:{
         "Rose-Gold":{ swatch:"#B76E79", images:[
@@ -194,132 +162,49 @@
           "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop"
         ]}
       },
-      bullets:[
-        "Satin two-piece with silver piping",
-        "Hidden side zip, adjustable straps",
-        "True to size"
-      ]
+      bullets:["Satin two-piece with silver piping","Hidden side zip, adjustable straps","True to size"]
     };
 
-    /* ---------- Tiny helpers ---------- */
     const $=(s,r=document)=>r.querySelector(s);
-    function el(tag, attrs={}, children=[]){
-      const n=document.createElement(tag);
-      for(const [k,v] of Object.entries(attrs)){
-        if(k==='style' && typeof v==='object') Object.assign(n.style,v);
-        else if(k.startsWith('on') && typeof v==='function') n.addEventListener(k.slice(2), v);
-        else if(k==='dataset') Object.assign(n.dataset, v);
-        else n.setAttribute(k, v);
-      }
-      (Array.isArray(children)?children:[children]).forEach(c=>{
-        if(c==null) return;
-        n.appendChild(typeof c==='string'?document.createTextNode(c):c);
-      });
-      return n;
-    }
-    function toast(msg){
-      const t=el('div',{class:'toast'},msg);
-      document.body.appendChild(t);
-      requestAnimationFrame(()=>{ t.style.opacity=1; t.style.transform='translateX(-50%)'; });
-      setTimeout(()=>{ t.style.opacity=0; }, 1400);
-      setTimeout(()=>{ t.remove(); }, 1800);
-    }
+    function el(t,a={},c=[]){const n=document.createElement(t);for(const[k,v]of Object.entries(a)){if(k==='style'&&typeof v==='object')Object.assign(n.style,v);else if(k.startsWith('on')&&typeof v==='function')n.addEventListener(k.slice(2),v);else if(k==='dataset')Object.assign(n.dataset,v);else n.setAttribute(k,v);} (Array.isArray(c)?c:[c]).forEach(x=>{if(x==null)return;n.appendChild(typeof x==='string'?document.createTextNode(x):x)});return n;}
+    function toast(msg){const t=el('div',{class:'toast'},msg);document.body.appendChild(t);requestAnimationFrame(()=>{t.style.opacity=1;t.style.transform='translateX(-50%)';});setTimeout(()=>{t.style.opacity=0;},1400);setTimeout(()=>{t.remove();},1800);}
 
-    /* ---------- Wire up the page ---------- */
-    const titleEl=$("#pdpTitle"), priceEl=$("#pdpPrice"), skuEl=$("#pdpSku"),
-          mainImg=$("#pdpMain"), thumbs=$("#pdpThumbs"),
-          swatches=$("#pdpSwatches"), sizesEl=$("#pdpSizes"),
-          bullets=$("#pdpBullets"), crumb=$("#crumbName");
+    const titleEl=$("#pdpTitle"), priceEl=$("#pdpPrice"), skuEl=$("#pdpSku"), mainImg=$("#pdpMain"), thumbs=$("#pdpThumbs"),
+          swatches=$("#pdpSwatches"), sizesEl=$("#pdpSizes"), bullets=$("#pdpBullets"), crumb=$("#crumbName");
 
-    titleEl.textContent=PRODUCT.title;
-    priceEl.textContent=`$${PRODUCT.price}`;
-    skuEl.textContent=PRODUCT.sku;
-    crumb.textContent=PRODUCT.title;
-    bullets.innerHTML="";
-    PRODUCT.bullets.forEach(b=>bullets.appendChild(el("li",{},b)));
+    titleEl.textContent=PRODUCT.title; priceEl.textContent=`$${PRODUCT.price}`; skuEl.textContent=PRODUCT.sku; crumb.textContent=PRODUCT.title;
+    bullets.innerHTML=""; PRODUCT.bullets.forEach(b=>bullets.appendChild(el("li",{},b)));
 
-    const colorNames=Object.keys(PRODUCT.colors);
-    let selectedColor=colorNames[0];
-    let selectedSize=PRODUCT.sizes[0];
+    const colorNames=Object.keys(PRODUCT.colors); let selectedColor=colorNames[0]; let selectedSize=PRODUCT.sizes[0];
 
-    function renderSizes(){
-      sizesEl.innerHTML="";
-      PRODUCT.sizes.forEach(sz=>{
-        const id=`size_${sz}`;
-        const input=el("input",{type:"radio", name:"size", id, value:sz, ...(sz===selectedSize?{checked:""}:{})});
-        const label=el("label",{for:id},sz);
-        sizesEl.appendChild(input);
-        sizesEl.appendChild(label);
-      });
-    }
-    sizesEl.addEventListener("change", e=>{
-      if(e.target.name==="size") selectedSize=e.target.value;
-    });
+    function renderSizes(){ sizesEl.innerHTML=""; PRODUCT.sizes.forEach(sz=>{const id=`size_${sz}`; const i=el("input",{type:"radio",name:"size",id,value:sz, ...(sz===selectedSize?{checked:""}:{})}); const l=el("label",{for:id},sz); sizesEl.appendChild(i); sizesEl.appendChild(l);}); }
+    sizesEl.addEventListener("change",e=>{ if(e.target.name==="size") selectedSize=e.target.value; });
 
-    function renderSwatches(){
-      swatches.innerHTML="";
-      colorNames.forEach(name=>{
-        const c=PRODUCT.colors[name];
-        const btn=el("button",{
-          class:"swatch", type:"button", title:name, "aria-label":name,
-          style:{ background:c.swatch, borderColor:"rgba(0,0,0,.12)" }
-        });
-        if(name===selectedColor) btn.style.outline="3px solid rgba(0,0,0,.15)";
-        btn.addEventListener("click", ()=>{
-          selectedColor=name;
-          renderSwatches();
-          renderImages();
-        });
-        swatches.appendChild(btn);
-      });
-    }
+    function renderSwatches(){ swatches.innerHTML=""; colorNames.forEach(name=>{ const c=PRODUCT.colors[name]; const s=el("button",{class:"swatch",type:"button",title:name,"aria-label":name,style:{background:c.swatch,borderColor:"rgba(0,0,0,.12)"}}); if(name===selectedColor) s.style.outline="3px solid rgba(0,0,0,.15)";
+      s.addEventListener("click",()=>{ selectedColor=name; renderSwatches(); renderImages(); }); swatches.appendChild(s); }); }
 
-    function renderImages(){
-      const imgs=PRODUCT.colors[selectedColor].images;
-      mainImg.style.opacity=.2;
-      setTimeout(()=>{
-        mainImg.src=imgs[0];
-        mainImg.alt=`${PRODUCT.title} in ${selectedColor}`;
-      }, 90);
-      setTimeout(()=>{ mainImg.style.opacity=1; }, 140);
+    function renderImages(){ const imgs=PRODUCT.colors[selectedColor].images; mainImg.style.opacity=.2; setTimeout(()=>{ mainImg.src=imgs[0]; mainImg.alt=`${PRODUCT.title} in ${selectedColor}`; },90); setTimeout(()=>{ mainImg.style.opacity=1; },140);
+      thumbs.innerHTML=""; imgs.forEach((src,i)=>{ const btn=el("button",{class:"thumb",type:"button"}, el("img",{src,alt:`${PRODUCT.title} ${selectedColor} image ${i+1}`})); btn.addEventListener("click",()=>{ mainImg.style.opacity=.2; setTimeout(()=>{ mainImg.src=src; },90); setTimeout(()=>{ mainImg.style.opacity=1; },140);}); thumbs.appendChild(btn); }); }
 
-      thumbs.innerHTML="";
-      imgs.forEach((src,i)=>{
-        const t=el("button",{class:"thumb",type:"button"},
-          el("img",{src,alt:`${PRODUCT.title} ${selectedColor} image ${i+1}`})
-        );
-        t.addEventListener("click", ()=>{
-          mainImg.style.opacity=.2;
-          setTimeout(()=>{ mainImg.src=src; }, 90);
-          setTimeout(()=>{ mainImg.style.opacity=1; }, 140);
-        });
-        thumbs.appendChild(t);
-      });
-    }
+    renderSizes(); renderSwatches(); renderImages();
 
-    renderSizes();
-    renderSwatches();
-    renderImages();
+    /* Wishlist (same key as index & wishlist.js) */
+    const WL_KEY='wishlist_local'; let __memWL=[];
+    function wlRead(){ try{ return JSON.parse(localStorage.getItem(WL_KEY)||'[]'); }catch(e){ return __memWL.slice(); } }
+    function wlWrite(a){ try{ localStorage.setItem(WL_KEY, JSON.stringify(a)); }catch(e){ __memWL=a.slice(); } }
 
-    /* ---------- Wishlist (localStorage) ---------- */
-    const WL_KEY='wishlist_local';
     $("#addToWishlist")?.addEventListener("click", ()=>{
       try{
-        const arr=JSON.parse(localStorage.getItem(WL_KEY) || "[]");
+        const arr=wlRead();
         if(!arr.find(x=>x.id===PRODUCT.id)){
           arr.push({ id:PRODUCT.id, title:PRODUCT.title, price:PRODUCT.price, image:$("#pdpMain").src, ts:Date.now() });
-          localStorage.setItem(WL_KEY, JSON.stringify(arr));
+          wlWrite(arr);
         }
         toast("Added to wishlist");
-      }catch(e){
-        toast("Could not add to wishlist");
-      }
+      }catch(e){ toast("Could not add to wishlist"); }
     });
 
-    /* ---------- Add to bag (demo) ---------- */
-    $("#addToBag")?.addEventListener("click", ()=>{
-      toast(`Added ${selectedSize} • ${selectedColor} to bag`);
-    });
+    $("#addToBag")?.addEventListener("click", ()=>{ toast(`Added ${selectedSize} • ${selectedColor} to bag`); });
   </script>
 </body>
 </html>
