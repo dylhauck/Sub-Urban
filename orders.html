@@ -9,28 +9,19 @@
   <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
 </head>
 <body>
-  <!-- Top bar -->
-  <div class="bar">
-    <a href="index.html" class="logo" style="text-decoration:none;">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </a> — My Orders
-  </div>
+  <div class="bar">Order history</div>
 
-  <!-- Header -->
-  <header class="header">
-    <a class="logo" href="index.html">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+  <header class="header center-nav">
+    <a href="index.html" class="logo" aria-label="SUB URBAN — home">
+      <span class="sub">SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html#new">New</a>
-      <a href="index.html#tops">Tops</a>
-      <a href="index.html#dresses">Dresses</a>
-      <a href="index.html#about">About</a>
+      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
       <div class="menu account-menu">
         <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
         <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="account" href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders" href="orders.html">My Orders</a>
           <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
           <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
         </div>
@@ -39,29 +30,43 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <!-- Content -->
-  <main class="auth-wrap">
-    <section class="auth-card">
-      <h1>My Orders</h1>
-      <p class="muted">Order history will appear here.</p>
-    </section>
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a data-acct="account" href="account.html">My Account</a><a data-acct="orders" href="orders.html">My Orders</a><a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a id="authActionMobile" href="login.html">Log in</a>
+  </div>
+
+  <main class="orders-wrap">
+    <table class="orders-table">
+      <thead><tr><th>Order #</th><th>Date</th><th>Total</th><th>Status</th></tr></thead>
+      <tbody id="ordersBody">
+        <!-- Fill from your JS if you have real orders -->
+        <tr><td>SU-10045</td><td>Jan 12, 2025</td><td>$129.00</td><td><span class="status-pill">Shipped</span></td></tr>
+        <tr><td>SU-10012</td><td>Dec 28, 2024</td><td>$79.00</td><td><span class="status-pill" style="background:rgba(124,58,237,.12);color:#4c1d95">Processing</span></td></tr>
+      </tbody>
+    </table>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-brand">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </div>
+    <div class="footer-brand"><span class="sub">SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
     <nav class="footer-nav" aria-label="Footer">
-      <a href="index.html#new">New Arrivals</a>
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="index.html#new">New Arrivals</a><a href="#">Shipping &amp; Returns</a><a href="#">Size Guide</a><a href="contact.html">Contact Us</a>
     </nav>
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrap = document.querySelector('.account-menu');
+    const btn  = document.getElementById('acctMenuBtn');
+    if (!wrap || !btn) return;
+    const close = () => { wrap.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+    btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); const o = wrap.classList.toggle('open'); btn.setAttribute('aria-expanded', o?'true':'false'); });
+    document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) close(); });
+    btn.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); btn.click(); } if (e.key==='Escape') close(); });
+  });
+  </script>
 </body>
 </html>
