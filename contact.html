@@ -3,33 +3,26 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Contact Us — SUB•URBAN</title>
+  <title>Contact — SUB•URBAN</title>
   <link rel="stylesheet" href="style.css"/>
-  <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
+  <link rel="icon" href="favicon.ico"/>
+  <style>
+    body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }
+    form{max-width:800px;margin:1rem auto 3rem;padding:1.25rem;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;box-shadow:var(--shadow)}
+    textarea{min-height:160px}
+  </style>
 </head>
 <body>
-  <!-- Top bar -->
-  <div class="bar">
-    <a href="index.html" class="logo" style="text-decoration:none;">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </a> — Contact Us
-  </div>
+  <div class="bar">We’d love to hear from you</div>
 
-  <!-- Header -->
-  <header class="header">
-    <a class="logo" href="index.html">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </a>
+  <header class="header center-nav">
     <nav class="nav" aria-label="Primary">
-      <a href="index.html#new">New</a>
-      <a href="index.html#tops">Tops</a>
-      <a href="index.html#dresses">Dresses</a>
-      <a href="index.html#about">About</a>
+      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
       <div class="menu account-menu">
         <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
         <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
-          <a role="menuitem" data-acct="account"  href="account.html">My Account</a>
-          <a role="menuitem" data-acct="orders"   href="orders.html">My Orders</a>
+          <a role="menuitem" data-acct="account" href="account.html">My Account</a>
+          <a role="menuitem" data-acct="orders" href="orders.html">My Orders</a>
           <a role="menuitem" data-acct="wishlist" href="wishlist.html">Wishlist</a>
           <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
         </div>
@@ -38,88 +31,68 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <!-- Main -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a data-acct="account" href="account.html">My Account</a><a data-acct="orders" href="orders.html">My Orders</a><a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a id="authActionMobile" href="login.html">Log in</a>
+  </div>
+
   <main class="auth-wrap">
-    <section class="auth-card">
-      <h1>Contact Us</h1>
-      <p class="muted">We’d love to hear from you! Fill out the form below and we’ll reply by email.</p>
-
-      <!-- EmailJS form -->
-      <form id="contactForm" class="contact-form">
-        <div>
-          <label for="name">Your Name</label>
-          <input id="name" name="from_name" type="text" placeholder="Full name" required>
-        </div>
-        <div>
-          <label for="email">Email</label>
-          <input id="email" name="reply_to" type="email" placeholder="you@example.com" required>
-        </div>
-        <div class="col-span">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Write your message…" required></textarea>
-        </div>
-        <div class="auth-actions">
-          <button class="btn primary" type="submit" id="sendBtn">Send message</button>
-        </div>
-      </form>
-
-      <div id="contactMsg" class="muted" role="status" aria-live="polite"></div>
-    </section>
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+      <div class="form-grid">
+        <div><label for="name">Your Name</label><input id="name" type="text" required placeholder="Jane Doe"/></div>
+        <div><label for="email">Email</label><input id="email" type="email" required placeholder="you@example.com"/></div>
+        <div class="col-span"><label for="subject">Subject</label><input id="subject" type="text" required placeholder="Question about an order"/></div>
+        <div class="col-span"><label for="message">Message</label><textarea id="message" required placeholder="How can we help?"></textarea></div>
+      </div>
+      <label class="tos"><input type="checkbox" id="agree" required/><span>I agree to the</span> <a href="terms.html" target="_blank" rel="noopener">Terms & Privacy</a></label>
+      <button class="btn primary" type="submit">Send</button>
+      <div id="contactMsg" aria-live="polite"></div>
+    </form>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-brand">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </div>
+    <div class="footer-brand"><span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
     <nav class="footer-nav" aria-label="Footer">
-      <a href="index.html#new">New Arrivals</a>
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="index.html#new">New Arrivals</a><a href="#">Shipping &amp; Returns</a><a href="#">Size Guide</a><a href="contact.html">Contact Us</a>
     </nav>
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
-  <!-- Site scripts -->
-  <script type="module" src="auth.js"></script>
-  <script src="script.js" defer></script>
-
-  <!-- EmailJS init + submit handler -->
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
-    (function(){ emailjs.init('qUrw0dBqyEZAcaLqI'); })();
+    // Replace with your actual EmailJS keys (you provided earlier)
+    const SERVICE_ID = "service_sub-urban";
+    const TEMPLATE_ID = "template_sub-urban";
+    const PUBLIC_KEY  = "qUrw0dBqyEZAcaLqI";
+    emailjs.init(PUBLIC_KEY);
 
-    const form   = document.getElementById('contactForm');
-    const status = document.getElementById('contactMsg');
-    const btn    = document.getElementById('sendBtn');
-
-    form?.addEventListener('submit', async (e) => {
+    const form = document.getElementById('contactForm');
+    const msg  = document.getElementById('contactMsg');
+    form.addEventListener('submit', async (e)=>{
       e.preventDefault();
-      status.textContent = 'Sending…'; status.className = '';
-      btn.setAttribute('disabled','true');
-
-      const templateParams = {
-        from_name: form.from_name.value,
-        reply_to:  form.reply_to.value,
-        message:   form.message.value
+      msg.textContent = 'Sending…';
+      const data = {
+        from_name: document.getElementById('name').value.trim(),
+        reply_to:  document.getElementById('email').value.trim(),
+        subject:   document.getElementById('subject').value.trim(),
+        message:   document.getElementById('message').value.trim()
       };
-
-      try {
-        await emailjs.send('service_sub-urban', 'template_sub-urban', templateParams);
-        status.textContent = '✓ Thanks! Your message has been sent.';
-        status.className = 'success';
+      try{
+        await emailjs.send(SERVICE_ID, TEMPLATE_ID, data);
+        msg.textContent = '✓ Sent! We will reply shortly.';
         form.reset();
-      } catch (err) {
+      }catch(err){
         console.error(err);
-        status.textContent = '⚠️ Could not send message. Please try again.';
-        status.className = 'error';
-      } finally {
-        btn.removeAttribute('disabled');
+        msg.textContent = 'Sorry, something went wrong.';
+        msg.className = 'error';
       }
     });
   </script>
+
+  <script type="module" src="auth.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
