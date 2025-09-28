@@ -7,25 +7,18 @@
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="favicon.ico"/>
   <style>
-    /* Ensure Arial everywhere on this page too */
+    /* keep Arial everywhere per your site */
     body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }
-    /* Make the main image fade when swapping */
+    /* smooth swap when images change */
     .pdp-main{ transition: opacity .18s ease; }
   </style>
 </head>
 <body>
-  <!-- Top bar -->
-  <div class="bar">
-    <a href="index.html" class="logo" style="text-decoration:none;">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </a> — Product
-  </div>
+  <!-- Top notice -->
+  <div class="bar">Product</div>
 
-  <!-- Header (standard size here; index has the big one) -->
-  <header class="header">
-    <a class="logo" href="index.html" aria-label="SUB•URBAN home">
-      <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
-    </a>
+  <!-- Centered header (same as other pages) -->
+  <header class="header center-nav">
     <nav class="nav" aria-label="Primary">
       <a href="index.html#new">New</a>
       <a href="index.html#tops">Tops</a>
@@ -58,18 +51,22 @@
 
   <!-- Breadcrumbs -->
   <nav class="crumbs">
-    <a href="index.html">Home</a> / <a href="index.html#collection">Collection</a> / <span id="crumbName">Aurora Satin Set</span>
+    <a href="index.html">Home</a> /
+    <a href="index.html#collection">Collection</a> /
+    <span id="crumbName">Aurora Satin Set</span>
   </nav>
 
   <!-- PDP -->
   <main class="pdp" aria-live="polite">
-    <!-- Left: Gallery -->
+    <!-- Gallery -->
     <section class="pdp-gallery">
-      <img id="pdpMain" class="pdp-main" src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=1600&auto=format&fit=crop" alt="Aurora Satin Set in Rose-Gold"/>
+      <img id="pdpMain" class="pdp-main"
+           src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=1600&auto=format&fit=crop"
+           alt="Aurora Satin Set in Rose-Gold"/>
       <div id="pdpThumbs" class="pdp-thumbs"></div>
     </section>
 
-    <!-- Right: Info -->
+    <!-- Info -->
     <section class="pdp-info">
       <h1 id="pdpTitle" class="pdp-title">Aurora Satin Set</h1>
       <div class="pdp-meta">
@@ -78,22 +75,19 @@
       </div>
       <div class="pdp-price" id="pdpPrice">$129</div>
 
-      <!-- Colors -->
       <label class="opt-label">Color</label>
       <div id="pdpSwatches" class="swatches" role="radiogroup" aria-label="Choose color"></div>
 
-      <!-- Sizes -->
       <label class="opt-label">Size</label>
       <div id="pdpSizes" class="sizes" role="radiogroup" aria-label="Choose size"></div>
 
-      <!-- Actions -->
       <div class="pdp-actions">
         <button id="addToBag" class="btn primary" type="button">Add to bag</button>
         <button id="addToWishlist" class="btn ghost" type="button">♡ Wishlist</button>
       </div>
+
       <p class="pdp-note" id="pdpNote">Free shipping over $75. Free 30-day returns.</p>
 
-      <!-- Description -->
       <div class="pdp-desc">
         <h2>Details</h2>
         <ul id="pdpBullets">
@@ -116,13 +110,13 @@
         <div class="card-body">
           <h3>Neon Violet Slip</h3>
           <p class="price">$98</p>
-          <p class="desc">Electric violet with metallic sheen.</p>
           <div class="card-actions">
             <a class="btn outline" href="product.html">View details</a>
             <button class="btn ghost" type="button" onclick="toast('Added to wishlist')">♡ Wishlist</button>
           </div>
         </div>
       </article>
+
       <article class="card">
         <a href="product.html" aria-label="Holographic Midi Skirt">
           <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1200&auto=format&fit=crop" alt="Holographic Midi Skirt"/>
@@ -130,13 +124,13 @@
         <div class="card-body">
           <h3>Holographic Midi Skirt</h3>
           <p class="price">$79</p>
-          <p class="desc">Iridescent silver that catches every light.</p>
           <div class="card-actions">
             <a class="btn outline" href="product.html">View details</a>
             <button class="btn ghost" type="button" onclick="toast('Added to wishlist')">♡ Wishlist</button>
           </div>
         </div>
       </article>
+
       <article class="card">
         <a href="product.html" aria-label="Teal Ribbed Top">
           <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop" alt="Teal Ribbed Top"/>
@@ -144,7 +138,6 @@
         <div class="card-body">
           <h3>Teal Ribbed Top</h3>
           <p class="price">$54</p>
-          <p class="desc">Cooling teal, second-skin rib knit.</p>
           <div class="card-actions">
             <a class="btn outline" href="product.html">View details</a>
             <button class="btn ghost" type="button" onclick="toast('Added to wishlist')">♡ Wishlist</button>
@@ -154,7 +147,7 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer (centered) -->
   <footer class="footer">
     <div class="footer-brand">
       <span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
@@ -168,157 +161,139 @@
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
-  <!-- Site scripts -->
+  <!-- Core scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
 
-  <!-- Inline PDP logic (no external product.js) -->
+  <!-- PDP logic: swatches, sizes, images, wishlist add -->
   <script>
-    // ------- Simple product data for this standalone page -------
+    /* ---------- Product data (standalone) ---------- */
     const PRODUCT = {
-      id: "aurora-set",
-      title: "Aurora Satin Set",
-      price: 129,
-      sku: "SUB-AUR-001",
-      sizes: ["XS","S","M","L","XL"],
-      colors: {
-        "Rose-Gold": {
-          swatch: "#B76E79",
-          images: [
-            "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=1600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1520976005265-3b5c3a621b83?q=80&w=1600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1543862470-d4c43e9d5b09?q=80&w=1600&auto=format&fit=crop"
-          ]
-        },
-        "Teal": {
-          swatch: "#14B8A6",
-          images: [
-            "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1516726817505-f5ed825624d8?q=80&w=1600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1519744352450-63228bd3b9fb?q=80&w=1600&auto=format&fit=crop"
-          ]
-        },
-        "Violet": {
-          swatch: "#7C3AED",
-          images: [
-            "https://images.unsplash.com/photo-1549216962-9f7b6ac7f8a9?q=80&w=1600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1532444458054-3d8b1fefb5d8?q=80&w=1600&auto=format&fit=crop"
-          ]
-        },
-        "Silver": {
-          swatch: "#C0C0C0",
-          images: [
-            "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1600&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop"
-          ]
-        }
+      id:"aurora-set",
+      title:"Aurora Satin Set",
+      price:129,
+      sku:"SUB-AUR-001",
+      sizes:["XS","S","M","L","XL"],
+      colors:{
+        "Rose-Gold":{ swatch:"#B76E79", images:[
+          "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?q=80&w=1600&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1520976005265-3b5c3a621b83?q=80&w=1600&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1543862470-d4c43e9d5b09?q=80&w=1600&auto=format&fit=crop"
+        ]},
+        "Teal":{ swatch:"#14B8A6", images:[
+          "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1600&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1516726817505-f5ed825624d8?q=80&w=1600&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1519744352450-63228bd3b9fb?q=80&w=1600&auto=format&fit=crop"
+        ]},
+        "Violet":{ swatch:"#7C3AED", images:[
+          "https://images.unsplash.com/photo-1549216962-9f7b6ac7f8a9?q=80&w=1600&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1532444458054-3d8b1fefb5d8?q=80&w=1600&auto=format&fit=crop"
+        ]},
+        "Silver":{ swatch:"#C0C0C0", images:[
+          "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1600&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop"
+        ]}
       },
-      bullets: [
+      bullets:[
         "Satin two-piece with silver piping",
         "Hidden side zip, adjustable straps",
         "True to size"
       ]
     };
 
-    // ------- DOM helpers -------
-    const $ = (sel, root=document) => root.querySelector(sel);
-    function el(tag, attrs={}, children=[]) {
-      const n = document.createElement(tag);
-      for (const [k,v] of Object.entries(attrs)) {
-        if (k === "style" && typeof v === "object") Object.assign(n.style, v);
-        else if (k.startsWith("on") && typeof v === "function") n.addEventListener(k.slice(2), v);
-        else if (k === "dataset") Object.assign(n.dataset, v);
+    /* ---------- Tiny helpers ---------- */
+    const $=(s,r=document)=>r.querySelector(s);
+    function el(tag, attrs={}, children=[]){
+      const n=document.createElement(tag);
+      for(const [k,v] of Object.entries(attrs)){
+        if(k==='style' && typeof v==='object') Object.assign(n.style,v);
+        else if(k.startsWith('on') && typeof v==='function') n.addEventListener(k.slice(2), v);
+        else if(k==='dataset') Object.assign(n.dataset, v);
         else n.setAttribute(k, v);
       }
       (Array.isArray(children)?children:[children]).forEach(c=>{
-        if (c==null) return;
-        n.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+        if(c==null) return;
+        n.appendChild(typeof c==='string'?document.createTextNode(c):c);
       });
       return n;
     }
     function toast(msg){
-      const t = el('div', { class:'toast' }, msg);
+      const t=el('div',{class:'toast'},msg);
       document.body.appendChild(t);
       requestAnimationFrame(()=>{ t.style.opacity=1; t.style.transform='translateX(-50%)'; });
       setTimeout(()=>{ t.style.opacity=0; }, 1400);
       setTimeout(()=>{ t.remove(); }, 1800);
     }
 
-    // ------- Wire up PDP using the simple product above -------
-    const titleEl = $("#pdpTitle");
-    const priceEl = $("#pdpPrice");
-    const skuEl   = $("#pdpSku");
-    const mainImg = $("#pdpMain");
-    const thumbs  = $("#pdpThumbs");
-    const swatches= $("#pdpSwatches");
-    const sizesEl = $("#pdpSizes");
-    const bullets = $("#pdpBullets");
-    const crumb   = $("#crumbName");
+    /* ---------- Wire up the page ---------- */
+    const titleEl=$("#pdpTitle"), priceEl=$("#pdpPrice"), skuEl=$("#pdpSku"),
+          mainImg=$("#pdpMain"), thumbs=$("#pdpThumbs"),
+          swatches=$("#pdpSwatches"), sizesEl=$("#pdpSizes"),
+          bullets=$("#pdpBullets"), crumb=$("#crumbName");
 
-    // Fill basics
-    titleEl.textContent = PRODUCT.title;
-    priceEl.textContent = `$${PRODUCT.price}`;
-    skuEl.textContent   = PRODUCT.sku;
-    crumb.textContent   = PRODUCT.title;
-    bullets.innerHTML   = "";
-    PRODUCT.bullets.forEach(b=> bullets.appendChild(el("li",{},b)));
+    titleEl.textContent=PRODUCT.title;
+    priceEl.textContent=`$${PRODUCT.price}`;
+    skuEl.textContent=PRODUCT.sku;
+    crumb.textContent=PRODUCT.title;
+    bullets.innerHTML="";
+    PRODUCT.bullets.forEach(b=>bullets.appendChild(el("li",{},b)));
 
-    // Defaults
-    const colorNames = Object.keys(PRODUCT.colors);
-    let selectedColor = colorNames[0];
-    let selectedSize  = PRODUCT.sizes[0];
+    const colorNames=Object.keys(PRODUCT.colors);
+    let selectedColor=colorNames[0];
+    let selectedSize=PRODUCT.sizes[0];
 
-    // Sizes
     function renderSizes(){
-      sizesEl.innerHTML = "";
+      sizesEl.innerHTML="";
       PRODUCT.sizes.forEach(sz=>{
-        const id = `size_${sz}`;
-        const input = el("input", { type:"radio", name:"size", id, value:sz, ...(sz===selectedSize?{checked:""}:{}) });
-        const label = el("label", { for:id }, sz);
-        sizesEl.appendChild(input); sizesEl.appendChild(label);
+        const id=`size_${sz}`;
+        const input=el("input",{type:"radio", name:"size", id, value:sz, ...(sz===selectedSize?{checked:""}:{})});
+        const label=el("label",{for:id},sz);
+        sizesEl.appendChild(input);
+        sizesEl.appendChild(label);
       });
     }
     sizesEl.addEventListener("change", e=>{
-      if (e.target.name==="size") selectedSize = e.target.value;
+      if(e.target.name==="size") selectedSize=e.target.value;
     });
 
-    // Swatches
     function renderSwatches(){
-      swatches.innerHTML = "";
+      swatches.innerHTML="";
       colorNames.forEach(name=>{
-        const c = PRODUCT.colors[name];
-        const s = el("button", {
+        const c=PRODUCT.colors[name];
+        const btn=el("button",{
           class:"swatch", type:"button", title:name, "aria-label":name,
-          style:{ background: c.swatch, borderColor: "rgba(0,0,0,.12)" }
+          style:{ background:c.swatch, borderColor:"rgba(0,0,0,.12)" }
         });
-        if (name===selectedColor) s.style.outline="3px solid rgba(0,0,0,.15)";
-        s.addEventListener("click", ()=>{
-          selectedColor = name;
+        if(name===selectedColor) btn.style.outline="3px solid rgba(0,0,0,.15)";
+        btn.addEventListener("click", ()=>{
+          selectedColor=name;
           renderSwatches();
           renderImages();
         });
-        swatches.appendChild(s);
+        swatches.appendChild(btn);
       });
     }
 
-    // Gallery
     function renderImages(){
-      const imgs = PRODUCT.colors[selectedColor].images;
-      // fade swap
-      mainImg.style.opacity = .2;
-      setTimeout(()=>{ mainImg.src = imgs[0]; mainImg.alt = `${PRODUCT.title} in ${selectedColor}`; }, 90);
-      setTimeout(()=>{ mainImg.style.opacity = 1; }, 140);
-      thumbs.innerHTML = "";
+      const imgs=PRODUCT.colors[selectedColor].images;
+      mainImg.style.opacity=.2;
+      setTimeout(()=>{
+        mainImg.src=imgs[0];
+        mainImg.alt=`${PRODUCT.title} in ${selectedColor}`;
+      }, 90);
+      setTimeout(()=>{ mainImg.style.opacity=1; }, 140);
+
+      thumbs.innerHTML="";
       imgs.forEach((src,i)=>{
-        const btn = el("button", { class:"thumb", type:"button" },
-          el("img", { src, alt:`${PRODUCT.title} ${selectedColor} image ${i+1}` })
+        const t=el("button",{class:"thumb",type:"button"},
+          el("img",{src,alt:`${PRODUCT.title} ${selectedColor} image ${i+1}`})
         );
-        btn.addEventListener("click", ()=>{
-          mainImg.style.opacity = .2;
-          setTimeout(()=>{ mainImg.src = src; }, 90);
-          setTimeout(()=>{ mainImg.style.opacity = 1; }, 140);
+        t.addEventListener("click", ()=>{
+          mainImg.style.opacity=.2;
+          setTimeout(()=>{ mainImg.src=src; }, 90);
+          setTimeout(()=>{ mainImg.style.opacity=1; }, 140);
         });
-        thumbs.appendChild(btn);
+        thumbs.appendChild(t);
       });
     }
 
@@ -326,18 +301,22 @@
     renderSwatches();
     renderImages();
 
-    // Actions
+    /* ---------- Wishlist (localStorage) ---------- */
+    const WL_KEY='wishlist_local';
     $("#addToWishlist")?.addEventListener("click", ()=>{
-      try {
-        const key="wishlist_local";
-        const entry = { id: PRODUCT.id, title: PRODUCT.title, price: PRODUCT.price, color: selectedColor, size: selectedSize, ts: Date.now() };
-        const arr = JSON.parse(localStorage.getItem(key)||"[]");
-        const exists = arr.find(i=>i.id===entry.id && i.color===entry.color && i.size===entry.size);
-        if (!exists) arr.push(entry);
-        localStorage.setItem(key, JSON.stringify(arr));
+      try{
+        const arr=JSON.parse(localStorage.getItem(WL_KEY) || "[]");
+        if(!arr.find(x=>x.id===PRODUCT.id)){
+          arr.push({ id:PRODUCT.id, title:PRODUCT.title, price:PRODUCT.price, image:$("#pdpMain").src, ts:Date.now() });
+          localStorage.setItem(WL_KEY, JSON.stringify(arr));
+        }
         toast("Added to wishlist");
-      } catch(e){ toast("Could not add to wishlist"); }
+      }catch(e){
+        toast("Could not add to wishlist");
+      }
     });
+
+    /* ---------- Add to bag (demo) ---------- */
     $("#addToBag")?.addEventListener("click", ()=>{
       toast(`Added ${selectedSize} • ${selectedColor} to bag`);
     });
