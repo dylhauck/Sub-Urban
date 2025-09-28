@@ -9,15 +9,14 @@
   <style>body, input, textarea, button, label, h1, h2, h3, p, a { font-family: Arial, sans-serif !important; }</style>
 </head>
 <body>
-  <div class="bar">Your saved items</div>
+  <div class="bar">Your saved favorites</div>
 
-  <!-- Centered header -->
   <header class="header center-nav">
+    <a href="index.html" class="logo" aria-label="SUB URBAN — home">
+      <span class="sub">SUB</span><span class="dot">•</span><span class="urban">URBAN</span>
+    </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html#new">New</a>
-      <a href="index.html#tops">Tops</a>
-      <a href="index.html#dresses">Dresses</a>
-      <a href="index.html#about">About</a>
+      <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
       <div class="menu account-menu">
         <button class="menu-trigger" id="acctMenuBtn" aria-haspopup="true" aria-expanded="false">My Account ▾</button>
         <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
@@ -31,47 +30,42 @@
     <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </header>
 
-  <!-- Mobile drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
-    <a href="index.html#new">New</a>
-    <a href="index.html#tops">Tops</a>
-    <a href="index.html#dresses">Dresses</a>
-    <a href="index.html#about">About</a>
-    <a data-acct="account" href="account.html">My Account</a>
-    <a data-acct="orders" href="orders.html">My Orders</a>
-    <a data-acct="wishlist" href="wishlist.html">Wishlist</a>
+    <a href="index.html#new">New</a><a href="index.html#tops">Tops</a><a href="index.html#dresses">Dresses</a><a href="index.html#about">About</a>
+    <a data-acct="account" href="account.html">My Account</a><a data-acct="orders" href="orders.html">My Orders</a><a data-acct="wishlist" href="wishlist.html">Wishlist</a>
     <a id="authActionMobile" href="login.html">Log in</a>
   </div>
 
   <h1 class="page-title">My Wishlist</h1>
-  <section class="wish-wrap" id="wishlistRoot">
-    <div class="empty" id="wishlistEmpty">
+  <section class="wish-wrap">
+    <div id="emptyState" class="empty">
       <strong>No items yet</strong>
-      <p class="muted">Save items you love from the <a href="index.html#collection">collection</a>.</p>
+      <p class="muted">Tap “♥ Add to wishlist” on any product to save it here.</p>
+      <a class="btn outline" href="index.html#new">Browse new arrivals</a>
     </div>
+    <div id="wishGrid" class="grid hidden"></div>
   </section>
 
   <footer class="footer">
-    <div class="footer-brand"><span>SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
+    <div class="footer-brand"><span class="sub">SUB</span><span class="dot">•</span><span class="urban">URBAN</span></div>
     <nav class="footer-nav" aria-label="Footer">
-      <a href="index.html#new">New Arrivals</a>
-      <a href="#">Shipping &amp; Returns</a>
-      <a href="#">Size Guide</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="index.html#new">New Arrivals</a><a href="#">Shipping &amp; Returns</a><a href="#">Size Guide</a><a href="contact.html">Contact Us</a>
     </nav>
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
-  <!-- Scripts -->
   <script type="module" src="auth.js"></script>
-  <script src="script.js" defer></script>
   <script src="wishlist.js" defer></script>
   <script>
-    // Hide the empty state if items exist (quick flash guard)
-    try {
-      const arr = JSON.parse(localStorage.getItem('wishlist_local') || '[]');
-      if (arr.length > 0) document.getElementById('wishlistEmpty')?.remove();
-    } catch {}
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrap = document.querySelector('.account-menu');
+    const btn  = document.getElementById('acctMenuBtn');
+    if (!wrap || !btn) return;
+    const close = () => { wrap.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+    btn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); const o = wrap.classList.toggle('open'); btn.setAttribute('aria-expanded', o?'true':'false'); });
+    document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) close(); });
+    btn.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); btn.click(); } if (e.key==='Escape') close(); });
+  });
   </script>
 </body>
 </html>
