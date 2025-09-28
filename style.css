@@ -117,8 +117,8 @@ body{
 /* JS-toggled open state */
 .menu.account-menu.open .menu-list { display:block; }
 /* CSS-only fallback: open on hover/focus if JS fails */
-.menu.account-menu:hover .menu-list,
-.menu.account-menu:focus-within .menu-list { display:block; }
+/*.menu.account-menu:hover .menu-list,*/
+/*.menu.account-menu:focus-within .menu-list { display:block; }*/
 
 /* Ensure hero/sections don't overlap header interactions */
 .hero, .hero * { position:relative; z-index:0; }
