@@ -10,10 +10,10 @@
 </head>
 <body>
   <!-- Announcement bar -->
-  <div class="bar">Welcome back</div>
+  <div class="bar">Manage your profile, sizes & address</div>
 
-  <!-- Header (nav-only) -->
-  <header class="header">
+  <!-- Header (centered nav) -->
+  <header class="header center-nav">
     <nav class="nav" aria-label="Primary">
       <a href="index.html#new">New</a>
       <a href="index.html#tops">Tops</a>
@@ -47,10 +47,11 @@
   <main class="auth-wrap">
     <section class="auth-card">
       <h1>My Account</h1>
-      <p class="muted" id="acctGreeting">Signed in as: <span id="acctEmail">—</span></p>
+      <p class="muted" id="acctGreeting">Signed in as: <span id="acctEmail">Guest</span></p>
 
+      <!-- ================== Sizes ================== -->
       <h2>Saved Sizes</h2>
-      <form id="sizesForm" class="form-grid">
+      <form id="sizesForm" class="form-grid" autocomplete="on">
         <div>
           <label for="sizeTop">Top Size</label>
           <select id="sizeTop">
@@ -71,7 +72,60 @@
         </div>
         <div class="col-span">
           <button type="submit" class="btn primary">Save sizes</button>
-          <span id="sizesMsg" class="muted"></span>
+          <span id="sizesMsg" class="muted" aria-live="polite"></span>
+        </div>
+      </form>
+
+      <div class="hr"></div>
+
+      <!-- ================== Address ================== -->
+      <h2>Saved Address</h2>
+      <form id="addressForm" class="form-grid" autocomplete="on">
+        <div class="col-span">
+          <label for="addrName">Full Name</label>
+          <input id="addrName" type="text" placeholder="Jane Doe" autocomplete="name"/>
+        </div>
+
+        <div>
+          <label for="addrPhone">Phone</label>
+          <input id="addrPhone" type="tel" placeholder="(555) 555-5555" autocomplete="tel"/>
+        </div>
+        <div>
+          <label for="addrCountry">Country</label>
+          <input id="addrCountry" type="text" placeholder="United States" autocomplete="country-name"/>
+        </div>
+
+        <div class="col-span">
+          <label for="addrLine1">Address Line 1</label>
+          <input id="addrLine1" type="text" placeholder="123 Market St" autocomplete="address-line1"/>
+        </div>
+        <div class="col-span">
+          <label for="addrLine2">Address Line 2 (optional)</label>
+          <input id="addrLine2" type="text" placeholder="Apt, suite, etc." autocomplete="address-line2"/>
+        </div>
+
+        <div>
+          <label for="addrCity">City</label>
+          <input id="addrCity" type="text" placeholder="Chicago" autocomplete="address-level2"/>
+        </div>
+        <div>
+          <label for="addrState">State / Province</label>
+          <input id="addrState" type="text" placeholder="IL" autocomplete="address-level1"/>
+        </div>
+        <div>
+          <label for="addrZip">Postal Code</label>
+          <input id="addrZip" type="text" placeholder="60601" autocomplete="postal-code"/>
+        </div>
+        <div>
+          <label class="tos" for="addrDefault">
+            <input id="addrDefault" type="checkbox"/>
+            <span>Set as default shipping address</span>
+          </label>
+        </div>
+
+        <div class="col-span">
+          <button type="submit" class="btn primary">Save address</button>
+          <span id="addrMsg" class="muted" aria-live="polite"></span>
         </div>
       </form>
 
@@ -96,45 +150,190 @@
     <div class="footer-meta">© 2025 SUB•URBAN</div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Core scripts -->
   <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
 
-  <!-- Minimal account wiring (keeps your existing Firestore logic workable) -->
+  <!-- Inline account wiring: loads/saves sizes & address (Firestore + fallback) -->
   <script type="module">
-    // If your existing account JS already handles loading/saving, keep this minimal.
-    // Populate email from Firebase auth if available (non-blocking).
+    // Attempt Firestore save/load if available; gracefully fall back to localStorage.
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    const auth = getAuth();
-    const acctEmail = document.getElementById('acctEmail');
-    onAuthStateChanged(auth, (user) => { acctEmail.textContent = user?.email || "Guest"; });
+    import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // Let your existing Firestore handler hook this form by ID if you have one.
-    // Fall back to a simple localStorage demo so the page isn't "blank".
+    const auth = getAuth();
+    const db = (()=>{ try { return getFirestore(); } catch { return null; } })();
+
+    // Elements
+    const acctEmail = document.getElementById('acctEmail');
+
     const sizesForm = document.getElementById('sizesForm');
     const sizesMsg  = document.getElementById('sizesMsg');
     const sizeTop   = document.getElementById('sizeTop');
     const sizeBottom= document.getElementById('sizeBottom');
     const sizeDress = document.getElementById('sizeDress');
 
-    // Load previously saved (local) as a non-blocking fallback.
-    try {
-      const saved = JSON.parse(localStorage.getItem('sizes_demo') || '{}');
-      if (saved.top) sizeTop.value = saved.top;
-      if (saved.bottom) sizeBottom.value = saved.bottom;
-      if (saved.dress) sizeDress.value = saved.dress;
-    } catch {}
+    const addressForm= document.getElementById('addressForm');
+    const addrMsg    = document.getElementById('addrMsg');
+    const addrName   = document.getElementById('addrName');
+    const addrPhone  = document.getElementById('addrPhone');
+    const addrCountry= document.getElementById('addrCountry');
+    const addrLine1  = document.getElementById('addrLine1');
+    const addrLine2  = document.getElementById('addrLine2');
+    const addrCity   = document.getElementById('addrCity');
+    const addrState  = document.getElementById('addrState');
+    const addrZip    = document.getElementById('addrZip');
+    const addrDefault= document.getElementById('addrDefault');
 
-    sizesForm.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      sizesMsg.textContent = 'Saving…';
-      // Fallback local storage (your Firestore code can override with real save)
-      const data = { top: sizeTop.value, bottom: sizeBottom.value, dress: sizeDress.value };
-      try {
-        localStorage.setItem('sizes_demo', JSON.stringify(data));
+    // Local fallback helpers
+    const LS_KEY = 'account_profile_fallback';
+    function loadLocal(){
+      try{
+        const data = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+        if (data.email) acctEmail.textContent = data.email;
+        if (data.sizes){
+          sizeTop.value    = data.sizes.top    || '';
+          sizeBottom.value = data.sizes.bottom || '';
+          sizeDress.value  = data.sizes.dress  || '';
+        }
+        if (data.address){
+          const a = data.address;
+          addrName.value    = a.name    || '';
+          addrPhone.value   = a.phone   || '';
+          addrCountry.value = a.country || '';
+          addrLine1.value   = a.line1   || '';
+          addrLine2.value   = a.line2   || '';
+          addrCity.value    = a.city    || '';
+          addrState.value   = a.state   || '';
+          addrZip.value     = a.postal  || '';
+          addrDefault.checked = !!a.isDefault;
+        }
+      }catch{}
+    }
+    function saveLocal(partial){
+      try{
+        const cur = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+        localStorage.setItem(LS_KEY, JSON.stringify({ ...cur, ...partial }));
+      }catch{}
+    }
+
+    async function loadFromFirestore(user){
+      if (!db || !user) return;
+      try{
+        const ref = doc(db, 'users', user.uid);
+        const snap = await getDoc(ref);
+        if (snap.exists()){
+          const data = snap.data() || {};
+          // email display
+          acctEmail.textContent = user.email || '—';
+
+          // sizes
+          if (data.sizes){
+            sizeTop.value    = data.sizes.top    || '';
+            sizeBottom.value = data.sizes.bottom || '';
+            sizeDress.value  = data.sizes.dress  || '';
+          }
+          // address
+          if (data.address){
+            const a = data.address;
+            addrName.value    = a.name    || '';
+            addrPhone.value   = a.phone   || '';
+            addrCountry.value = a.country || '';
+            addrLine1.value   = a.line1   || '';
+            addrLine2.value   = a.line2   || '';
+            addrCity.value    = a.city    || '';
+            addrState.value   = a.state   || '';
+            addrZip.value     = a.postal  || '';
+            addrDefault.checked = !!a.isDefault;
+          }
+        } else {
+          acctEmail.textContent = user.email || '—';
+        }
+      }catch(e){
+        // If rules block, fall back to local
+        loadLocal();
+      }
+    }
+
+    async function saveSizesFirestore(user, sizes){
+      const ref = doc(db, 'users', user.uid);
+      // merge sizes with existing doc
+      try{
+        await setDoc(ref, { sizes }, { merge: true });
         sizesMsg.textContent = '✓ Saved';
-      } catch {
-        sizesMsg.textContent = '⚠️ Could not save';
+      }catch(e){
+        sizesMsg.textContent = '⚠️ Could not save (using device only)';
+        saveLocal({ sizes });
+      }
+    }
+
+    async function saveAddressFirestore(user, address){
+      const ref = doc(db, 'users', user.uid);
+      try{
+        await setDoc(ref, { address }, { merge: true });
+        addrMsg.textContent = '✓ Saved';
+      }catch(e){
+        addrMsg.textContent = '⚠️ Could not save (using device only)';
+        saveLocal({ address });
+      }
+    }
+
+    // Auth state → load data
+    onAuthStateChanged(auth, (user)=>{
+      acctEmail.textContent = user?.email || 'Guest';
+      if (user && db){
+        loadFromFirestore(user);
+      } else {
+        loadLocal();
+      }
+    });
+
+    // Save sizes
+    sizesForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const sizes = {
+        top:    sizeTop.value || '',
+        bottom: sizeBottom.value || '',
+        dress:  sizeDress.value || ''
+      };
+      sizesMsg.textContent = 'Saving…';
+
+      const user = auth.currentUser;
+      if (user && db){
+        await saveSizesFirestore(user, sizes);
+      } else {
+        saveLocal({ sizes });
+        sizesMsg.textContent = '✓ Saved (on this device)';
+      }
+    });
+
+    // Save address
+    addressForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const address = {
+        name:    addrName.value.trim(),
+        phone:   addrPhone.value.trim(),
+        country: addrCountry.value.trim(),
+        line1:   addrLine1.value.trim(),
+        line2:   addrLine2.value.trim(),
+        city:    addrCity.value.trim(),
+        state:   addrState.value.trim(),
+        postal:  addrZip.value.trim(),
+        isDefault: !!addrDefault.checked
+      };
+
+      // simple required fields check
+      if (!address.name || !address.line1 || !address.city || !address.state || !address.postal || !address.country){
+        addrMsg.textContent = 'Please fill in all required fields.';
+        return;
+      }
+
+      addrMsg.textContent = 'Saving…';
+      const user = auth.currentUser;
+      if (user && db){
+        await saveAddressFirestore(user, address);
+      } else {
+        saveLocal({ address });
+        addrMsg.textContent = '✓ Saved (on this device)';
       }
     });
   </script>
