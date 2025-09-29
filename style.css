@@ -59,7 +59,7 @@ body{
 }
 
 .logo{font-family:"Space Grotesk",Inter,sans-serif;font-weight:700;letter-spacing:.04em;text-decoration:none;color:var(--text);font-size:1.1rem}
-.logo span{background:var(--rose-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/*.logo span{background:var(--rose-grad);-webkit-background-clip:text;background-clip:text;color:transparent}*/
 /* split logo colors */
 .logo .dot { background:none; color:#000 !important; }
 /* URBAN = electric violet gradient */
@@ -162,30 +162,54 @@ body{
   gap: .15rem;
   align-items: center;
 }
-
-/* Gradient wordmark — identical in header (.logo) and footer (.footer-brand) */
+/* === FORCE wordmark gradients across header/footer (final override) === */
 .logo .sub,
 .footer-brand .sub{
   background: var(--rose-grad);
   -webkit-background-clip: text;
           background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent; /* Safari/WebKit */
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important; /* Safari */
 }
 
 .logo .dot,
 .footer-brand .dot{
-  background: none;
-  color: #000;
+  background: none !important;
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
 }
 
 .logo .urban,
 .footer-brand .urban{
-  background: var(--violet-grad);         /* Electric violet gradient */
+  background: var(--violet-grad);  /* electric violet gradient */
   -webkit-background-clip: text;
           background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;   /* Safari/WebKit */
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important; /* Safari */
+}
+
+/* Fallback if classes are missing (keeps SUB • URBAN order) */
+.logo > span:first-child,
+.footer-brand > span:first-child{
+  background: var(--rose-grad);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+.logo > span:nth-child(2),
+.footer-brand > span:nth-child(2){
+  background: none !important;
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
+.logo > span:last-child,
+.footer-brand > span:last-child{
+  background: var(--violet-grad);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
 }
 
 /* Toast */
