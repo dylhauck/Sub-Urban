@@ -146,6 +146,24 @@ body{
 .footer-nav a:hover{ color:var(--text); }
 .footer-meta{ margin-top:1.5rem; font-size:.9rem; color:var(--muted); }
 
+.footer-brand, .logo {
+  font-family: 'Rachella', Arial, sans-serif !important; /* or your chosen logo font */
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  display: inline-flex;
+  gap: .15rem;
+  align-items: center;
+}
+
+.footer-brand .dot, .logo .dot {
+  color: #000; /* black dot */
+}
+
+.footer-brand .urban, .logo .urban {
+  color: var(--violet); /* violet urban */
+}
+
 /* Toast */
 .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(20px);opacity:0;background:rgba(0,0,0,.7);color:#fff;padding:.6rem 1rem;border-radius:999px;transition:.25s;pointer-events:none;box-shadow:var(--shadow)}
 
