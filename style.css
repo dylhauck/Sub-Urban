@@ -59,7 +59,7 @@ body{
 }
 
 .logo{font-family:"Space Grotesk",Inter,sans-serif;font-weight:700;letter-spacing:.04em;text-decoration:none;color:var(--text);font-size:1.1rem}
-.logo span{background:var(--rose-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/*.logo span{background:var(--rose-grad);-webkit-background-clip:text;background-clip:text;color:transparent}*/
 /* split logo colors */
 .logo .dot { background:none; color:#000 !important; }
 /*.logo .urban { background:none; color:var(--violet)*/
@@ -156,28 +156,29 @@ body{
   align-items: center;
 }
 
-/* Rose gold SUB with gradient */
-.footer-brand .sub,
-.logo .sub {
+/* Gradient wordmark — identical in header (.logo) and footer (.footer-brand) */
+.logo .sub,
+.footer-brand .sub{
   background: var(--rose-grad);
   -webkit-background-clip: text;
-  background-clip: text;
+          background-clip: text;
   color: transparent;
+  -webkit-text-fill-color: transparent; /* Safari/WebKit */
 }
 
-/* Black dot */
-.footer-brand .dot,
-.logo .dot {
+.logo .dot,
+.footer-brand .dot{
+  background: none;
   color: #000;
 }
 
-/* Electric violet URBAN with gradient */
-.footer-brand .urban,
-.logo .urban {
-  background: var(--violet-grad);
+.logo .urban,
+.footer-brand .urban{
+  background: var(--violet-grad);         /* Electric violet gradient */
   -webkit-background-clip: text;
-  background-clip: text;
+          background-clip: text;
   color: transparent;
+  -webkit-text-fill-color: transparent;   /* Safari/WebKit */
 }
 
 /* Toast */
