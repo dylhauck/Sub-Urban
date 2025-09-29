@@ -156,12 +156,19 @@ body{
   align-items: center;
 }
 
-.footer-brand .dot, .logo .dot {
+.footer-brand .sub,
+.logo .sub {
+  color: var(--rose-gold); /* rose gold SUB */
+}
+
+.footer-brand .dot,
+.logo .dot {
   color: #000; /* black dot */
 }
 
-.footer-brand .urban, .logo .urban {
-  color: var(--violet); /* violet urban */
+.footer-brand .urban,
+.logo .urban {
+  color: var(--violet); /* violet URBAN */
 }
 
 /* Toast */
