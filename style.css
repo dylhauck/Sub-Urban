@@ -62,7 +62,7 @@ body{
 .logo span{background:var(--rose-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 /* split logo colors */
 .logo .dot { background:none; color:#000 !important; }
-.logo .urban { background:var(--violet);-webkit-background-clip:text;background-clip:text;color:transparent}
+/*.logo .urban { background:none; color:var(--violet)*/
 
 .nav{display:flex;gap:1.2rem}
 .nav a{color:var(--muted);text-decoration:none;font-weight:500}
