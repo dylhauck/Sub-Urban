@@ -147,7 +147,7 @@ body{
 .footer-meta{ margin-top:1.5rem; font-size:.9rem; color:var(--muted); }
 
 .footer-brand, .logo {
-  font-family: 'Rachella', Arial, sans-serif !important; /* or your chosen logo font */
+  font-family: Arial, sans-serif !important; /* or your chosen logo font */
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: .05em;
