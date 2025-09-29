@@ -156,19 +156,28 @@ body{
   align-items: center;
 }
 
+/* Rose gold SUB with gradient */
 .footer-brand .sub,
 .logo .sub {
-  color: var(--rose-gold); /* rose gold SUB */
+  background: var(--rose-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
+/* Black dot */
 .footer-brand .dot,
 .logo .dot {
-  color: #000; /* black dot */
+  color: #000;
 }
 
+/* Electric violet URBAN with gradient */
 .footer-brand .urban,
 .logo .urban {
-  color: var(--violet); /* violet URBAN */
+  background: var(--violet-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Toast */
