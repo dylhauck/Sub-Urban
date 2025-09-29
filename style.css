@@ -165,6 +165,7 @@ body{
 /* === FORCE wordmark gradients across header/footer (final override) === */
 .logo .sub,
 .footer-brand .sub{
+  font-family: 'RachellaKyle', Arial, sans-serif !important; /* or your chosen logo font */
   background: var(--rose-grad);
   -webkit-background-clip: text;
           background-clip: text;
@@ -182,6 +183,7 @@ body{
 
 .logo .urban,
 .footer-brand .urban{
+  font-family: 'RachellaKyle', Arial, sans-serif !important; /* or your chosen logo font */
   background: var(--violet-grad);  /* electric violet gradient */
   -webkit-background-clip: text;
           background-clip: text;
