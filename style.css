@@ -495,3 +495,19 @@ body::before{
   color: #000000 !important;
   -webkit-text-fill-color: #000000 !important;
 }
+
+/* === Newsletter input & button size upgrade === */
+.newsletter .nl-form input{
+  height: 56px;
+  font-size: 1rem;
+  padding: 0 1.25rem;
+  border-radius: 14px;
+  min-width: 320px;
+}
+
+.newsletter .nl-form button{
+  height: 56px;
+  padding: 0 1.5rem;
+  font-size: 1rem;
+  border-radius: 14px;
+}
