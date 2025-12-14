@@ -518,3 +518,14 @@ body::before{
   font-weight: 700;
   letter-spacing: .01em;
 }
+
+/* === Wishlist active (heart turns red) === */
+.btn.ghost.wish-active{
+  color: #d93025;              /* red heart */
+  border-color: #d93025;
+  background: rgba(217,48,37,.08);
+}
+
+.btn.ghost.wish-active:hover{
+  background: rgba(217,48,37,.14);
+}
