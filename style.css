@@ -420,3 +420,23 @@ p, h1, h2, h3, h4, h5, h6 {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
+
+/* === Header background matches SUB rose-gold === */
+.header {
+  background: linear-gradient(
+    180deg,
+    rgba(183,110,121,0.92),
+    rgba(230,184,162,0.92)
+  ) !important;
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+/* Ensure nav text stays readable on rose-gold */
+.header .nav a,
+.header .menu-trigger {
+  color: #0f1222 !important;
+}
+
+.header .nav a:hover {
+  color: #000 !important;
+}
