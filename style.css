@@ -364,3 +364,11 @@ label.tos a:hover { color: var(--violet, #7C3AED); }
    display: inline-block;
  }
 }
+/* === Alignment fix: center the HOME hero logo exactly with the line below === */
+.hero-inner > h1.logo{
+ display: flex;                 /* override inline-flex only here */
+ justify-content: center;       /* center the SUB•URBAN spans as a group */
+ width: 100%;                   /* make the h1 fill the hero column */
+ margin-left: 0;
+ margin-right: 0;
+}
