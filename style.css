@@ -372,3 +372,32 @@ label.tos a:hover { color: var(--violet, #7C3AED); }
  margin-left: 0;
  margin-right: 0;
 }
+/* === Dark violet background inversion (site-wide) === */
+:root{
+  --bg-dark-violet: #0b0620;   /* deep violet base */
+  --bg-dark-violet-2: #140a33; /* subtle gradient depth */
+}
+
+body{
+  background:
+    radial-gradient(1200px 800px at 100% -10%, rgba(124,58,237,.25), transparent 60%),
+    radial-gradient(900px 600px at -10% 0%, rgba(183,110,121,.18), transparent 60%),
+    linear-gradient(180deg, var(--bg-dark-violet), var(--bg-dark-violet-2));
+  color: #f4f3ff;
+}
+
+/* Ensure readable text on dark bg */
+p, h1, h2, h3, h4, h5, h6 {
+  color: #f4f3ff;
+}
+
+/* Keep cards, header, footer light for contrast */
+.header,
+.card,
+.glass,
+.footer,
+.auth-card,
+.size-modal{
+  background: rgba(255,255,255,0.95);
+  color: var(--text);
+}
