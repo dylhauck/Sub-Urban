@@ -122,17 +122,16 @@ function toggleWishlist(productId, btn) {
 function setWishlistButtonState(btn, wished) {
  if (!btn) return;
 
- // Keep your base button styling as PRIMARY (per your note)
+ // Keep base styling as PRIMARY
  btn.classList.add('btn', 'primary');
- btn.classList.remove('ghost'); // just in case older markup exists
+ btn.classList.remove('ghost');
 
- btn.classList.toggle('wished', wished);
+ // ONE state class (use this everywhere)
+ btn.classList.toggle('wish-active', wished);
  btn.setAttribute('aria-pressed', wished ? 'true' : 'false');
 
- // Render heart + text; make only the heart red when wished
- const heart = wished ? '❤' : '♡';
- const heartColor = wished ? '#e11d48' : ''; // red-600-ish
- btn.innerHTML = `<span class="wl-heart" style="color:${heartColor};">${heart}</span> Wishlist`;
+ // Heart + label (heart color controlled by CSS, not inline)
+ btn.innerHTML = `<span class="wl-heart">${wished ? '♥' : '♡'}</span> Wishlist`;
 }
 
 function syncWishlistButtons(scope = document) {
