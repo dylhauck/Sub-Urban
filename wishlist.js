@@ -194,14 +194,20 @@ document.addEventListener('click', (e) => {
  const res = toggleWishlist(pid, btn);
  if (!res.ok) return;
 
- setWishlistButtonState(btn, res.wished);
- toast(res.wished ? 'Added to wishlist' : 'Removed from wishlist');
+ function setWishlistButtonState(btn, wished) {
+ if (!btn) return;
 
- // If we're on the wishlist page, refresh it live
- if (document.getElementById('wishlistRoot')) {
-   renderWishlist();
- }
-});
+ // Keep base styling as PRIMARY
+ btn.classList.add('btn', 'primary');
+ btn.classList.remove('ghost');
+
+ // ONE state class (use this everywhere)
+ btn.classList.toggle('wish-active', wished);
+ btn.setAttribute('aria-pressed', wished ? 'true' : 'false');
+
+ // Heart + label (heart color controlled by CSS, not inline)
+ btn.innerHTML = `<span class="wl-heart">${wished ? '♥' : '♡'}</span> Wishlist`;
+}
 
 // Remove a single item on wishlist page
 document.addEventListener('click', (e) => {
