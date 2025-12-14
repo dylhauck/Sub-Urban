@@ -519,17 +519,18 @@ body::before{
   letter-spacing: .01em;
 }
 
-/* === Wishlist active (primary -> red) === */
+/* Default heart color inside primary button */
+.btn.primary .wl-heart { color: rgba(255,255,255,.9); }
+
+/* Active: heart turns red */
+.btn.primary.wish-active .wl-heart { color: #ff3b30; }
+
+/* (Optional) if you also want the button background to change when active */
 .btn.primary.wish-active{
-  background: linear-gradient(180deg,#e53935,#b71c1c);
-  border-color: #d93025;
-  color: #fff;
-  box-shadow: 0 10px 28px rgba(217,48,37,.35);
+ background: linear-gradient(180deg,#e53935,#b71c1c);
+ border-color: #d93025;
+ color: #fff;
 }
-
 .btn.primary.wish-active:hover{
-  background: linear-gradient(180deg,#ef5350,#c62828);
+ background: linear-gradient(180deg,#ef5350,#c62828);
 }
-
-.btn.primary .wl-heart{ color: rgba(255,255,255,.9); }
-.btn.primary.wish-active .wl-heart{ color:#ff3b30 !important; } /* red heart */
