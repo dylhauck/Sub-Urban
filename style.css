@@ -401,3 +401,9 @@ p, h1, h2, h3, h4, h5, h6 {
   background: rgba(255,255,255,0.95);
   color: var(--text);
 }
+/* === Fix: make text visible inside light "glass" panels on dark background === */
+.glass,
+.glass h1, .glass h2, .glass h3,
+.glass p, .glass a, .glass li {
+  color: var(--text) !important;
+}
