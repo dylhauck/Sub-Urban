@@ -440,3 +440,25 @@ p, h1, h2, h3, h4, h5, h6 {
 .header .nav a:hover {
   color: #000 !important;
 }
+
+/* === Continuous page background (prevents section seams) === */
+body{
+  background: none !important; /* let the fixed layer below handle it */
+}
+
+/* fixed full-page gradient layer */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1200px 800px at 100% -10%, rgba(183,110,121,.18), transparent 60%),
+    radial-gradient(900px 600px at -10% 0%, rgba(124,58,237,.22), transparent 60%),
+    linear-gradient(180deg, #0b0620 0%, #12073a 45%, #070316 100%);
+}
+
+/* make big homepage sections NOT paint their own backgrounds */
+.hero, .features, .grid, .about, .newsletter{
+  background: transparent !important;
+}
