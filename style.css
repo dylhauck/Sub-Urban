@@ -469,3 +469,29 @@ body::before{
 .hero, .features, .grid, .about, .newsletter{
   background: transparent !important;
 }
+
+/* About section title uses brand logo styling */
+.about-title{
+  font-family: 'RachellaKyle', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.about-title .sub{
+  background: var(--rose-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.about-title .urban{
+  background: var(--violet-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.about-title .dot{
+  color: #ffffff;
+  margin: 0 .15em;
+}
