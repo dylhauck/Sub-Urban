@@ -267,11 +267,35 @@
       requestAnimationFrame(()=>{ t.style.opacity=1; t.style.transform='translateX(-50%)'; });
       setTimeout(()=>{ t.style.opacity=0; }, 1400); setTimeout(()=>{ t.remove(); }, 1800); }
     function addToWishlistById(productId){
-      const meta = WISHLIST_CATALOG[productId]; if (!meta){ showToast('Could not add'); return; }
-      const item = { id:meta.id, title:meta.title, price:meta.price, image:meta.image, ts:Date.now() };
-      try{ const arr=JSON.parse(localStorage.getItem(WL_KEY)||'[]'); if(!arr.find(x=>x.id===item.id)){ arr.push(item); localStorage.setItem(WL_KEY,JSON.stringify(arr)); }
-        showToast('Added to wishlist'); }catch(e){ console.warn(e); showToast('Could not add'); }
+      const meta = WISHLIST_CATALOG[productId]; 
+      if (!meta){ showToast('Could not add'); return; }
+      const item = { 
+        id:meta.id, 
+        title:meta.title, 
+        price:meta.price, 
+        image:meta.image, 
+        ts:Date.now() 
+      };
+      try{ const arr=JSON.parse(localStorage.getItem(WL_KEY)||'[]'); 
+          if(!arr.find(x=>x.id===item.id)){ 
+            arr.push(item); 
+            localStorage.setItem(WL_KEY,JSON.stringify(arr)); 
+          }
+        /* 🔴 Activate heart */
+    const btn = document.querySelector(
+      `.add-to-wishlist[data-product-id="${productId}"]`
+    );
+    if(btn){
+      btn.classList.add('wish-active');
+      btn.innerHTML = '♥ Wishlist';
     }
+
+    showToast('Added to wishlist');
+  }catch(e){
+    console.warn(e);
+    showToast('Could not add');
+  }
+}
     document.addEventListener('click', (e)=>{
       const btn = e.target.closest('.add-to-wishlist'); if(!btn) return;
       const pid = btn.getAttribute('data-product-id'); if(pid) addToWishlistById(pid);
