@@ -407,3 +407,10 @@ p, h1, h2, h3, h4, h5, h6 {
 .glass p, .glass a, .glass li {
   color: var(--text) !important;
 }
+
+/* === Fix: make the ghost button visible on the dark/inverted hero background === */
+.hero .btn.ghost{
+  background: rgba(255,255,255,.10) !important;
+  border-color: rgba(255,255,255,.22) !important;
+  color: var(--text) !important;
+}
