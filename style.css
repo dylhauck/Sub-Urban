@@ -519,5 +519,17 @@ body::before{
   letter-spacing: .01em;
 }
 
+/* === Wishlist active (primary -> red) === */
+.btn.primary.wish-active{
+  background: linear-gradient(180deg,#e53935,#b71c1c);
+  border-color: #d93025;
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(217,48,37,.35);
+}
+
+.btn.primary.wish-active:hover{
+  background: linear-gradient(180deg,#ef5350,#c62828);
+}
+
 .btn.primary .wl-heart{ color: rgba(255,255,255,.9); }
-.btn.primary.wish-active .wl-heart{ color:#ff3b30; } /* red heart */
+.btn.primary.wish-active .wl-heart{ color:#ff3b30 !important; } /* red heart */
