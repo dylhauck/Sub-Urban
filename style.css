@@ -334,3 +334,33 @@ label.tos a:hover { color: var(--violet, #7C3AED); }
 #contactMsg { font-size:.95rem; margin-top:1rem; }
 #contactMsg.success { color:#1a7f37; }
 #contactMsg.error { color:#d93025; }
+
+/* === FIX: Home hero logo + subtitle share the same true center === */
+.hero-inner{
+ text-align: center;              /* center the whole hero text column */
+}
+
+.hero-inner h1{
+ /* Make the logo line center based on its own rendered width */
+ width: fit-content;
+ margin-left: auto;
+ margin-right: auto;
+
+ /* Helps when the h1 contains spans with mixed fonts */
+ display: inline-flex;
+ justify-content: center;
+ align-items: center;
+}
+
+/* If your subtitle is a <p>, make sure it uses the same centering context */
+.hero-inner p{
+ margin-left: auto;
+ margin-right: auto;
+}
+
+/* Fallback for browsers that don’t support fit-content */
+@supports not (width: fit-content){
+ .hero-inner h1{
+   display: inline-block;
+ }
+}
