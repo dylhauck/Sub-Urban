@@ -414,3 +414,9 @@ p, h1, h2, h3, h4, h5, h6 {
   border-color: rgba(255,255,255,.22) !important;
   color: var(--text) !important;
 }
+
+/* === Make the middle dot white on dark hero background === */
+.hero .logo .dot{
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
