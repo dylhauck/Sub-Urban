@@ -492,6 +492,6 @@ body::before{
 }
 
 .about-title .dot{
-  color: #ffffff;
-  margin: 0 .15em;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
 }
