@@ -513,7 +513,7 @@ body::before{
 }
 
 /* === Match Wishlist button typography to View Details === */
-.card-actions .btn.ghost{
+.card-actions .btn.primary{
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: .01em;
