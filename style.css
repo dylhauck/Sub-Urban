@@ -595,12 +595,20 @@ body::before{
 .card-actions .btn.primary{
   flex: 1;
 }
-/* ===== Match login page buttons to homepage primary buttons ===== */
+
+/* ===== FORCE login buttons to EXACT homepage button sizing ===== */
 .auth-page .btn,
-.login-page .btn{
-  height: 56px;              /* same height as homepage CTA */
-  padding: 0 1.5rem;
+.login-page .btn,
+.auth-page .btn.primary,
+.login-page .btn.primary {
+  height: 56px;
+  min-width: 180px;          /* THIS is what you're missing */
+  padding: 0 1.75rem;
   font-size: 1rem;
   font-weight: 600;
+  line-height: 56px;         /* ensures vertical centering */
   border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
