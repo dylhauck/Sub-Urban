@@ -701,3 +701,8 @@ body:not(.home) .header .menu-trigger{
   background: currentColor;
   border-radius: 2px;
 }
+
+.menu-trigger[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
