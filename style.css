@@ -611,3 +611,18 @@ body::before{
  align-items: center !important;
  justify-content: center !important;
 }
+/* ===== Login page: keep Sign in + Forgot side by side ===== */
+.auth-card .form-actions,
+.auth-card .button-row,
+.auth-card .login-actions {
+ display: flex;
+ gap: 12px;
+ align-items: center;
+}
+
+/* Prevent buttons from wrapping */
+.auth-card .form-actions .btn,
+.auth-card .button-row .btn,
+.auth-card .login-actions .btn {
+ flex: 0 0 auto;
+}
