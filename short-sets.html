@@ -18,16 +18,15 @@
       <a href="skirt-sets.html" class="active">Skirt Sets</a>
       <a href="short-sets.html" aria-current="page">Short Sets</a>
       <a href="about.html">About</a>
-
       <div class="menu account-menu">
-        <button class="menu-trigger nav-link">My Account ▾</button>
-        <div class="menu-list">
-          <a href="account.html">My Account</a>
-          <a href="orders.html">My Orders</a>
-          <a href="wishlist.html">Wishlist</a>
-          <a href="login.html">Log in</a>
+          <button class="menu-trigger nav-link" id="acctMenuBtn" type="button" aria-haspopup="true" aria-expanded="false"> My Account ▾ </button>
+          <div class="menu-list" id="acctMenu" role="menu" aria-label="My Account">
+            <a role="menuitem" href="account.html">My Account</a>
+            <a role="menuitem" href="orders.html">My Orders</a>
+            <a role="menuitem" href="wishlist.html">Wishlist</a>
+            <a role="menuitem" id="authAction" class="menu-link-btn" href="login.html">Log in</a>
+          </div>
         </div>
-      </div>
     </nav>
   </header>
 
