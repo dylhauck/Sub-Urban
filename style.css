@@ -685,3 +685,19 @@ body:not(.home) .header .nav a,
 body:not(.home) .header .menu-trigger{
   font-weight: 700 !important;
 }
+
+.nav a {
+  position: relative;
+  font-weight: 700; /* keeps everything bold like you wanted */
+}
+
+.nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
