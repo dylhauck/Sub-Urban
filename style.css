@@ -336,6 +336,7 @@ label.tos a:hover { color: var(--violet, #7C3AED); }
 .menu-list a, .menu-list .menu-link-btn { display:block; width:100%; text-align:left; padding:.55rem .7rem; border-radius:8px; text-decoration:none; color:var(--text); background:transparent; border:0; cursor:pointer; }
 .menu-list a:hover, .menu-list .menu-link-btn:hover { background:rgba(0,0,0,.05); }
 .menu.account-menu.open .menu-list { display:block; }
+.menu.sets-menu.open .menu-list { display:block; }
 
 /* Contact form status */
 #contactMsg { font-size:.95rem; margin-top:1rem; }
