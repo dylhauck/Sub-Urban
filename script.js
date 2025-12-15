@@ -1,4 +1,4 @@
-// script.js — nav drawer + My Account dropdown (defensive, page-agnostic)
+// script.js — nav drawer + dropdowns (defensive, page-agnostic)
 
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
@@ -37,10 +37,11 @@
     });
   }
 
-  function wireAccountMenu() {
-    const wrap = $(".account-menu");         // <div class="menu account-menu">
-    const btn  = $("#acctMenuBtn");          // <button id="acctMenuBtn">
-    const list = $("#acctMenu");             // <div id="acctMenu" class="menu-list">
+  // Generic dropdown wiring (used for My Account + Sets)
+  function wireDropdown({ wrapSel, btnSel, listSel, closeOnClickSel }) {
+    const wrap = $(wrapSel);   // <div class="menu ...">
+    const btn  = $(btnSel);    // <button ...>
+    const list = $(listSel);   // <div class="menu-list ...">
 
     if (!wrap || !btn || !list) return;
 
@@ -48,17 +49,22 @@
     list.style.zIndex = list.style.zIndex || "60";
 
     const open = () => {
+      // Close any other open dropdowns first
+      $$(".menu.open").forEach(m => { if (m !== wrap) m.classList.remove("open"); });
+
       wrap.classList.add("open");
       btn.setAttribute("aria-expanded", "true");
       document.addEventListener("click", onOutside);
       document.addEventListener("keydown", onEsc);
     };
+
     const close = () => {
       wrap.classList.remove("open");
       btn.setAttribute("aria-expanded", "false");
       document.removeEventListener("click", onOutside);
       document.removeEventListener("keydown", onEsc);
     };
+
     const onOutside = (e) => { if (!wrap.contains(e.target)) close(); };
     const onEsc = (e) => { if (e.key === "Escape") close(); };
 
@@ -79,13 +85,28 @@
     });
 
     // Optional: close when clicking a menu item
-    $$("#acctMenu a, #acctMenu .menu-link-btn").forEach(el => {
-      el.addEventListener("click", () => close());
-    });
+    if (closeOnClickSel) {
+      $$(closeOnClickSel).forEach(el => el.addEventListener("click", () => close()));
+    }
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     wireDrawer();
-    wireAccountMenu();
+
+    // My Account dropdown (existing)
+    wireDropdown({
+      wrapSel: ".account-menu",
+      btnSel: "#acctMenuBtn",
+      listSel: "#acctMenu",
+      closeOnClickSel: "#acctMenu a, #acctMenu .menu-link-btn"
+    });
+
+    // Sets dropdown (new)
+    wireDropdown({
+      wrapSel: ".sets-menu",
+      btnSel: "#setsMenuBtn",
+      listSel: "#setsMenu",
+      closeOnClickSel: "#setsMenu a"
+    });
   });
 })();
