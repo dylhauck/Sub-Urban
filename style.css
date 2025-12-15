@@ -534,3 +534,45 @@ body::before{
 .btn.primary.wish-active:hover{
  background: linear-gradient(180deg,#ef5350,#c62828);
 }
+
+/* ===== Fix: auth card readable on dark background ===== */
+.auth-card{
+  background: rgba(255,255,255,.92) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+}
+
+.auth-card h1,
+.auth-card h2,
+.auth-card label,
+.auth-card .muted,
+#authMsg{
+  color: var(--text) !important;
+}
+
+.auth-card input{
+  background: #fff !important;
+  color: #111 !important;
+  border: 1px solid rgba(0,0,0,.18) !important;
+}
+
+.auth-card input::placeholder{
+  color: rgba(17,17,17,.55) !important;
+}
+
+/* optional: subtle divider between the 2 columns if you use the split layout */
+.form-grid{
+  position: relative;
+}
+.form-grid::after{
+  content:"";
+  position:absolute;
+  top:10%;
+  bottom:10%;
+  left:50%;
+  width:1px;
+  background: rgba(0,0,0,.10);
+}
+@media (max-width: 800px){
+  .form-grid::after{ display:none; }
+}
