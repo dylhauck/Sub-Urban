@@ -642,19 +642,3 @@ body::before{
  flex: 0 0 auto;
 }
 
-/* ==== Login page: widen auth card so buttons fit properly ====n */
-.auth-card {
-  max-width: 1200px;
-  width: 95%;
-  padding: 3.5rem 4rem;
-}
-.auth-actions{
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-.auth-grid {
-  column-gap: 4rem;
-}
