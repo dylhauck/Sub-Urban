@@ -665,3 +665,23 @@ body::before{
   gap: .8rem !important;
   align-items: center !important;
 }
+
+/* ================================
+   Header: non-home pages cleanup
+   ================================ */
+
+/* Hide SUB•URBAN logo on all pages EXCEPT home */
+body:not(.home) .header .logo{
+  display: none !important;
+}
+
+/* Center nav items when logo is gone */
+body:not(.home) .header .nav{
+  justify-content: center !important;
+}
+
+/* Make header links bold */
+body:not(.home) .header .nav a,
+body:not(.home) .header .menu-trigger{
+  font-weight: 700 !important;
+}
