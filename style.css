@@ -576,3 +576,22 @@ body::before{
 @media (max-width: 800px){
   .form-grid::after{ display:none; }
 }
+/* ===== Slightly reduce card action buttons so they fit side-by-side ===== */
+.card-actions{
+  gap: .6rem;
+}
+
+.card-actions .btn{
+  padding: .6rem .9rem;   /* smaller button */
+  font-size: .9rem;       /* slightly smaller text */
+  min-width: 0;           /* allow flex shrink */
+  flex: 1;                /* equal width buttons */
+}
+
+.card-actions .btn.outline{
+  flex: 1;
+}
+
+.card-actions .btn.primary{
+  flex: 1;
+}
