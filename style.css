@@ -642,3 +642,26 @@ body::before{
  flex: 0 0 auto;
 }
 
+/* ===== FORCE login "Welcome" box bigger + stop overlaps ===== */
+.auth-wrap{
+  max-width: 1300px !important;
+}
+
+.auth-card{
+  max-width: 1300px !important;
+  width: min(1300px, 96vw) !important;
+  padding: 3.25rem 3.75rem !important;
+}
+
+/* widen spacing between the two sides (Sign in / Create account) */
+.auth-card .form-grid{
+  gap: 2rem 3.5rem !important; /* row gap, column gap */
+}
+
+/* keep Sign in + Forgot side-by-side */
+.auth-card .auth-actions{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: .8rem !important;
+  align-items: center !important;
+}
