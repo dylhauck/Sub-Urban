@@ -757,6 +757,24 @@ body:not(.home) .header .menu-trigger{
   color: #0f1222 !important;
 }
 
+/* ===============================
+   TERMS & PRIVACY PAGE FIX
+   =============================== */
+
+body.terms-page{
+  background: #ffffff !important;
+  color: #0f1222 !important;
+}
+
+body.terms-page h1,
+body.terms-page h2,
+body.terms-page h3,
+body.terms-page p,
+body.terms-page li,
+body.terms-page a{
+  color: #0f1222 !important;
+}
+
 /* ===== Create Account button + TOS positioning fix ===== */
 
 /* Ensure right column behaves like left column */
