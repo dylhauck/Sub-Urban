@@ -757,25 +757,3 @@ body:not(.home) .header .menu-trigger{
   color: #0f1222 !important;
 }
 
-/* ===== Login page: move TOS to bottom center + align Create Account button ===== */
-
-/* Make the create-account column act like a vertical stack */
-.auth-card .form-grid > div:last-child{
-  display: flex;
-  flex-direction: column;
-}
-
-/* Put the Create account button ABOVE the TOS */
-.auth-card .form-grid > div:last-child .auth-actions{
-  order: 1;
-  margin-top: .8rem;
-}
-
-/* Push TOS to the bottom center of the card */
-.auth-card .form-grid > div:last-child label.tos{
-  order: 2;
-  margin-top: auto;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
