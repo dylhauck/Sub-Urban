@@ -807,22 +807,33 @@ body.terms-page a{
   margin-top: 0;
 }
 
-/* ===== FIX: Contact page text visibility ===== */
-body.contact-page main,
+/* ===== FIX: Contact page text visibility ONLY ===== */
+body.contact-page {
+  color: var(--text);
+}
+
 body.contact-page h1,
 body.contact-page h2,
 body.contact-page h3,
+body.contact-page h4,
+body.contact-page h5,
+body.contact-page h6,
 body.contact-page p,
 body.contact-page label,
-body.contact-page input,
-body.contact-page textarea {
+body.contact-page span {
   color: var(--text) !important;
 }
 
 body.contact-page input,
 body.contact-page textarea {
-  background: #fff !important;
+  color: #111 !important;
 }
+
+body.contact-page input::placeholder,
+body.contact-page textarea::placeholder {
+  color: #6b7280 !important;
+}
+
 /* ===== FIX: Footer text visibility (do NOT touch logo) ===== */
 .footer-nav a,
 .footer-meta {
