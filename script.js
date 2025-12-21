@@ -108,21 +108,53 @@
 const contactForm = document.getElementById('.contact-form');
 const successMsg = document.getElementById('contactSuccess');
 
-if (contactForm && successMsg) {
-  contactForm.addEventListener('submit', e => {
+(() => {
+  const contactForm = document.getElementById('contactForm');
+  const successMsg = document.getElementById('contactSuccess');
+  const statusMsg = document.getElementById('contactMsg');
+  const sendBtn = document.getElementById('sendBtn');
+
+  if (!contactForm || !sendBtn) return;
+
+  const ENDPOINT = "https://formspree.io/f/mqayezez";
+
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const sendBtn = document.getElementById('sendBtn');
+    // Disable button immediately
+    sendBtn.disabled = true;
+    const originalText = sendBtn.textContent;
+    sendBtn.textContent = "Sending...";
+    sendBtn.style.opacity = "0.7";
+    sendBtn.style.cursor = "not-allowed";
 
-    successMsg.hidden = false;
+    if (statusMsg) statusMsg.textContent = "";
+    if (successMsg) successMsg.hidden = true;
 
-    if (sendBtn) {
-      sendBtn.disabled = true;
-      sendBtn.textContent = 'Message sent';
-      sendBtn.style.opacity = '0.6';
-      sendBtn.style.cursor = 'not-allowed';
+    const payload = Object.fromEntries(new FormData(contactForm).entries());
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) throw new Error("Failed");
+
+      // Success UI
+      if (successMsg) successMsg.hidden = false;
+      contactForm.reset();
+      sendBtn.textContent = "Message sent";
+    } catch (err) {
+      if (statusMsg) statusMsg.textContent = "Something went wrong. Please try again.";
+      sendBtn.disabled = false;
+      sendBtn.textContent = originalText;
+      sendBtn.style.opacity = "1";
+      sendBtn.style.cursor = "pointer";
     }
-
-    contactForm.reset();
   });
-}
+})();
