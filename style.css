@@ -746,3 +746,13 @@ body:not(.home) .header .menu-trigger{
 .menu.open > .menu-list {
   display: block !important;
 }
+
+/* FIX: make login/auth text visible without touching header */
+.auth-card h1,
+.auth-card h2,
+.auth-card h3,
+.auth-card label,
+.auth-card p,
+.auth-card span {
+  color: #0f1222 !important;
+}
