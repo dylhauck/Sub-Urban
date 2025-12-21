@@ -747,16 +747,16 @@ body:not(.home) .header .menu-trigger{
   display: block !important;
 }
 
+/* === FIX: Login/Auth text must be dark inside the white auth card === */
 .auth-card,
 .auth-card *{
   color: var(--text) !important;
 }
 
-.auth-card .muted {
-  color: var(--muted) !important;
-}
+.auth-card .muted{ color: var(--muted) !important; }
 
-.auth-card a {
+/* keep links looking like links */
+.auth-card a{
   color: var(--violet) !important;
   text-decoration: underline;
 }
