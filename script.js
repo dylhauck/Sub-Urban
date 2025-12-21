@@ -105,7 +105,7 @@
   });
 })();
 
-const contactForm = document.querySelector('.contact-form');
+const contactForm = document.getElementById('.contact-form');
 const successMsg = document.getElementById('contactSuccess');
 
 if (contactForm && successMsg) {
