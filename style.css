@@ -898,3 +898,11 @@ body.contact-page .success-msg{
   font-weight: 500;
   font-size: 0.95rem;
 }
+
+/* Center Contact send button */
+#contactForm .auth-actions{
+  justify-content: center !important;
+}
+#contactForm #sendBtn{
+  min-width: 240px;
+}
