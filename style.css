@@ -912,18 +912,3 @@ body.contact-page .success-msg{
   text-align: center;
   margin-top: 1rem;
 }
-
-/* Newsletter text should be dark (override global white text rule) */
-.newsletter,
-.newsletter h2,
-.newsletter p,
-.newsletter label {
-  color: var(--text) !important;
-}
-
-.newsletter .nl-form input {
-  color: var(--text) !important;
-}
-.newsletter .nl-form input::placeholder {
-  color: rgba(15, 18, 34, .6) !important;
-}
