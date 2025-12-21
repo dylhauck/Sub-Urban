@@ -112,7 +112,17 @@ if (contactForm && successMsg) {
   contactForm.addEventListener('submit', e => {
     e.preventDefault();
 
+    const sendBtn = document.getElementById('sendBtn');
+
     successMsg.hidden = false;
+
+    if (sendBtn) {
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Message sent';
+      sendBtn.style.opacity = '0.6';
+      sendBtn.style.cursor = 'not-allowed';
+    }
+
     contactForm.reset();
   });
 }
