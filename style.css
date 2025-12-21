@@ -912,3 +912,11 @@ body.contact-page .success-msg{
   text-align: center;
   margin-top: 1rem;
 }
+
+/* Newsletter text should be dark (override global white text rule) */
+.newsletter,
+.newsletter h2,
+.newsletter p,
+.newsletter label {
+  color: var(--text) !important;
+}
