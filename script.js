@@ -1,9 +1,9 @@
-// script.js — nav drawer + ALL dropdown menus (.menu) (page-agnostic, no ID dependency)
+// script.js — nav drawer + dropdowns (Account + Sets) — page-agnostic
+
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
-  /* ---------------- Drawer ---------------- */
   function wireDrawer() {
     const menuBtn = $("#menuBtn");
     const drawer = $("#drawer");
@@ -18,8 +18,13 @@
       drawer.style.display = "flex";
       menuBtn.setAttribute("aria-expanded", "true");
       drawer.setAttribute("aria-hidden", "false");
+
       document.addEventListener("keydown", onEsc);
+
+      // close when any link clicked
       $$("#drawer a").forEach(a => a.addEventListener("click", close, { once: true }));
+
+      // IMPORTANT: delay outside listener so it doesn't instantly close on the same click
       setTimeout(() => document.addEventListener("click", onOutside), 0);
     };
 
@@ -33,77 +38,72 @@
 
     menuBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      e.stopPropagation();
+      e.stopPropagation(); // IMPORTANT
       const isOpen = menuBtn.getAttribute("aria-expanded") === "true";
       isOpen ? close() : open();
     });
   }
 
-  /* ---------------- Dropdown Menus (My Account, Sets, etc.) ---------------- */
-  function wireMenus() {
-    const menus = $$(".menu");
-    if (!menus.length) return;
+  // Generic dropdown wiring (works for Account + Sets)
+  function wireDropdown(wrapSel, btnSel, listSel) {
+    const wrap = $(wrapSel);
+    const btn  = $(btnSel);
+    const list = $(listSel);
+    if (!wrap || !btn || !list) return;
 
-    const closeAll = () => {
-      menus.forEach(m => {
-        m.classList.remove("open");
-        const btn = m.querySelector(".menu-trigger");
-        if (btn) btn.setAttribute("aria-expanded", "false");
-      });
+    list.style.zIndex = list.style.zIndex || "60";
+
+    let outsideBound = false;
+
+    const onOutside = (e) => {
+      if (!wrap.contains(e.target)) close();
+    };
+    const onEsc = (e) => {
+      if (e.key === "Escape") close();
     };
 
-    // Close when clicking anywhere outside any menu
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest(".menu")) closeAll();
+    function open() {
+      wrap.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+
+      // IMPORTANT: delay binding so the opening click can't immediately close it
+      if (!outsideBound) {
+        outsideBound = true;
+        setTimeout(() => document.addEventListener("click", onOutside), 0);
+      }
+      document.addEventListener("keydown", onEsc);
+    }
+
+    function close() {
+      wrap.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+      document.removeEventListener("click", onOutside);
+      document.removeEventListener("keydown", onEsc);
+      outsideBound = false;
+    }
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation(); // IMPORTANT
+      wrap.classList.contains("open") ? close() : open();
     });
 
-    // Close on Escape
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeAll();
-    });
+    // Prevent clicks inside the dropdown from bubbling to document and closing it
+    list.addEventListener("click", (e) => e.stopPropagation());
 
-    menus.forEach((wrap) => {
-      const btn = wrap.querySelector(".menu-trigger");
-      const list = wrap.querySelector(".menu-list");
-      if (!btn || !list) return;
-
-      // keep above content
-      list.style.zIndex = list.style.zIndex || "60";
-
-      const toggle = () => {
-        const isOpen = wrap.classList.contains("open");
-        closeAll(); // only one open at a time
-        if (!isOpen) {
-          wrap.classList.add("open");
-          btn.setAttribute("aria-expanded", "true");
-        }
-      };
-
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        toggle();
-      });
-
-      btn.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          toggle();
-        }
-      });
-
-      // Close when clicking a menu item
-      $$(".menu-list a, .menu-list .menu-link-btn", wrap).forEach((el) => {
-        el.addEventListener("click", () => {
-          wrap.classList.remove("open");
-          btn.setAttribute("aria-expanded", "false");
-        });
-      });
+    // Close after choosing an item
+    $$(`${listSel} a, ${listSel} .menu-link-btn`).forEach(el => {
+      el.addEventListener("click", () => close());
     });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     wireDrawer();
-    wireMenus();
+
+    // My Account
+    wireDropdown(".account-menu", "#acctMenuBtn", "#acctMenu");
+
+    // Sets
+    wireDropdown(".sets-menu", "#setsMenuBtn", "#setsMenu");
   });
 })();
