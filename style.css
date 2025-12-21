@@ -927,3 +927,20 @@ body.contact-page .success-msg{
 .newsletter .nl-form input::placeholder {
   color: rgba(15, 18, 34, .6) !important;
 }
+
+/* FORCE newsletter section to use DARK text even in dark mode */
+.newsletter,
+.newsletter h2,
+.newsletter p,
+.newsletter .muted,
+.newsletter label {
+  color: #0f1222 !important;
+}
+
+.newsletter .nl-form input{
+  color: #0f1222 !important;
+}
+
+.newsletter .nl-form input::placeholder{
+  color: rgba(15,18,34,.6) !important;
+}
