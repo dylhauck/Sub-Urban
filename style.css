@@ -807,9 +807,10 @@ body.terms-page a{
   margin-top: 0;
 }
 
-/* ===== FIX: Contact page text visibility ONLY ===== */
-body.contact-page {
-  color: var(--text);
+/* ===== FORCE Contact page text to be dark (wins over global rules) ===== */
+body.contact-page { 
+  --text: #0f1222;
+  --muted: #4a4f71;
 }
 
 body.contact-page h1,
@@ -820,18 +821,17 @@ body.contact-page h5,
 body.contact-page h6,
 body.contact-page p,
 body.contact-page label,
-body.contact-page span {
+body.contact-page a,
+body.contact-page li,
+body.contact-page span,
+body.contact-page small,
+body.contact-page strong,
+body.contact-page em {
   color: var(--text) !important;
 }
 
-body.contact-page input,
-body.contact-page textarea {
-  color: #111 !important;
-}
-
-body.contact-page input::placeholder,
-body.contact-page textarea::placeholder {
-  color: #6b7280 !important;
+body.contact-page .muted {
+  color: var(--muted) !important;
 }
 
 /* ===== FIX: Footer text visibility (do NOT touch logo) ===== */
