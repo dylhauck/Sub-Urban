@@ -104,3 +104,15 @@
     };
   });
 })();
+
+const contactForm = document.querySelector('.contact-form');
+const successMsg = document.getElementById('contactSuccess');
+
+if (contactForm && successMsg) {
+  contactForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    successMsg.hidden = false;
+    contactForm.reset();
+  });
+}
