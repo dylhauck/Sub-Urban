@@ -823,3 +823,12 @@ body.contact-page input,
 body.contact-page textarea {
   background: #fff !important;
 }
+/* ===== FIX: Footer text visibility (do NOT touch logo) ===== */
+.footer-nav a,
+.footer-meta {
+  color: #2b2b2b !important; /* readable dark gray */
+}
+
+.footer-nav a:hover {
+  color: #000 !important;
+}
