@@ -756,3 +756,24 @@ body:not(.home) .header .menu-trigger{
 .auth-card span {
   color: #0f1222 !important;
 }
+
+/* ===== Create Account column layout fix ===== */
+
+/* Make right column a vertical layout */
+.auth-card .create-account {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Push the Terms checkbox to the bottom center */
+.auth-card .create-account .tos {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Move Create Account button up to align with Sign In */
+.auth-card .create-account .btn.primary {
+  margin-top: 0;
+}
