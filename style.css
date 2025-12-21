@@ -757,3 +757,23 @@ body:not(.home) .header .menu-trigger{
   color: #0f1222 !important;
 }
 
+/* ===== Create Account button + TOS positioning fix ===== */
+
+/* Ensure right column behaves like left column */
+.auth-card .form-grid > div:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Align Create Account button with left-side buttons */
+.auth-card .form-grid > div:last-child .auth-actions {
+  margin-top: auto;
+}
+
+/* Move Terms checkbox BELOW the Create Account button */
+.auth-card .form-grid > div:last-child label.tos {
+  order: 2;
+  margin-top: 1rem;
+  justify-content: center;
+  text-align: center;
+}
