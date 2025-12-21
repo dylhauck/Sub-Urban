@@ -920,3 +920,10 @@ body.contact-page .success-msg{
 .newsletter label {
   color: var(--text) !important;
 }
+
+.newsletter .nl-form input {
+  color: var(--text) !important;
+}
+.newsletter .nl-form input::placeholder {
+  color: rgba(15, 18, 34, .6) !important;
+}
