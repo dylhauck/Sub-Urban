@@ -34,7 +34,7 @@
     document.addEventListener("click", (e) => {
       if (drawer.style.display !== "flex") return;
       if (!drawer.contains(e.target) && e.target !== menuBtn) close();
-    }, true);
+    });
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") close();
