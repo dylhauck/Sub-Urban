@@ -1,10 +1,11 @@
-// script.js — mobile drawer + ALL dropdown menus (.menu) using event delegation
-// Works across pages (GitHub Pages + local) and does NOT rely on specific IDs.
+// script.js — drawer + dropdown menus (Sets + My Account), page-agnostic
 
-(() => {
-  window.__SUBURBAN_NAV__ = true; // quick sanity flag you can check in console
+(function () {
+  // flag so you can confirm this file loaded
+  window._SUBURBAN_NAV__ = true;
 
   const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
   /* ---------- Mobile drawer ---------- */
   function wireDrawer() {
@@ -13,29 +14,21 @@
     if (!menuBtn || !drawer) return;
 
     const onEsc = (e) => { if (e.key === "Escape") close(); };
-    const onOutside = (e) => {
-      if (!drawer.contains(e.target) && e.target !== menuBtn) close();
-    };
+    const onOutside = (e) => { if (!drawer.contains(e.target) && e.target !== menuBtn) close(); };
 
     function open() {
       drawer.style.display = "flex";
       menuBtn.setAttribute("aria-expanded", "true");
       drawer.setAttribute("aria-hidden", "false");
-
       document.addEventListener("keydown", onEsc);
       setTimeout(() => document.addEventListener("click", onOutside), 0);
-
-      // close when any link clicked
-      drawer.querySelectorAll("a").forEach((a) =>
-        a.addEventListener("click", close, { once: true })
-      );
+      $$("#drawer a").forEach(a => a.addEventListener("click", close, { once: true }));
     }
 
     function close() {
       drawer.style.display = "none";
       menuBtn.setAttribute("aria-expanded", "false");
       drawer.setAttribute("aria-hidden", "true");
-
       document.removeEventListener("keydown", onEsc);
       document.removeEventListener("click", onOutside);
     }
@@ -48,78 +41,75 @@
     });
   }
 
-  /* ---------- Dropdown menus (.menu) ---------- */
-  function closeAllMenus(exceptWrap = null) {
-    document.querySelectorAll(".menu.open").forEach((wrap) => {
-      if (exceptWrap && wrap === exceptWrap) return;
-      wrap.classList.remove("open");
-      const btn = wrap.querySelector(".menu-trigger");
-      if (btn) btn.setAttribute("aria-expanded", "false");
-    });
-  }
+  /* ---------- Dropdown menus (generic: Sets + Account) ---------- */
+  function wireDropdownMenus() {
+    // any: <div class="menu ..."><button class="menu-trigger">...<div class="menu-list">...</div></div>
+    const menus = $$(".menu");
+    if (!menus.length) return;
 
-  function wireMenus() {
-    // Close on outside click
-    document.addEventListener("click", (e) => {
-      const clickedWrap = e.target.closest(".menu");
-      if (!clickedWrap) closeAllMenus(null);
-    });
-
-    // Close on ESC
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeAllMenus(null);
-    });
-
-    // Toggle on trigger click (works for account + sets + any future dropdown)
-    document.addEventListener("click", (e) => {
-      const btn = e.target.closest(".menu-trigger");
-      if (!btn) return;
-
-      const wrap = btn.closest(".menu");
-      const list = wrap?.querySelector(".menu-list");
-      if (!wrap || !list) return;
-
-      e.preventDefault();
-      e.stopPropagation();
-
-      const isOpen = wrap.classList.contains("open");
-
-      // close others, then toggle this
-      closeAllMenus(wrap);
-      if (isOpen) {
+    const closeAll = () => {
+      menus.forEach((wrap) => {
         wrap.classList.remove("open");
-        btn.setAttribute("aria-expanded", "false");
-      } else {
-        wrap.classList.add("open");
-        btn.setAttribute("aria-expanded", "true");
-        // ensure dropdown is above everything
-        list.style.zIndex = list.style.zIndex || "9999";
-      }
-    });
+        const btn = wrap.querySelector(".menu-trigger");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      });
+    };
 
-    // Close when clicking an item inside a dropdown
+    // Close when clicking outside / Esc
     document.addEventListener("click", (e) => {
-      const insideMenuItem = e.target.closest(".menu-list a, .menu-list button");
-      if (!insideMenuItem) return;
+      // if click is inside ANY menu, do nothing (button handler will toggle)
+      if (e.target.closest(".menu")) return;
+      closeAll();
+    });
 
-      const wrap = insideMenuItem.closest(".menu");
-      if (!wrap) return;
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeAll();
+    });
 
-      wrap.classList.remove("open");
+    menus.forEach((wrap) => {
       const btn = wrap.querySelector(".menu-trigger");
-      if (btn) btn.setAttribute("aria-expanded", "false");
+      const list = wrap.querySelector(".menu-list");
+      if (!btn || !list) return;
+
+      // ensure dropdown can appear above other content
+      list.style.zIndex = list.style.zIndex || "9999";
+
+      const toggle = () => {
+        const isOpen = wrap.classList.contains("open");
+        closeAll();
+        if (!isOpen) {
+          wrap.classList.add("open");
+          btn.setAttribute("aria-expanded", "true");
+        }
+      };
+
+      // Click to toggle
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggle();
+      });
+
+      // Keyboard support
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      });
+
+      // Close after choosing an item
+      $$(".menu-list a, .menu-list button", wrap).forEach((el) => {
+        el.addEventListener("click", () => {
+          wrap.classList.remove("open");
+          btn.setAttribute("aria-expanded", "false");
+        });
+      });
     });
   }
 
-  /* ---------- Init ---------- */
-  function init() {
+  document.addEventListener("DOMContentLoaded", () => {
     wireDrawer();
-    wireMenus();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+    wireDropdownMenus();
+  });
 })();
