@@ -906,3 +906,9 @@ body.contact-page .success-msg{
 #contactForm #sendBtn{
   min-width: 240px;
 }
+
+/* Center "or email us directly" under Send Message */
+.contact-email {
+  text-align: center;
+  margin-top: 1rem;
+}
