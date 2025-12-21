@@ -933,3 +933,13 @@ body.contact-page .success-msg{
 #about.about .glass p{
   color: rgba(15,18,34,.78) !important;
 }
+
+/* INDEX: fix the "About" word specifically */
+#about.about .glass .about-title{
+  color: var(--text) !important;
+}
+
+/* If "About" is inside an <h2> without the class sometimes */
+#about.about .glass h2{
+  color: var(--text) !important;
+}
