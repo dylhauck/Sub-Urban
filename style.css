@@ -795,3 +795,14 @@ body.terms-page a{
   justify-content: center;
   text-align: center;
 }
+
+/* === ALIGN Create Account column with Sign In column === */
+.auth-card .form-grid > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove extra top offset on Create Account column */
+.auth-card .form-grid > div:last-child {
+  margin-top: 0;
+}
