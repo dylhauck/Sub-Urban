@@ -737,3 +737,8 @@ body:not(.home) .header .menu-trigger{
   background: currentColor;
   border-radius: 2px;
 }
+
+/* === Dropdown open state (works for My Account + Sets everywhere on the website */
+.menu.open .menu-list {
+  display: block !important;
+}
