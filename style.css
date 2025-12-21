@@ -890,3 +890,11 @@ body.contact-page .btn.primary{
 body.contact-page .btn.primary{
   align-self: flex-start; /* change to center if desired */
 }
+
+/* ===== Contact success message ===== */
+body.contact-page .success-msg{
+  margin-top: 1rem;
+  color: #0f6d4d;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
