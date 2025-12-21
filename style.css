@@ -806,3 +806,20 @@ body.terms-page a{
 .auth-card .form-grid > div:last-child {
   margin-top: 0;
 }
+
+/* ===== FIX: Contact page text visibility ===== */
+body.contact-page main,
+body.contact-page h1,
+body.contact-page h2,
+body.contact-page h3,
+body.contact-page p,
+body.contact-page label,
+body.contact-page input,
+body.contact-page textarea {
+  color: var(--text) !important;
+}
+
+body.contact-page input,
+body.contact-page textarea {
+  background: #fff !important;
+}
