@@ -1,9 +1,12 @@
-// script.js — nav drawer + dropdowns (Account + Sets) — page-agnostic
+// script.js — mobile drawer + ALL dropdown menus (.menu) using event delegation
+// Works across pages (GitHub Pages + local) and does NOT rely on specific IDs.
 
-(function () {
+(() => {
+  window.__SUBURBAN_NAV__ = true; // quick sanity flag you can check in console
+
   const $ = (s, r = document) => r.querySelector(s);
-  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
+  /* ---------- Mobile drawer ---------- */
   function wireDrawer() {
     const menuBtn = $("#menuBtn");
     const drawer = $("#drawer");
@@ -14,96 +17,109 @@
       if (!drawer.contains(e.target) && e.target !== menuBtn) close();
     };
 
-    const open = () => {
+    function open() {
       drawer.style.display = "flex";
       menuBtn.setAttribute("aria-expanded", "true");
       drawer.setAttribute("aria-hidden", "false");
 
       document.addEventListener("keydown", onEsc);
+      setTimeout(() => document.addEventListener("click", onOutside), 0);
 
       // close when any link clicked
-      $$("#drawer a").forEach(a => a.addEventListener("click", close, { once: true }));
+      drawer.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", close, { once: true })
+      );
+    }
 
-      // IMPORTANT: delay outside listener so it doesn't instantly close on the same click
-      setTimeout(() => document.addEventListener("click", onOutside), 0);
-    };
-
-    const close = () => {
+    function close() {
       drawer.style.display = "none";
       menuBtn.setAttribute("aria-expanded", "false");
       drawer.setAttribute("aria-hidden", "true");
+
       document.removeEventListener("keydown", onEsc);
       document.removeEventListener("click", onOutside);
-    };
+    }
 
     menuBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      e.stopPropagation(); // IMPORTANT
+      e.stopPropagation();
       const isOpen = menuBtn.getAttribute("aria-expanded") === "true";
       isOpen ? close() : open();
     });
   }
 
-  // Generic dropdown wiring (works for Account + Sets)
-  function wireDropdown(wrapSel, btnSel, listSel) {
-    const wrap = $(wrapSel);
-    const btn  = $(btnSel);
-    const list = $(listSel);
-    if (!wrap || !btn || !list) return;
-
-    list.style.zIndex = list.style.zIndex || "60";
-
-    let outsideBound = false;
-
-    const onOutside = (e) => {
-      if (!wrap.contains(e.target)) close();
-    };
-    const onEsc = (e) => {
-      if (e.key === "Escape") close();
-    };
-
-    function open() {
-      wrap.classList.add("open");
-      btn.setAttribute("aria-expanded", "true");
-
-      // IMPORTANT: delay binding so the opening click can't immediately close it
-      if (!outsideBound) {
-        outsideBound = true;
-        setTimeout(() => document.addEventListener("click", onOutside), 0);
-      }
-      document.addEventListener("keydown", onEsc);
-    }
-
-    function close() {
+  /* ---------- Dropdown menus (.menu) ---------- */
+  function closeAllMenus(exceptWrap = null) {
+    document.querySelectorAll(".menu.open").forEach((wrap) => {
+      if (exceptWrap && wrap === exceptWrap) return;
       wrap.classList.remove("open");
-      btn.setAttribute("aria-expanded", "false");
-      document.removeEventListener("click", onOutside);
-      document.removeEventListener("keydown", onEsc);
-      outsideBound = false;
-    }
-
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation(); // IMPORTANT
-      wrap.classList.contains("open") ? close() : open();
-    });
-
-    // Prevent clicks inside the dropdown from bubbling to document and closing it
-    list.addEventListener("click", (e) => e.stopPropagation());
-
-    // Close after choosing an item
-    $$(`${listSel} a, ${listSel} .menu-link-btn`).forEach(el => {
-      el.addEventListener("click", () => close());
+      const btn = wrap.querySelector(".menu-trigger");
+      if (btn) btn.setAttribute("aria-expanded", "false");
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  function wireMenus() {
+    // Close on outside click
+    document.addEventListener("click", (e) => {
+      const clickedWrap = e.target.closest(".menu");
+      if (!clickedWrap) closeAllMenus(null);
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeAllMenus(null);
+    });
+
+    // Toggle on trigger click (works for account + sets + any future dropdown)
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".menu-trigger");
+      if (!btn) return;
+
+      const wrap = btn.closest(".menu");
+      const list = wrap?.querySelector(".menu-list");
+      if (!wrap || !list) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const isOpen = wrap.classList.contains("open");
+
+      // close others, then toggle this
+      closeAllMenus(wrap);
+      if (isOpen) {
+        wrap.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      } else {
+        wrap.classList.add("open");
+        btn.setAttribute("aria-expanded", "true");
+        // ensure dropdown is above everything
+        list.style.zIndex = list.style.zIndex || "9999";
+      }
+    });
+
+    // Close when clicking an item inside a dropdown
+    document.addEventListener("click", (e) => {
+      const insideMenuItem = e.target.closest(".menu-list a, .menu-list button");
+      if (!insideMenuItem) return;
+
+      const wrap = insideMenuItem.closest(".menu");
+      if (!wrap) return;
+
+      wrap.classList.remove("open");
+      const btn = wrap.querySelector(".menu-trigger");
+      if (btn) btn.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  /* ---------- Init ---------- */
+  function init() {
     wireDrawer();
+    wireMenus();
+  }
 
-    // My Account
-    wireDropdown(".account-menu", "#acctMenuBtn", "#acctMenu");
-
-    // Sets
-    wireDropdown(".sets-menu", "#setsMenuBtn", "#setsMenu");
-  });
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
