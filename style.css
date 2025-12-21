@@ -912,3 +912,24 @@ body.contact-page .success-msg{
   text-align: center;
   margin-top: 1rem;
 }
+
+/* INDEX: About SUB•URBAN box — force readable text inside the glass panel */
+#about.about .glass{
+  background: rgba(255,255,255,0.95) !important;
+  color: var(--text) !important;
+}
+
+#about.about .glass h1,
+#about.about .glass h2,
+#about.about .glass h3,
+#about.about .glass p,
+#about.about .glass li,
+#about.about .glass a,
+#about.about .glass label{
+  color: var(--text) !important;
+}
+
+/* If you want the paragraph a bit softer (still readable) */
+#about.about .glass p{
+  color: rgba(15,18,34,.78) !important;
+}
