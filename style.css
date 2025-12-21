@@ -742,3 +742,7 @@ body:not(.home) .header .menu-trigger{
 .menu.open .menu-list {
   display: block !important;
 }
+
+.menu.open > .menu-list {
+  display: block !important;
+}
