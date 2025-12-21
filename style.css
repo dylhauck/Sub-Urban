@@ -878,3 +878,15 @@ body.contact-page label{
   color: var(--text) !important;
   font-weight: 600;
 }
+
+/* ===== Contact page button sizing ===== */
+body.contact-page .btn.primary{
+  padding: 1rem 2.4rem;
+  font-size: 1rem;
+  border-radius: 14px;
+  min-height: 52px;
+}
+
+body.contact-page .btn.primary{
+  align-self: flex-start; /* change to center if desired */
+}
