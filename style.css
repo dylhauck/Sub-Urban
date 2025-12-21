@@ -843,3 +843,38 @@ body.contact-page .muted {
 .footer-nav a:hover {
   color: #000 !important;
 }
+
+/* ===== Contact page cleanup ===== */
+
+/* Remove the vertical divider line (only on contact page) */
+body.contact-page .form-grid::after{
+  display: none !important;
+}
+
+/* Make the form layout single clean column on contact page */
+body.contact-page .form-grid{
+  grid-template-columns: 1fr !important;
+  gap: .9rem !important;
+}
+
+/* Make textarea match inputs + look clean */
+body.contact-page textarea,
+body.contact-page .form-grid textarea{
+  width: 100% !important;
+  min-height: 160px;
+  resize: vertical;
+  padding: .95rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  line-height: 1.4;
+  box-shadow: none;
+}
+
+/* Optional: keep labels consistent */
+body.contact-page label{
+  color: var(--text) !important;
+  font-weight: 600;
+}
