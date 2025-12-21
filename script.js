@@ -1,13 +1,33 @@
-// script.js — drawer + dropdowns (My Account + Sets) using event delegation
-(() => {
-  // simple helper
+// script.js — drawer + dropdowns (Sets + My Account) using event delegation
+(function () {
+  // Guard so it can't wire twice if the script is accidentally included twice
+  if (window._SUBURBAN_NAV_WIRED) return;
+  window._SUBURBAN_NAV_WIRED = true;
+
   const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  // mark as loaded (your check)
-  window._SUBURBAN_NAV__ = true;
+  function closeAllMenus(exceptWrap = null) {
+    $$(".menu.open").forEach(wrap => {
+      if (exceptWrap && wrap === exceptWrap) return;
+      wrap.classList.remove("open");
+      const btn = wrap.querySelector(".menu-trigger");
+      if (btn) btn.setAttribute("aria-expanded", "false");
+    });
+  }
 
-  // ---------- Drawer ----------
-  function initDrawer() {
+  function toggleMenuByButton(btn) {
+    const wrap = btn.closest(".menu");
+    if (!wrap) return;
+
+    const isOpen = wrap.classList.contains("open");
+    closeAllMenus(wrap);
+
+    wrap.classList.toggle("open", !isOpen);
+    btn.setAttribute("aria-expanded", !isOpen ? "true" : "false");
+  }
+
+  function wireDrawer() {
     const menuBtn = $("#menuBtn");
     const drawer = $("#drawer");
     if (!menuBtn || !drawer) return;
@@ -17,7 +37,6 @@
       menuBtn.setAttribute("aria-expanded", "true");
       drawer.setAttribute("aria-hidden", "false");
     };
-
     const close = () => {
       drawer.style.display = "none";
       menuBtn.setAttribute("aria-expanded", "false");
@@ -32,72 +51,56 @@
     });
 
     document.addEventListener("click", (e) => {
-      if (drawer.style.display !== "flex") return;
       if (!drawer.contains(e.target) && e.target !== menuBtn) close();
     });
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") close();
     });
-
-    // close when a drawer link is clicked
-    drawer.addEventListener("click", (e) => {
-      const a = e.target.closest("a");
-      if (a) close();
-    });
   }
 
-  // ---------- Dropdowns (ALL .menu dropdowns) ----------
-  function closeAllMenus(exceptMenu = null) {
-    document.querySelectorAll(".menu.open").forEach((m) => {
-      if (exceptMenu && m === exceptMenu) return;
-      m.classList.remove("open");
-      const btn = m.querySelector(".menu-trigger");
-      if (btn) btn.setAttribute("aria-expanded", "false");
-    });
-  }
-
-  function initDropdowns() {
-    // Click anywhere
-    document.addEventListener("click", (e) => {
-      const trigger = e.target.closest(".menu-trigger");
-      const menu = e.target.closest(".menu");
-
-      // clicking a trigger
-      if (trigger && menu) {
+  // Delegated click handler for dropdowns (works on every page)
+  document.addEventListener(
+    "click",
+    (e) => {
+      const btn = e.target.closest("#acctMenuBtn, #setsMenuBtn, .menu-trigger");
+      if (btn) {
+        // Only handle buttons that live inside a .menu wrapper
+        if (!btn.closest(".menu")) return;
         e.preventDefault();
         e.stopPropagation();
-
-        const isOpen = menu.classList.contains("open");
-        closeAllMenus(menu);
-        menu.classList.toggle("open", !isOpen);
-        trigger.setAttribute("aria-expanded", (!isOpen).toString());
+        toggleMenuByButton(btn);
         return;
       }
 
-      // clicking inside an open menu item closes it
-      const menuItem = e.target.closest(".menu.open .menu-list a, .menu.open .menu-list button");
-      if (menuItem) {
-        const openMenu = e.target.closest(".menu.open");
-        if (openMenu) {
-          openMenu.classList.remove("open");
-          const btn = openMenu.querySelector(".menu-trigger");
-          if (btn) btn.setAttribute("aria-expanded", "false");
-        }
-        return;
-      }
+      // Click outside any menu => close
+      if (!e.target.closest(".menu")) closeAllMenus();
+    },
+    true // capture phase so nothing else can block it
+  );
 
-      // clicking outside closes all
-      closeAllMenus(null);
-    });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeAllMenus();
+  });
 
-    // Esc closes dropdowns
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeAllMenus(null);
-    });
-  }
+  document.addEventListener("DOMContentLoaded", () => {
+    wireDrawer();
 
-  // Init immediately (works with defer on every page)
-  initDrawer();
-  initDropdowns();
+    // Safety: ensure menus start closed
+    closeAllMenus();
+
+    // Expose quick debug you can run in console
+    window._SUBURBAN_NAV__ = {
+      wired: true,
+      closeAll: () => closeAllMenus(),
+      toggleAccount: () => {
+        const btn = $("#acctMenuBtn");
+        if (btn) toggleMenuByButton(btn);
+      },
+      toggleSets: () => {
+        const btn = $("#setsMenuBtn");
+        if (btn) toggleMenuByButton(btn);
+      },
+    };
+  });
 })();
