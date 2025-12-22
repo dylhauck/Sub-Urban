@@ -943,3 +943,30 @@ body.contact-page .success-msg{
 #about.about .glass h2{
   color: var(--text) !important;
 }
+
+/* FIX: About box text must stay dark even when device is in dark mode */
+#about .glass{
+  color: #0f1222 !important;
+}
+
+#about .glass h1,
+#about .glass h2,
+#about .glass p,
+#about .glass li,
+#about .glass a{
+  color: #0f1222 !important;
+  -webkit-text-fill-color: #0f1222 !important;
+}
+
+/* Keep your SUB / URBAN gradients */
+#about .glass .sub,
+#about .glass .urban{
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Keep the dot black */
+#about .glass .dot{
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
